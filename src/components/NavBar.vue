@@ -1,7 +1,9 @@
 <template>
     <nav>
       <div class="nav-wrapper">
-        <a href="#!" class="brand-logo">Logo</a>
+        <a href="#!" class="brand-logo">
+          <img alt="Vue logo" src="../assets/logo.png">
+        </a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
             <li><a href="sass.html">Sass</a></li>
@@ -32,3 +34,10 @@ export default class NavBar extends Vue {
   msg!: string
 }
 </script>
+
+<style scoped>
+.brand-logo img {
+  max-width: 50px;
+  vertical-align: middle
+}
+</style>

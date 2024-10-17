@@ -1,18 +1,26 @@
 <template>
   <NavBar />
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div class="row">
+    <div class="col s9">
+      <MainPage />
+    </div>
+    <div class="col s3">
+      <SidePage />
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import HelloWorld from './components/HelloWorld.vue';
-import NavBar from './components/NavBar.vue'
+import NavBar from './components/NavBar.vue';
+import MainPage from './components/MainPage.vue';
+import SidePage from './components/SidePage.vue';
 
 @Options({
   components: {
-    HelloWorld,
-    NavBar
+    NavBar,
+    MainPage,
+    SidePage
   },
 })
 export default class App extends Vue {}
@@ -25,6 +33,5 @@ export default class App extends Vue {}
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

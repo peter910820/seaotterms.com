@@ -1,10 +1,15 @@
 <template>
   <div class="row">
-    <div class="col s4"></div>
+    <div class="col s4">
+      <img alt="" src="">
+    </div>
     <div class="col s8">
       <div class="title">我的第一篇文章</div>
-      <div class="information">B</div>
-      <div class="tag">C</div>
+      <div class="information">
+        <i class="material-icons">upgrade</i>發表於 {{ upload }}
+        <i class="material-icons">update</i>更新於 {{ update }}
+      </div>
+      <div class="tag">TAG</div>
     </div>
   </div>
   <div class="row">
@@ -18,11 +23,13 @@ import { Options, Vue } from 'vue-class-component';
 
 @Options({
   props: {
-    msg: String
+    upload: String,
+    update: String
   }
 })
 export default class MainPage extends Vue {
-  msg!: string
+  upload!: string
+  update!: string
 }
 </script>
 
@@ -40,13 +47,22 @@ export default class MainPage extends Vue {
 .col.s8 div{
   max-height: 33%;
   height: 33%;
+  overflow: hidden;
 }
 .title{
-  overflow: hidden;
-  font-size: 20px;
+  font-size: 30px;
+  white-space: nowrap;
   text-overflow: ellipsis;
 }
 .title:hover{
   color: orange;
+}
+.information:hover{
+  color: orange;
+}
+.tag{
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 </style>

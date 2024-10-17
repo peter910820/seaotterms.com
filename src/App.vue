@@ -2,7 +2,7 @@
   <NavBar />
   <div class="row">
     <div class="col s9">
-      <MainPage />
+      <MainPage upload="2024/10/17" update="2024/10/17"/>
     </div>
     <div class="col s3">
       <SidePage />

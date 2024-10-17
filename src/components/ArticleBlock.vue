@@ -27,7 +27,7 @@ import { Options, Vue } from 'vue-class-component';
     update: String
   }
 })
-export default class MainPage extends Vue {
+export default class ArticleBlock extends Vue {
   upload!: string
   update!: string
 }

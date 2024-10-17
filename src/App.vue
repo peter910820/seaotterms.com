@@ -1,26 +1,15 @@
 <template>
   <NavBar />
-  <div class="row">
-    <div class="col s9">
-      <MainPage upload="2024/10/17" update="2024/10/17"/>
-    </div>
-    <div class="col s3">
-      <SidePage />
-    </div>
-  </div>
+  <router-view />
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import NavBar from './components/NavBar.vue';
-import MainPage from './components/MainPage.vue';
-import SidePage from './components/SidePage.vue';
 
 @Options({
   components: {
-    NavBar,
-    MainPage,
-    SidePage
+    NavBar
   },
 })
 export default class App extends Vue {}

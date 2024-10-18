@@ -3,7 +3,13 @@
     <div>A</div>
     <div>A</div>
     <div>A</div>
-    <div>A</div>
+    <div class="littleItem">
+      <a
+        class="waves-effect waves-light btn-large"
+        href="https://github.com/peter910820/seaotterms-site"
+        >這是專案本身:pepega:</a
+      >
+    </div>
     <div class="socialLink">
       <a
         href="https://github.com/peter910820"
@@ -71,5 +77,15 @@ export default class MyProfile extends Vue {
 .socialLink {
   display: flex;
   gap: 10px;
+}
+.btn-large {
+  width: 85%;
+  background-color: black;
+  border-radius: 100px / 70px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.btn-large:hover {
+  background-color: rgb(100, 100, 100);
 }
 </style>

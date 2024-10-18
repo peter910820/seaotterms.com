@@ -5,25 +5,54 @@
     <div>A</div>
     <div>A</div>
     <div class="socialLink">
-      <i class="fa-brands fa-github fa-shake fa-2xl"></i>
-      <i
-        class="fa-brands fa-twitter fa-shake fa-2xl"
-        style="color: #74c0fc"
-      ></i>
+      <a
+        href="https://github.com/peter910820"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <i
+          :class="[
+            'fa-brands',
+            'fa-github',
+            'fa-2xl',
+            { 'fa-spin': isHoveredGithub },
+          ]"
+          @mouseover="isHoveredGithub = true"
+          @mouseleave="isHoveredGithub = false"
+          style="color: #000000"
+        ></i>
+      </a>
+      <a
+        href="https://x.com/seaotterMS"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <i
+          :class="[
+            'fa-brands',
+            'fa-twitter',
+            'fa-2xl',
+            { 'fa-spin': isHoveredTwitter },
+          ]"
+          @mouseover="isHoveredTwitter = true"
+          @mouseleave="isHoveredTwitter = false"
+          style="color: #74c0fc"
+        ></i>
+      </a>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { Vue } from "vue-class-component";
 
-@Options({
-  props: {
-    msg: String,
-  },
-})
 export default class MyProfile extends Vue {
-  msg!: string;
+  data() {
+    return {
+      isHoveredGithub: false,
+      isHoveredTwitter: false,
+    };
+  }
 }
 </script>
 

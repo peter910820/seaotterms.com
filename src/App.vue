@@ -4,12 +4,12 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import NavBar from './components/NavBar.vue';
+import { Options, Vue } from "vue-class-component";
+import NavBar from "./components/NavBar.vue";
 
 @Options({
   components: {
-    NavBar
+    NavBar,
   },
 })
 export default class App extends Vue {}

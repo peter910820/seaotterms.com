@@ -2,14 +2,16 @@
   <nav>
     <div class="nav-wrapper">
       <a href="#!" class="brand-logo">
-        <img alt="Vue logo" src="../assets/logo.png">
+        <img alt="Vue logo" src="../assets/logo.png" />
       </a>
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"
+        ><i class="material-icons">menu</i></a
+      >
       <ul class="right hide-on-med-and-down">
-          <li><a href="sass.html">Sass</a></li>
-          <li><a href="badges.html">Components</a></li>
-          <li><a href="collapsible.html">Javascript</a></li>
-          <li><a href="mobile.html">Mobile</a></li>
+        <li><a href="sass.html">Sass</a></li>
+        <li><a href="badges.html">Components</a></li>
+        <li><a href="collapsible.html">Javascript</a></li>
+        <li><a href="mobile.html">Mobile</a></li>
       </ul>
     </div>
   </nav>
@@ -23,21 +25,21 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { Options, Vue } from "vue-class-component";
 
 @Options({
   props: {
-    msg: String
-  }
+    msg: String,
+  },
 })
 export default class NavBar extends Vue {
-  msg!: string
+  msg!: string;
 }
 </script>
 
 <style scoped>
 .brand-logo img {
   max-width: 50px;
-  vertical-align: middle
+  vertical-align: middle;
 }
 </style>

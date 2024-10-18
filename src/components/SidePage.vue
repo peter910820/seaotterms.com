@@ -1,25 +1,24 @@
 <template>
   <div class="row">
-    <div class="col">
-    </div>
+    <div class="col"></div>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { Options, Vue } from "vue-class-component";
 
 @Options({
-    props: {
-    msg: String
-    }
+  props: {
+    msg: String,
+  },
 })
 export default class SidePage extends Vue {
-    msg!: string
+  msg!: string;
 }
 </script>
 
 <style scoped>
-.row{
+.row {
   margin: 10px;
   max-height: 370px;
   height: 370px;

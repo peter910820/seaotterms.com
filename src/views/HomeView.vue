@@ -1,11 +1,11 @@
 <template>
     <div class="row">
-    <div class="col s9">
-      <ArticleBlock upload="2024/10/17" update="2024/10/17"/>
-    </div>
-    <div class="col s3">
-      <SidePage />
-    </div>
+      <div class="col s9">
+        <ArticleBlock upload="2024/10/17" update="2024/10/17"/>
+      </div>
+      <div class="col s3">
+        <SidePage />
+      </div>
   </div>
 </template>
 

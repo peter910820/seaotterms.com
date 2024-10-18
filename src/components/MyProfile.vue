@@ -47,12 +47,8 @@
 import { Vue } from "vue-class-component";
 
 export default class MyProfile extends Vue {
-  data() {
-    return {
-      isHoveredGithub: false,
-      isHoveredTwitter: false,
-    };
-  }
+  isHoveredGithub = false;
+  isHoveredTwitter = false;
 }
 </script>
 

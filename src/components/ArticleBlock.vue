@@ -36,6 +36,8 @@ export default class ArticleBlock extends Vue {
 <style scoped>
 .row {
   margin: 10px;
+  border: 2px solid black;
+  border-radius: 5px;
 }
 .col {
   max-height: 180px;
@@ -44,7 +46,7 @@ export default class ArticleBlock extends Vue {
   border-radius: 5px;
   padding-top: 20px;
 }
-.col.s8 div {
+.col.s8 > div {
   max-height: 33%;
   height: 33%;
   overflow: hidden;

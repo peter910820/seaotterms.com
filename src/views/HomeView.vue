@@ -4,7 +4,7 @@
       <ArticleBlock upload="2024/10/17" update="2024/10/17" />
     </div>
     <div class="col s3">
-      <SidePage />
+      <MyProfile />
     </div>
   </div>
 </template>
@@ -12,12 +12,12 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import ArticleBlock from "../components/ArticleBlock.vue";
-import SidePage from "../components/SidePage.vue";
+import MyProfile from "../components/MyProfile.vue";
 
 @Options({
   components: {
     ArticleBlock,
-    SidePage,
+    MyProfile,
   },
 })
 export default class HomeView extends Vue {}

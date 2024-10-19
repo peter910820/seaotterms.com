@@ -2,7 +2,7 @@
   <nav>
     <div class="nav-wrapper">
       <a href="#!" class="brand-logo">
-        <img alt="Vue logo" src="../assets/logo.png" />
+        <img alt="Vue logo" src="@/assets/logo.png" />
       </a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"
         ><i class="material-icons">menu</i></a
@@ -25,16 +25,9 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { Vue } from "vue-class-component";
 
-@Options({
-  props: {
-    msg: String,
-  },
-})
-export default class NavBar extends Vue {
-  msg!: string;
-}
+export default class NavBar extends Vue {}
 </script>
 
 <style scoped>

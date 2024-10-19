@@ -1,7 +1,9 @@
 <template>
   <div class="row">
     <div class="h4">
-      <div class="headShot"><img src="../../public/headshot.png" alt="" /></div>
+      <div class="headShot">
+        <img src="@/assets/headshot.png" alt="" />
+      </div>
     </div>
     <div class="myName">SeaotterMS</div>
     <div class="aboutMe">一個不知道在幹嘛，每天一直假裝自己有在做事的人。</div>

@@ -14,7 +14,8 @@
         >這是專案本身:pepega:</a
       >
     </div>
-    <div class="socialLink h2">
+    <div></div>
+    <div class="socialLink">
       <a
         href="https://github.com/peter910820"
         target="_blank"

@@ -1,16 +1,18 @@
 <template>
   <div class="row">
-    <div>A</div>
-    <div>A</div>
-    <div>A</div>
-    <div class="littleItem">
+    <div class="h4">
+      <div class="headShot"><img src="../../public/headshot.png" alt="" /></div>
+    </div>
+    <div class="myName">SeaotterMS</div>
+    <div class="aboutMe">一個不知道在幹嘛，每天一直假裝自己有在做事的人。</div>
+    <div class="littleItem h2">
       <a
         class="waves-effect waves-light btn-large"
         href="https://github.com/peter910820/seaotterms-site"
         >這是專案本身:pepega:</a
       >
     </div>
-    <div class="socialLink">
+    <div class="socialLink h2">
       <a
         href="https://github.com/peter910820"
         target="_blank"
@@ -63,16 +65,47 @@ export default class MyProfile extends Vue {
   margin: 10px;
   border: 2px solid black;
   border-radius: 5px;
-  max-height: 380px;
-  height: 380px;
+  max-height: 500px;
+  height: 500px;
+  > div {
+    max-height: 10%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  > .h4 {
+    max-height: 40%;
+    height: 40%;
+  }
+  > .h2 {
+    max-height: 20%;
+    height: 20%;
+  }
 }
-.row > div {
-  max-height: 20%;
-  height: 20%;
+.headShot {
+  max-height: 100%;
+  height: 100%;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 2px dashed orange;
+  border-radius: 50%;
+  > img {
+    width: 100%;
+    height: 100%;
+  }
+}
+.myName {
+  font-size: 35px;
+}
+.aboutMe {
+  font-size: 20px;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+  overflow: hidden;
 }
 .socialLink {
   display: flex;

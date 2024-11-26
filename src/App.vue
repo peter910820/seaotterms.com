@@ -5,7 +5,7 @@
       <router-view />
     </div>
     <div class="col s3">
-      <MyProfile class="myprofile" />
+      <MyProfile />
     </div>
   </div>
 </template>
@@ -31,8 +31,6 @@ export default class App extends Vue {}
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-.myprofile {
-  position: fixed;
+  background-color: azure;
 }
 </style>

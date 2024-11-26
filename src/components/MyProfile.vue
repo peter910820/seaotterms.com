@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="myName">SeaotterMS</div>
-    <div class="aboutMe">一個不知道在幹嘛，每天一直假裝自己有在做事的人。</div>
+    <div class="aboutMe typer"></div>
     <div class="littleItem h2">
       <a
         class="waves-effect waves-light btn-large"
@@ -60,6 +60,13 @@ import { Vue } from "vue-class-component";
 export default class MyProfile extends Vue {
   isHoveredGithub = false;
   isHoveredTwitter = false;
+  mounted() {
+    // eslint-disable-next-line no-undef
+    new Typed(".typer", {
+      strings: ["一個不知道在幹嘛，每天一直假裝自己有在做事的人。"],
+      typeSpeed: 80,
+    });
+  }
 }
 </script>
 

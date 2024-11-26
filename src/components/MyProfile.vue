@@ -66,10 +66,10 @@ export default class MyProfile extends Vue {
 <style scoped>
 .row {
   margin: 10px;
-  border: 2px solid black;
-  border-radius: 5px;
-  max-height: 500px;
-  height: 500px;
+  /* border: 2px solid black;
+  border-radius: 5px; */
+  max-height: 800px;
+  height: 800px;
   > div {
     max-height: 10%;
     height: 10%;

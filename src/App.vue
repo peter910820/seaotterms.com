@@ -1,15 +1,24 @@
 <template>
   <NavBar />
-  <router-view />
+  <div class="row">
+    <div class="col s9">
+      <router-view />
+    </div>
+    <div class="col s3">
+      <MyProfile />
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import NavBar from "./components/NavBar.vue";
+import MyProfile from "./components/MyProfile.vue";
 
 @Options({
   components: {
     NavBar,
+    MyProfile,
   },
 })
 export default class App extends Vue {}

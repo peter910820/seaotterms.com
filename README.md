@@ -1,4 +1,4 @@
-# seaotterms-site
+# seaotterms.com
 
 ## Project setup
 ```

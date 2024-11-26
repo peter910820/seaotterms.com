@@ -4,7 +4,7 @@
     <div class="col s9">
       <router-view />
     </div>
-    <div class="col s3">
+    <div class="col s3 sticky">
       <MyProfile />
     </div>
   </div>
@@ -35,5 +35,9 @@ export default class App extends Vue {}
 }
 .row {
   margin-bottom: 0px;
+}
+.sticky {
+  position: sticky;
+  top: 0px;
 }
 </style>

@@ -33,4 +33,7 @@ export default class App extends Vue {}
   color: #2c3e50;
   background-color: azure;
 }
+.row {
+  margin-bottom: 0px;
+}
 </style>

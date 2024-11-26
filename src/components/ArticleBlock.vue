@@ -36,6 +36,23 @@
     <div class="col s4"></div>
     <div class="col s8"></div>
   </div>
+  <div class="row">
+    <div class="col s4"></div>
+    <div class="col s8"></div>
+  </div>
+  <div class="row">
+    <div class="col s4"></div>
+    <div class="col s8"></div>
+  </div>
+
+  <div class="row">
+    <div class="col s4"></div>
+    <div class="col s8"></div>
+  </div>
+  <div class="row">
+    <div class="col s4"></div>
+    <div class="col s8"></div>
+  </div>
 </template>
 
 <script lang="ts">

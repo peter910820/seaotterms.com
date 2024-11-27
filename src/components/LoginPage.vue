@@ -5,12 +5,22 @@
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">account_circle</i>
-          <input id="icon_prefix" type="text" class="validate" />
+          <input id="icon_prefix" type="text" class="validate" required />
+          <span
+            class="helper-text"
+            data-error="此欄不能為空"
+            data-success="ok"
+          ></span>
           <label for="icon_prefix">userName</label>
         </div>
         <div class="input-field col s12">
           <i class="material-icons prefix">lock</i>
-          <input id="icon_lock" type="password" class="validate" />
+          <input id="icon_lock" type="password" class="validate" required />
+          <span
+            class="helper-text"
+            data-error="此欄不能為空"
+            data-success="ok"
+          ></span>
           <label for="icon_lock">password</label>
         </div>
         <button
@@ -35,6 +45,6 @@ export default class ArticleBlock extends Vue {}
 <style scoped>
 .row {
   height: 500px;
-  padding: 50px;
+  padding: 100px;
 }
 </style>

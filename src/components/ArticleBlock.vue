@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row wow animate__flipInX">
     <div class="col s4">
       <img alt="" src="" />
     </div>
@@ -12,44 +12,27 @@
       <div class="tag">TAG</div>
     </div>
   </div>
-  <div class="row">
+  <div class="row wow animate__flipInX">
     <div class="col s4"></div>
     <div class="col s8"></div>
   </div>
-  <div class="row">
+  <div class="row wow animate__flipInX">
     <div class="col s4"></div>
     <div class="col s8"></div>
   </div>
-  <div class="row">
+  <div class="row wow animate__flipInX">
     <div class="col s4"></div>
     <div class="col s8"></div>
   </div>
-  <div class="row">
+  <div class="row wow animate__flipInX">
     <div class="col s4"></div>
     <div class="col s8"></div>
   </div>
-  <div class="row">
+  <div class="row wow animate__flipInX">
     <div class="col s4"></div>
     <div class="col s8"></div>
   </div>
-  <div class="row">
-    <div class="col s4"></div>
-    <div class="col s8"></div>
-  </div>
-  <div class="row">
-    <div class="col s4"></div>
-    <div class="col s8"></div>
-  </div>
-  <div class="row">
-    <div class="col s4"></div>
-    <div class="col s8"></div>
-  </div>
-
-  <div class="row">
-    <div class="col s4"></div>
-    <div class="col s8"></div>
-  </div>
-  <div class="row">
+  <div class="row wow animate__flipInX">
     <div class="col s4"></div>
     <div class="col s8"></div>
   </div>

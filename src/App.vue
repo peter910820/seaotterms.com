@@ -1,10 +1,10 @@
 <template>
   <NavBar />
   <div class="row">
-    <div class="col s9">
+    <div class="col m9 s12">
       <router-view />
     </div>
-    <div class="col s3 sticky">
+    <div class="col m3 s12 sticky">
       <MyProfile />
     </div>
   </div>

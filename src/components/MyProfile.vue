@@ -2,7 +2,7 @@
   <div class="row">
     <div class="h4">
       <div class="headShot">
-        <img src="@/assets/headshot.png" alt="" />
+        <!-- <img src="@/assets/headshot.png" alt="" /> -->
       </div>
     </div>
     <div class="myName">SeaotterMS</div>

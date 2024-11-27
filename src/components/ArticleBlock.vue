@@ -4,7 +4,7 @@
       <img alt="" src="" />
     </div>
     <div class="col s8">
-      <div class="title">我的第一篇文章</div>
+      <div class="title">article title</div>
       <div class="information">
         <i class="material-icons">upgrade</i>發表於 {{ upload }}
         <i class="material-icons">update</i>更新於 {{ update }}

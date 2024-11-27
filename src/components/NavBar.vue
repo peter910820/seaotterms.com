@@ -10,7 +10,15 @@
       <ul class="right hide-on-med-and-down">
         <li><a href="./">Home</a></li>
         <li><a href="./article">Article</a></li>
-        <li><a href="./backend">Backend</a></li>
+        <li>
+          <a
+            href="https://github.com/peter910820/seaotterms.com-backend"
+            target="blank"
+          >
+            Backend-repo</a
+          >
+        </li>
+        <li><a href="./login">Login</a></li>
       </ul>
     </div>
   </nav>
@@ -18,7 +26,15 @@
   <ul class="sidenav" id="mobile-demo">
     <li><a href="./">Home</a></li>
     <li><a href="./article">Article</a></li>
-    <li><a href="./backend">Backend</a></li>
+    <li>
+      <a
+        href="https://github.com/peter910820/seaotterms.com-backend"
+        target="blank"
+      >
+        Backend-repo</a
+      >
+    </li>
+    <li><a href="./login">Login</a></li>
   </ul>
 </template>
 

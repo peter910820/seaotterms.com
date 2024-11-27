@@ -1,7 +1,7 @@
 <template>
   <nav>
     <div class="nav-wrapper">
-      <a href="#!" class="brand-logo">
+      <a href="/" class="brand-logo">
         <img alt="Vue logo" src="@/assets/logo.png" />
       </a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"

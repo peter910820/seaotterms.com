@@ -9,7 +9,7 @@
       >
       <ul class="right hide-on-med-and-down">
         <li><a href="./">Home</a></li>
-        <li><a href="./article">Article</a></li>
+        <li><a href="./article">文章</a></li>
         <li>
           <a
             href="https://github.com/peter910820/seaotterms.com-backend"
@@ -18,14 +18,15 @@
             Backend-repo</a
           >
         </li>
-        <li><a href="./login">Login</a></li>
+        <li><a href="./login">登入</a></li>
+        <li><a href="./register">註冊</a></li>
       </ul>
     </div>
   </nav>
 
   <ul class="sidenav" id="mobile-demo">
     <li><a href="./">Home</a></li>
-    <li><a href="./article">Article</a></li>
+    <li><a href="./article">文章</a></li>
     <li>
       <a
         href="https://github.com/peter910820/seaotterms.com-backend"
@@ -34,7 +35,8 @@
         Backend-repo</a
       >
     </li>
-    <li><a href="./login">Login</a></li>
+    <li><a href="./login">登入</a></li>
+    <li><a href="./register">註冊</a></li>
   </ul>
 </template>
 
@@ -48,5 +50,8 @@ export default class NavBar extends Vue {}
 .brand-logo img {
   max-width: 50px;
   vertical-align: middle;
+}
+.nav-wrapper {
+  background-color: plum;
 }
 </style>

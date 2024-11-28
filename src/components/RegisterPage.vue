@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <h1>註冊</h1>
-    <form class="col s12">
+    <form class="col s12" method="post" @submit.prevent="handleSubmit">
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">account_circle</i>
@@ -76,14 +76,16 @@
           <i class="material-icons right">send</i>
         </button>
       </div>
+      <div>{{ formData }}</div>
     </form>
   </div>
 </template>
 
 <script lang="ts">
 // import axios from "axios";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   data() {
     return {
       form: {
@@ -92,14 +94,24 @@ export default {
         password: "",
         checkPassword: "",
       },
+      formData: "",
     };
   },
-  // methods: {
-  //   async submit() {
-  //     this.$emit("submit", this.form);
-  //   },
+  methods: {
+    handleSubmit() {
+      this.formData = JSON.stringify(this.form);
+    },
+  },
+  // mounted() {
+  //   axios({
+  //     method: "post",
+  //     url: "",
+  //     data: this.form,
+  //   })
+  //     .then((response) => console.log(response))
+  //     .catch((error) => console.log(error));
   // },
-};
+});
 </script>
 
 <style scoped>

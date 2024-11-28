@@ -21,6 +21,11 @@ const routes: Array<RouteRecordRaw> = [
     component: RegisterView,
   },
   {
+    path: "/registerHandler",
+    name: "registerHandler",
+    component: RegisterView,
+  },
+  {
     path: "/test",
     name: "test",
     // route level code-splitting

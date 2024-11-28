@@ -1,31 +1,49 @@
 <template>
   <div class="row">
     <h1>註冊</h1>
-    <form class="col s12" action="/loginHandler" method="post">
+    <form class="col s12">
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">account_circle</i>
-          <input id="icon_prefix" type="text" class="validate" required />
+          <input
+            id="username"
+            v-model="form.username"
+            type="text"
+            class="validate"
+            required
+          />
           <span
             class="helper-text"
             data-error="此欄不能為空"
             data-success="ok"
           ></span>
-          <label for="icon_prefix">userName</label>
+          <label for="username">userName</label>
         </div>
         <div class="input-field col s12">
           <i class="material-icons prefix">mail</i>
-          <input id="icon_prefix" type="email" class="validate" required />
+          <input
+            id="email"
+            v-model="form.email"
+            type="email"
+            class="validate"
+            required
+          />
           <span
             class="helper-text"
             data-error="格式錯誤"
             data-success="ok"
           ></span>
-          <label for="icon_prefix">email</label>
+          <label for="email">email</label>
         </div>
         <div class="input-field col s12">
           <i class="material-icons prefix">lock</i>
-          <input id="password" type="password" class="validate" required />
+          <input
+            id="password"
+            v-model="form.password"
+            type="password"
+            class="validate"
+            required
+          />
           <span
             class="helper-text"
             data-error="此欄不能為空"
@@ -35,7 +53,13 @@
         </div>
         <div class="input-field col s12">
           <i class="material-icons prefix">lock</i>
-          <input id="checkPassword" type="password" class="validate" required />
+          <input
+            id="checkPassword"
+            v-model="form.checkPassword"
+            type="password"
+            class="validate"
+            required
+          />
           <span
             class="helper-text"
             data-error="此欄不能為空"
@@ -57,9 +81,25 @@
 </template>
 
 <script lang="ts">
-import { Vue } from "vue-class-component";
+// import axios from "axios";
 
-export default class RegisterPage extends Vue {}
+export default {
+  data() {
+    return {
+      form: {
+        username: "",
+        email: "example@gmail.com",
+        password: "",
+        checkPassword: "",
+      },
+    };
+  },
+  // methods: {
+  //   async submit() {
+  //     this.$emit("submit", this.form);
+  //   },
+  // },
+};
 </script>
 
 <style scoped>

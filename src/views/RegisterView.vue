@@ -4,16 +4,16 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue";
-import RegisterPage from "../components/RegisterPage.vue";
+import RegisterBlock from "../components/RegisterBlock.vue";
 import RegisterComplete from "../components/RegisterComplete.vue";
 
 export default defineComponent({
-  components: { RegisterPage, RegisterComplete },
+  components: { RegisterBlock, RegisterComplete },
   setup() {
     const currentPath = ref(window.location.pathname);
     const currentComponent = computed(() => {
       if (currentPath.value === "/register") {
-        return "RegisterPage";
+        return "RegisterBlock";
       } else if (currentPath.value === "/registerHandler") {
         return "RegisterComplete";
       } else {

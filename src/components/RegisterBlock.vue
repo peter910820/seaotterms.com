@@ -15,7 +15,7 @@
           <span
             class="helper-text"
             data-error="此欄不能為空"
-            data-success="ok"
+            data-success=""
           ></span>
           <label for="username">userName</label>
         </div>
@@ -31,7 +31,7 @@
           <span
             class="helper-text"
             data-error="格式錯誤"
-            data-success="ok"
+            data-success=""
           ></span>
           <label for="email">email</label>
         </div>
@@ -47,7 +47,7 @@
           <span
             class="helper-text"
             data-error="此欄不能為空"
-            data-success="ok"
+            data-success=""
           ></span>
           <label for="password">password</label>
         </div>
@@ -63,7 +63,7 @@
           <span
             class="helper-text"
             data-error="此欄不能為空"
-            data-success="ok"
+            data-success=""
           ></span>
           <label for="checkPassword">check password</label>
         </div>
@@ -81,44 +81,30 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import axios from "axios";
-import { ref, defineComponent } from "vue";
+import { ref } from "vue";
 
-export default defineComponent({
-  setup() {
-    const form = ref({
-      username: "",
-      email: "example@gmail.com",
-      password: "",
-      checkPassword: "",
-    });
-    let err = ref("");
-    const handleSubmit = async () => {
-      if (form.value.password !== form.value.checkPassword) {
-        err.value = "密碼確認錯誤，請確定輸入相同密碼";
-        return;
-      } else {
-        err.value = "";
-      }
-      try {
-        await axios.post("http://127.0.0.1:3000/registerHandler", form.value);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    return { form, err, handleSubmit };
-  },
-  // mounted() {
-  //   axios({
-  //     method: "post",
-  //     url: "",
-  //     data: this.form,
-  //   })
-  //     .then((response) => console.log(response))
-  //     .catch((error) => console.log(error));
-  // },
+const form = ref({
+  username: "",
+  email: "example@gmail.com",
+  password: "",
+  checkPassword: "",
 });
+let err = ref("");
+const handleSubmit = async () => {
+  if (form.value.password !== form.value.checkPassword) {
+    err.value = "密碼確認錯誤，請確定輸入相同密碼";
+    return;
+  } else {
+    err.value = "";
+  }
+  try {
+    await axios.post("http://127.0.0.1:3000/registerHandler", form.value);
+  } catch (error) {
+    console.log(error);
+  }
+};
 </script>
 
 <style scoped>

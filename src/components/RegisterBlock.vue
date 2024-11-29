@@ -67,6 +67,7 @@
           ></span>
           <label for="checkPassword">check password</label>
         </div>
+        <div class="passwordCheck">{{ err }}</div>
         <button
           class="btn waves-effect waves-light"
           type="submit"
@@ -76,13 +77,12 @@
           <i class="material-icons right">send</i>
         </button>
       </div>
-      <div>{{ err }}</div>
     </form>
   </div>
 </template>
 
 <script lang="ts">
-// import axios from "axios";
+import axios from "axios";
 import { ref, defineComponent } from "vue";
 
 export default defineComponent({
@@ -99,9 +99,13 @@ export default defineComponent({
         err.value = "密碼確認錯誤，請確定輸入相同密碼";
         return;
       } else {
-        err.value = "密碼確認無誤";
+        err.value = "";
       }
-      // const response = await axios.post("https://", form.value);
+      try {
+        await axios.post("http://127.0.0.1:3000/registerHandler", form.value);
+      } catch (error) {
+        console.log(error);
+      }
     };
     return { form, err, handleSubmit };
   },
@@ -119,7 +123,10 @@ export default defineComponent({
 
 <style scoped>
 .row {
-  height: 500px;
+  height: 800px;
   padding: 50px;
+}
+.passwordCheck {
+  color: red;
 }
 </style>

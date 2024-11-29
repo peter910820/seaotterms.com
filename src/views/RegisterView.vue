@@ -3,23 +3,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, computed } from "vue";
+import { useRoute } from "vue-router";
 import RegisterBlock from "../components/RegisterBlock.vue";
 import RegisterComplete from "../components/RegisterComplete.vue";
 
 export default defineComponent({
   components: { RegisterBlock, RegisterComplete },
   setup() {
-    const currentPath = ref(window.location.pathname);
+    const route = useRoute();
     const currentComponent = computed(() => {
-      if (currentPath.value === "/register") {
+      if (route.path === "/register") {
         return "RegisterBlock";
-      } else if (currentPath.value === "/registerHandler") {
+      } else if (route.path === "/registerHandler") {
         return "RegisterComplete";
       } else {
         return null;
       }
     });
+
     return { currentComponent };
   },
 });

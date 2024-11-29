@@ -1,18 +1,17 @@
 <template>
   <div class="row">
-    <h1>註冊成功</h1>
-    <button class="btn waves-effect waves-light" type="submit" name="action">
-      回到首頁
-      <i class="material-icons right">send</i>
-    </button>
+    <h1>{{ msg }}</h1>
+    <router-link to="/">
+      <button class="btn waves-effect waves-light" type="submit" name="action">
+        回到首頁
+        <i class="material-icons right">send</i>
+      </button>
+    </router-link>
   </div>
 </template>
 
-<script lang="ts">
-// import axios from "axios";
-import { defineComponent } from "vue";
-
-export default defineComponent({});
+<script setup lang="ts">
+const msg = sessionStorage.getItem("msg") || "";
 </script>
 
 <style scoped>

@@ -84,7 +84,9 @@
 <script setup lang="ts">
 import axios from "axios";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const form = ref({
   username: "",
   email: "example@gmail.com",
@@ -100,7 +102,17 @@ const handleSubmit = async () => {
     err.value = "";
   }
   try {
-    await axios.post("http://127.0.0.1:3000/registerHandler", form.value);
+    await axios
+      .post("http://127.0.0.1:3000/registerHandler", form.value)
+      .then((response) => {
+        if (response.data.status === "success") {
+          sessionStorage.setItem("msg", "帳號註冊成功");
+          router.push("/registerHandler");
+        } else if (response.data.status === "error") {
+          sessionStorage.setItem("msg", response.data.message);
+          router.push("/registerHandler");
+        }
+      });
   } catch (error) {
     console.log(error);
   }

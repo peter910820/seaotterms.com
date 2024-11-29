@@ -76,31 +76,34 @@
           <i class="material-icons right">send</i>
         </button>
       </div>
-      <div>{{ formData }}</div>
+      <div>{{ err }}</div>
     </form>
   </div>
 </template>
 
 <script lang="ts">
 // import axios from "axios";
-import { defineComponent } from "vue";
+import { ref, defineComponent } from "vue";
 
 export default defineComponent({
-  data() {
-    return {
-      form: {
-        username: "",
-        email: "example@gmail.com",
-        password: "",
-        checkPassword: "",
-      },
-      formData: "",
+  setup() {
+    const form = ref({
+      username: "",
+      email: "example@gmail.com",
+      password: "",
+      checkPassword: "",
+    });
+    let err = ref("");
+    const handleSubmit = async () => {
+      if (form.value.password !== form.value.checkPassword) {
+        err.value = "密碼確認錯誤，請確定輸入相同密碼";
+        return;
+      } else {
+        err.value = "密碼確認無誤";
+      }
+      // const response = await axios.post("https://", form.value);
     };
-  },
-  methods: {
-    handleSubmit() {
-      this.formData = JSON.stringify(this.form);
-    },
+    return { form, err, handleSubmit };
   },
   // mounted() {
   //   axios({
@@ -117,6 +120,6 @@ export default defineComponent({
 <style scoped>
 .row {
   height: 500px;
-  padding: 100px;
+  padding: 50px;
 }
 </style>

@@ -102,17 +102,15 @@ const handleSubmit = async () => {
     err.value = "";
   }
   try {
-    await axios
-      .post("http://127.0.0.1:3000/registerHandler", form.value)
-      .then((response) => {
-        if (response.data.status === "success") {
-          sessionStorage.setItem("msg", "帳號註冊成功");
-          router.push("/registerHandler");
-        } else if (response.data.status === "error") {
-          sessionStorage.setItem("msg", response.data.message);
-          router.push("/registerHandler");
-        }
-      });
+    await axios.post("/registerHandler", form.value).then((response) => {
+      if (response.data.status === "success") {
+        sessionStorage.setItem("msg", "帳號註冊成功");
+        router.push("/registerHandler");
+      } else if (response.data.status === "error") {
+        sessionStorage.setItem("msg", response.data.message);
+        router.push("/registerHandler");
+      }
+    });
   } catch (error) {
     console.log(error);
   }

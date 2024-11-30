@@ -71,7 +71,7 @@ const handleSubmit = async () => {
 
 <style scoped>
 .row {
-  height: 500px;
-  padding: 100px;
+  height: 800px;
+  padding: 50px;
 }
 </style>

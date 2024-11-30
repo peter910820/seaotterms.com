@@ -6,23 +6,27 @@
 import { defineComponent, computed } from "vue";
 import { useRoute } from "vue-router";
 
-import LoginPage from "../components/LoginPage.vue";
+import LoginBlock from "../components/LoginBlock.vue";
 import RegisterBlock from "../components/RegisterBlock.vue";
-import RegisterComplete from "../components/RegisterComplete.vue";
+import RegisterResult from "../components/RegisterResult.vue";
+import LoginResult from "../components/LoginResult.vue";
 
 export default defineComponent({
-  components: { RegisterBlock, RegisterComplete, LoginPage },
+  components: { LoginBlock, LoginResult, RegisterBlock, RegisterResult },
   setup() {
     const route = useRoute();
     const currentComponent = computed(() => {
-      if (route.path === "/register") {
-        return "RegisterBlock";
-      } else if (route.path === "/registerHandler") {
-        return "RegisterComplete";
-      } else if (route.path === "/login") {
-        return "LoginPage";
-      } else {
-        return null;
+      switch (route.path) {
+        case "/login":
+          return "LoginBlock";
+        case "/loginResult":
+          return "LoginResult";
+        case "/register":
+          return "RegisterBlock";
+        case "/registerHandler":
+          return "RegisterResult";
+        default:
+          return null;
       }
     });
 
@@ -30,3 +34,5 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped></style>

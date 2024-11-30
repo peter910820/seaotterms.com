@@ -6,7 +6,7 @@
 
 <style scoped>
 .row {
-  height: 800px;
+  height: 900px;
   padding: 50px;
 }
 </style>

@@ -102,7 +102,7 @@ const handleSubmit = async () => {
     err.value = "";
   }
   try {
-    await axios.post("/registerHandler", form.value).then((response) => {
+    await axios.post("/api/registerHandler", form.value).then((response) => {
       if (response.data.status === "success") {
         sessionStorage.setItem("msg", "帳號註冊成功");
         router.push("/registerHandler");
@@ -119,7 +119,7 @@ const handleSubmit = async () => {
 
 <style scoped>
 .row {
-  height: 800px;
+  height: 900px;
   padding: 50px;
 }
 .passwordCheck {

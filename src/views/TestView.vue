@@ -1,12 +1,13 @@
 <template>
-  <h1>我現在不在</h1>
+  <TestBlcok />
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
+import TestBlcok from "../components/TestBlcok.vue";
 
 @Options({
-  components: {},
+  components: { TestBlcok },
 })
 export default class TestView extends Vue {}
 </script>

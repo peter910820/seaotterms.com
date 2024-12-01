@@ -65,7 +65,6 @@ const handleSubmit = async () => {
       .then((response) => {
         // login successful
         sessionStorage.setItem("msg", response.data.msg);
-        sessionStorage.setItem("isLogin", "true");
       })
       .catch((error) => {
         sessionStorage.setItem("msg", error.response?.data.msg);

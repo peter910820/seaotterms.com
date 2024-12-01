@@ -10,18 +10,9 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from "vue-class-component";
+<script setup lang="ts">
 import NavBar from "./components/NavBar.vue";
 import MyProfile from "./components/MyProfile.vue";
-
-@Options({
-  components: {
-    NavBar,
-    MyProfile,
-  },
-})
-export default class App extends Vue {}
 </script>
 
 <style>

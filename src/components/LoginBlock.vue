@@ -63,6 +63,7 @@ const handleSubmit = async () => {
     await axios
       .post("/api/loginHandler", form.value)
       .then((response) => {
+        // login successful
         sessionStorage.setItem("msg", response.data.msg);
       })
       .catch((error) => {

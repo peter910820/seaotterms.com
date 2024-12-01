@@ -18,7 +18,9 @@
             Backend-repo</a
           >
         </li>
-        <li><a href="./login">登入</a></li>
+        <li>
+          <a href="./login">登入/登出</a>
+        </li>
         <li><a href="./register">註冊</a></li>
       </ul>
     </div>
@@ -35,14 +37,14 @@
         Backend-repo</a
       >
     </li>
-    <li><a href="./login">登入</a></li>
+    <li>
+      <a href="./login">登入/登出</a>
+    </li>
     <li><a href="./register">註冊</a></li>
   </ul>
 </template>
 
-<script lang="ts">
-export default {};
-</script>
+<script setup lang="ts"></script>
 
 <style scoped>
 .brand-logo img {

@@ -12,6 +12,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/login",
     name: "login",
     component: () => import("../views/MainView.vue"),
+    // beforeEnter: (to, from, next) => {
+    //   if (sessionStorage.getItem("islogin") !== null) {
+    //     sessionStorage.removeItem("islogin");
+    //   }
+    //   next();
+    // },
   },
   {
     path: "/loginHandler",
@@ -55,8 +61,8 @@ router.beforeEach(async (to, from, next) => {
     try {
       await axios
         .post("/api/check-session")
-        .then((response) => {
-          sessionStorage.setItem("username", response.data.msg);
+        .then(() => {
+          // login now
           next();
         })
         .catch((error) => {

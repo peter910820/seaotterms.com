@@ -4,39 +4,38 @@
     <form class="col s12" method="post">
       <div class="row">
         <div class="input-field col s12">
+          <i class="material-icons prefix">title</i>
+          <input id="title" type="text" class="validate" required />
+          <span
+            class="helper-text"
+            data-error="此欄不能為空"
+            data-success=""
+          ></span>
+          <label for="title">title</label>
+        </div>
+        <div class="input-field col s6">
           <i class="material-icons prefix">account_circle</i>
-          <input id="username" type="text" disabled />
-          <label for="username">userName</label>
+          <input id="username" type="text" v-model="username" disabled />
+          <!-- <label for="username">userName</label> -->
         </div>
-        <div class="input-field col s12">
-          <i class="material-icons prefix">mail</i>
-          <input id="email" type="email" class="validate" required />
-          <span
-            class="helper-text"
-            data-error="格式錯誤"
-            data-success=""
-          ></span>
-          <label for="email">email</label>
-        </div>
-        <div class="input-field col s12">
-          <i class="material-icons prefix">lock</i>
-          <input id="password" type="password" class="validate" required />
+        <div class="input-field col s6">
+          <i class="material-icons prefix">sell</i>
+          <input id="tag" type="text" class="validate" required />
           <span
             class="helper-text"
             data-error="此欄不能為空"
             data-success=""
           ></span>
-          <label for="password">password</label>
+          <label for="tag">tag</label>
         </div>
         <div class="input-field col s12">
-          <i class="material-icons prefix">lock</i>
-          <input id="checkPassword" type="password" class="validate" required />
-          <span
-            class="helper-text"
-            data-error="此欄不能為空"
-            data-success=""
-          ></span>
-          <label for="checkPassword">check password</label>
+          <i class="material-icons prefix">mode_edit</i>
+          <textarea
+            id="textarea1"
+            class="materialize-textarea"
+            required
+          ></textarea>
+          <label for="textarea1">Content</label>
         </div>
         <button
           class="btn waves-effect waves-light"
@@ -52,7 +51,7 @@
 </template>
 
 <script setup lang="ts">
-// const username = "SeaotterMS";
+const username = "SeaotterMS";
 </script>
 
 <style scoped>

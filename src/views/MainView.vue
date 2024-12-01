@@ -10,9 +10,16 @@ import LoginBlock from "../components/LoginBlock.vue";
 import RegisterBlock from "../components/RegisterBlock.vue";
 import RegisterResult from "../components/RegisterResult.vue";
 import LoginResult from "../components/LoginResult.vue";
+import CreateArticle from "../components/CreateArticle.vue";
 
 export default defineComponent({
-  components: { LoginBlock, LoginResult, RegisterBlock, RegisterResult },
+  components: {
+    LoginBlock,
+    LoginResult,
+    RegisterBlock,
+    RegisterResult,
+    CreateArticle,
+  },
   setup() {
     const route = useRoute();
     const currentComponent = computed(() => {
@@ -25,6 +32,8 @@ export default defineComponent({
           return "RegisterBlock";
         case "/registerHandler":
           return "RegisterResult";
+        case "/create":
+          return "CreateArticle";
         default:
           return null;
       }

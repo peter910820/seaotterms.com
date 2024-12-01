@@ -10,6 +10,7 @@
       <ul class="right hide-on-med-and-down">
         <li><a href="./">Home</a></li>
         <li><a href="./article">文章</a></li>
+        <li><a href="./create">建立</a></li>
         <li>
           <a
             href="https://github.com/peter910820/seaotterms.com-backend"
@@ -29,6 +30,7 @@
   <ul class="sidenav" id="mobile-demo">
     <li><a href="./">Home</a></li>
     <li><a href="./article">文章</a></li>
+    <li><a href="./create">建立</a></li>
     <li>
       <a
         href="https://github.com/peter910820/seaotterms.com-backend"

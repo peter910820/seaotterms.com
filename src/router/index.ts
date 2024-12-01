@@ -31,8 +31,13 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/MainView.vue"),
   },
   {
-    path: "/registerHandler",
-    name: "registerHandler",
+    path: "/create",
+    name: "create",
+    component: () => import("../views/MainView.vue"),
+  },
+  {
+    path: "/loginHandler",
+    name: "loginHandler",
     component: () => import("../views/MainView.vue"),
   },
   {
@@ -56,6 +61,7 @@ router.beforeEach(async (to, from, next) => {
     "/loginHandler",
     "/register",
     "/registerHandler",
+    "/create", // develop mode
   ];
   // decide whether the page needs to be authenticated
   if (!publicPages.includes(to.path)) {

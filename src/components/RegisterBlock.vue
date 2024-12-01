@@ -1,7 +1,7 @@
 <template>
-  <div class="row">
+  <div class="row wow animate__flipInX">
     <h1>註冊</h1>
-    <form class="col s12" method="post" @submit.prevent="handleSubmit">
+    <form class="col s12" method="post" @submit.prevent="handleRegisterSubmit">
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">account_circle</i>
@@ -94,7 +94,7 @@ const form = ref({
   checkPassword: "",
 });
 let err = ref("");
-const handleSubmit = async () => {
+const handleRegisterSubmit = async () => {
   if (form.value.password !== form.value.checkPassword) {
     err.value = "密碼確認錯誤，請確定輸入相同密碼";
     return;

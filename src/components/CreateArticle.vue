@@ -1,7 +1,7 @@
 <template>
-  <div class="row">
+  <div class="row wow animate__flipInX">
     <h1>建立</h1>
-    <form class="col s12" method="post">
+    <form class="col s12" method="post" @submit.prevent="handleCreateSubmit">
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">title</i>
@@ -28,7 +28,7 @@
           ></span>
           <label for="tag">tag</label>
         </div>
-        <div class="input-field col s12">
+        <div class="input-field col s6">
           <i class="material-icons prefix">mode_edit</i>
           <textarea
             id="textarea1"
@@ -37,15 +37,20 @@
           ></textarea>
           <label for="textarea1">Content</label>
         </div>
-        <div class="markdown-preview col s12" v-html="renderedMarkdown"></div>
-        <button
-          class="btn waves-effect waves-light"
-          type="submit"
-          name="action"
-        >
-          Submit
-          <i class="material-icons right">send</i>
-        </button>
+        <div class="markdown-preview col s6" v-html="renderedMarkdown"></div>
+        <div class="col s12">
+          <p class="hint">本功能使用markdown支援(右邊會有markdown即時預覽)</p>
+        </div>
+        <div class="col s12">
+          <button
+            class="btn waves-effect waves-light"
+            type="submit"
+            name="action"
+          >
+            Submit
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
       </div>
     </form>
   </div>
@@ -58,7 +63,9 @@ import hljs from "highlight.js";
 import "highlight.js/styles/github-dark.css";
 
 const username = "SeaotterMS";
-
+const handleCreateSubmit = async () => {
+  console.log("");
+};
 const md = new MarkdownIt({
   html: true, // 允許渲染HTML標籤
   linkify: true, // 允許自動將網址轉換為超連結
@@ -90,7 +97,13 @@ const renderedMarkdown = computed(() => {
   height: 900px;
   padding: 50px;
 }
-.passwordCheck {
+.hint {
   color: red;
 }
+/* .markdown-preview {
+  margin-bottom: 10px;
+  border: 2px outset gray;
+  border-radius: 5px;
+  padding-top: 10px;
+} */
 </style>

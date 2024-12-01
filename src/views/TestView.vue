@@ -1,13 +1,20 @@
 <template>
-  <TestBlcok />
+  <h1>{{ msg }}</h1>
+  <TestBlcok v-model="msg" />
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
 import TestBlcok from "../components/TestBlcok.vue";
 
-@Options({
-  components: { TestBlcok },
-})
-export default class TestView extends Vue {}
+export default {
+  name: "App",
+  components: {
+    TestBlcok,
+  },
+  data() {
+    return {
+      msg: "msg",
+    };
+  },
+};
 </script>

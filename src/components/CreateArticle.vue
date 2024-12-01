@@ -5,12 +5,7 @@
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">account_circle</i>
-          <input id="username" type="text" class="validate" required />
-          <span
-            class="helper-text"
-            data-error="此欄不能為空"
-            data-success=""
-          ></span>
+          <input id="username" type="text" disabled />
           <label for="username">userName</label>
         </div>
         <div class="input-field col s12">
@@ -56,7 +51,9 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+// const username = "SeaotterMS";
+</script>
 
 <style scoped>
 .row {

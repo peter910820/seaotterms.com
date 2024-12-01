@@ -19,7 +19,7 @@
           >
         </li>
         <li>
-          <a href="./login">登入/登出</a>
+          <a href="./login">{{ isLogin }}</a>
         </li>
         <li><a href="./register">註冊</a></li>
       </ul>
@@ -38,13 +38,15 @@
       >
     </li>
     <li>
-      <a href="./login">登入/登出</a>
+      <a href="./login">{{ isLogin }}</a>
     </li>
     <li><a href="./register">註冊</a></li>
   </ul>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const isLogin = sessionStorage.getItem("isLogin");
+</script>
 
 <style scoped>
 .brand-logo img {

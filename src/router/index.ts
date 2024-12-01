@@ -12,12 +12,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/login",
     name: "login",
     component: () => import("../views/MainView.vue"),
-    // beforeEnter: (to, from, next) => {
-    //   if (sessionStorage.getItem("islogin") !== null) {
-    //     sessionStorage.removeItem("islogin");
-    //   }
-    //   next();
-    // },
+    beforeEnter: (to, from, next) => {
+      if (sessionStorage.getItem("islogin") !== null) {
+        sessionStorage.removeItem("islogin");
+      }
+      next();
+    },
   },
   {
     path: "/loginHandler",

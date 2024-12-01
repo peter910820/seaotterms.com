@@ -51,20 +51,26 @@
 <script setup lang="ts">
 import axios from "axios";
 import { ref } from "vue";
-// import { useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 
-// const router = useRouter();
+const router = useRouter();
 const form = ref({
   username: "",
   password: "",
 });
 const handleSubmit = async () => {
   try {
-    await axios.post("/api/loginHandler", form.value).then((response) => {
-      console.log(response.status);
-    });
+    await axios
+      .post("/api/loginHandler", form.value)
+      .then((response) => {
+        sessionStorage.setItem("msg", response.data.msg);
+      })
+      .catch((error) => {
+        sessionStorage.setItem("msg", error.response?.data.msg);
+      });
+    router.push("/loginHandler");
   } catch (error) {
-    console.log(error);
+    console.log("未知錯誤: " + error);
   }
 };
 </script>

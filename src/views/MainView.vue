@@ -19,7 +19,7 @@ export default defineComponent({
       switch (route.path) {
         case "/login":
           return "LoginBlock";
-        case "/loginResult":
+        case "/loginHandler":
           return "LoginResult";
         case "/register":
           return "RegisterBlock";

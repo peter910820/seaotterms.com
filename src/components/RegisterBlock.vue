@@ -102,7 +102,7 @@ const handleSubmit = async () => {
     err.value = "";
   }
   try {
-    await axios.post(" /api/registerHandler", form.value).then((response) => {
+    await axios.post("/api/registerHandler", form.value).then((response) => {
       if (response.status === 200) {
         sessionStorage.setItem("msg", "帳號註冊成功");
         router.push("/registerHandler");

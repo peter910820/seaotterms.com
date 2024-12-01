@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-
+import axios from "axios";
 import HomeView from "../views/HomeView.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -31,11 +31,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/test",
     name: "test",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/TestView.vue"),
+    component: () => import("../views/TestView.vue"),
   },
 ];
 
@@ -44,4 +40,37 @@ const router = createRouter({
   routes,
 });
 
+// Navigation Guards
+router.beforeEach(async (to, from, next) => {
+  const publicPages = [
+    "/",
+    "/test",
+    "/login",
+    "/loginHandler",
+    "/register",
+    "/registerHandler",
+  ];
+  // decide whether the page needs to be authenticated
+  if (!publicPages.includes(to.path)) {
+    try {
+      await axios
+        .post("/api/check-session")
+        .then((response) => {
+          sessionStorage.setItem("username", response.data.msg);
+          next();
+        })
+        .catch((error) => {
+          sessionStorage.removeItem("username");
+          console.log(error.response?.status);
+          alert("你已登出，請重新登入");
+          next("/login");
+        });
+    } catch (error) {
+      console.error(error);
+      next("/login");
+    }
+  } else {
+    next();
+  }
+});
 export default router;

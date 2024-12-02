@@ -5,7 +5,13 @@
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">title</i>
-          <input id="title" type="text" class="validate" required />
+          <input
+            id="title"
+            v-model="form.title"
+            type="text"
+            class="validate"
+            required
+          />
           <span
             class="helper-text"
             data-error="此欄不能為空"
@@ -15,12 +21,18 @@
         </div>
         <div class="input-field col s6">
           <i class="material-icons prefix">account_circle</i>
-          <input id="username" type="text" v-model="username" disabled />
+          <input id="username" v-model="form.username" type="text" disabled />
           <!-- <label for="username">userName</label> -->
         </div>
         <div class="input-field col s6">
           <i class="material-icons prefix">sell</i>
-          <input id="tag" type="text" class="validate" required />
+          <input
+            id="tag"
+            v-model="middleTags"
+            type="text"
+            class="validate"
+            required
+          />
           <span
             class="helper-text"
             data-error="此欄不能為空"
@@ -32,8 +44,8 @@
           <i class="material-icons prefix">mode_edit</i>
           <textarea
             id="textarea1"
+            v-model="form.content"
             class="materialize-textarea"
-            v-model="markdownContent"
           ></textarea>
           <label for="textarea1">Content</label>
         </div>
@@ -58,13 +70,47 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
+
+import axios from "axios";
 import MarkdownIt from "markdown-it";
 import hljs from "highlight.js";
-import "highlight.js/styles/github-dark.css";
+import "highlight.js/styles/github-dark.css"; // highlight-styles
 
-const username = "SeaotterMS";
+interface ArticleData {
+  title: string;
+  username: string;
+  tags: string[];
+  content: string;
+}
+const form = ref<ArticleData>({
+  title: "",
+  username: "SeaotterMS",
+  // const username = "SeaotterMS"; // get username
+  tags: [],
+  content: "",
+});
+const middleTags = ref("");
+
+const router = useRouter();
+
 const handleCreateSubmit = async () => {
-  console.log("");
+  try {
+    form.value.tags = middleTags.value.split(",");
+    console.log(form.value.tags);
+    await axios
+      .post("/api/create-article", form.value)
+      .then(() => {
+        sessionStorage.setItem("msg", "資料創建成功");
+      })
+      .catch((error) => {
+        sessionStorage.setItem("msg", error.response?.data.msg);
+      });
+    router.push("/loginHandler");
+  } catch (error) {
+    console.log("未知錯誤: " + error);
+  }
+  console.log(form.value.content);
 };
 const md = new MarkdownIt({
   html: true, // 允許渲染HTML標籤
@@ -84,11 +130,10 @@ const md = new MarkdownIt({
     return ""; // 無法識別語言，返回空字串
   },
 });
-const markdownContent = ref("");
 
 const renderedMarkdown = computed(() => {
   // const md = new MarkdownIt({ html: true, linkify: true });
-  return md.render(markdownContent.value);
+  return md.render(form.value.content);
 });
 </script>
 

@@ -31,13 +31,13 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/MainView.vue"),
   },
   {
-    path: "/create",
-    name: "create",
+    path: "/registerHandler",
+    name: "registerHandler",
     component: () => import("../views/MainView.vue"),
   },
   {
-    path: "/loginHandler",
-    name: "loginHandler",
+    path: "/create",
+    name: "create",
     component: () => import("../views/MainView.vue"),
   },
   {

@@ -6,8 +6,8 @@
     <div class="col s8">
       <div class="title">article title</div>
       <div class="information">
-        <i class="material-icons">upgrade</i>發表於 {{ upload }}
-        <i class="material-icons">update</i>更新於 {{ update }}
+        <i class="material-icons">upgrade</i>發表於
+        <i class="material-icons">update</i>更新於
       </div>
       <div class="tag">TAG</div>
     </div>
@@ -38,20 +38,7 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from "vue-class-component";
-
-@Options({
-  props: {
-    upload: String,
-    update: String,
-  },
-})
-export default class ArticleBlock extends Vue {
-  upload!: string;
-  update!: string;
-}
-</script>
+<script lang="ts"></script>
 
 <style scoped>
 .row {

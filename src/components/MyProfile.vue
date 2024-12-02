@@ -10,7 +10,7 @@
     <div class="littleItem h2">
       <a
         class="waves-effect waves-light btn-large"
-        href="https://github.com/peter910820/seaotterms-site"
+        href="https://github.com/peter910820/seaotterms.com"
         >這是專案本身:pepega:</a
       >
     </div>

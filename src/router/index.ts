@@ -9,6 +9,24 @@ const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "home",
     component: HomeView,
+    // beforeEnter: async (to, from, next) => {
+    //   try {
+    //     await axios
+    //       .post("/api/articles")
+    //       .then(() => {
+    //         // login now
+    //         next();
+    //       })
+    //       .catch((error) => {
+    //         console.log(error.response?.status);
+    //         alert("使用者尚未登入, 請前往登入");
+    //         next("/login");
+    //       });
+    //   } catch (error) {
+    //     console.error(error);
+    //     next("/login");
+    //   }
+    // },
   },
   {
     path: "/login",
@@ -16,6 +34,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/MainView.vue"),
     beforeEnter: (to, from, next) => {
       if (Cookies.get("session_id") !== undefined) {
+        console.log(Cookies.get("session_id"));
         Cookies.remove("session_id");
       }
       next();
@@ -73,9 +92,8 @@ router.beforeEach(async (to, from, next) => {
           next();
         })
         .catch((error) => {
-          sessionStorage.removeItem("username");
           console.log(error.response?.status);
-          alert("你已登出，請重新登入");
+          alert("使用者尚未登入, 請前往登入");
           next("/login");
         });
     } catch (error) {

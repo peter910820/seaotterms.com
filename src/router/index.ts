@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 import HomeView from "../views/HomeView.vue";
 
@@ -13,12 +14,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/login",
     name: "login",
     component: () => import("../views/MainView.vue"),
-    // beforeEnter: (to, from, next) => {
-    //   if (sessionStorage.getItem("islogin") !== null) {
-    //     sessionStorage.removeItem("islogin");
-    //   }
-    //   next();
-    // },
+    beforeEnter: (to, from, next) => {
+      if (Cookies.get("session_id") !== undefined) {
+        Cookies.remove("session_id");
+      }
+      next();
+    },
   },
   {
     path: "/loginHandler",
@@ -61,7 +62,6 @@ router.beforeEach(async (to, from, next) => {
     "/loginHandler",
     "/register",
     "/registerHandler",
-    "/create", // develop mode
   ];
   // decide whether the page needs to be authenticated
   if (!publicPages.includes(to.path)) {

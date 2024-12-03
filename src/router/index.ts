@@ -1,10 +1,14 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import axios from "axios";
-import store from "../store/store";
 import Cookies from "js-cookie";
+// type
 import { RouteLocationNormalized, NavigationGuardNext } from "vue-router";
+
+import store from "../store/store";
+
 import MainView from "../views/MainView.vue";
 
+// db article data(send to vuex)
 interface StoreData {
   ID: number;
   Title: string;
@@ -14,13 +18,13 @@ interface StoreData {
   CreatedAt: string;
   UpdatedAt: string;
 }
-
-const publicPages = ["/article", "/create"];
+// the page need to check the login
+const privatePages = ["/article", "/create"];
 const getArticleInformation = async () => {
   let data;
   try {
     await axios
-      .post("http://127.0.0.1:3000/api/articles")
+      .post("/api/articles")
       .then((response) => {
         // succcess
         data = response.data.data;
@@ -128,7 +132,7 @@ const middlewares = [
     from: RouteLocationNormalized,
     next: NavigationGuardNext
   ) => {
-    if (publicPages.includes(to.path)) {
+    if (privatePages.includes(to.path)) {
       try {
         await axios
           .post("/api/check-session")

@@ -20,21 +20,11 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useRoute } from "vue-router";
 import { mapState } from "vuex";
 
 export default defineComponent({
   computed: {
     ...mapState(["articleContent"]),
-    dataDisplay() {
-      console.log(this.articleContent);
-      const route = useRoute();
-      if (route.path === "/") {
-        return true;
-      } else {
-        return false;
-      }
-    },
   },
 });
 </script>

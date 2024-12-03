@@ -12,30 +12,6 @@
       <div class="tag">TAG</div>
     </div>
   </div>
-  <div class="row wow animate__flipInX">
-    <div class="col s4"></div>
-    <div class="col s8"></div>
-  </div>
-  <div class="row wow animate__flipInX">
-    <div class="col s4"></div>
-    <div class="col s8"></div>
-  </div>
-  <div class="row wow animate__flipInX">
-    <div class="col s4"></div>
-    <div class="col s8"></div>
-  </div>
-  <div class="row wow animate__flipInX">
-    <div class="col s4"></div>
-    <div class="col s8"></div>
-  </div>
-  <div class="row wow animate__flipInX">
-    <div class="col s4"></div>
-    <div class="col s8"></div>
-  </div>
-  <div class="row wow animate__flipInX">
-    <div class="col s4"></div>
-    <div class="col s8"></div>
-  </div>
 </template>
 
 <script setup lang="ts"></script>

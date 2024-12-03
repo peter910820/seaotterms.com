@@ -1,38 +1,59 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import axios from "axios";
+import store from "../store/store";
 import Cookies from "js-cookie";
 
 import MainView from "../views/MainView.vue";
 
+const publicPages = [
+  "/",
+  "/test",
+  "/login",
+  "/loginHandler",
+  "/register",
+  "/registerHandler",
+];
+
+const getArticleInformation = async () => {
+  return "data{}";
+  try {
+    await axios
+      .post("/api/articles")
+      .then((response) => {
+        // succcess
+        return "111";
+      })
+      .catch((error) => {
+        // faild
+        return error;
+      });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// routes
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "home",
     component: MainView,
-    // beforeEnter: async (to, from, next) => {
-    //   try {
-    //     await axios
-    //       .post("/api/articles")
-    //       .then(() => {
-    //         // login now
-    //         next();
-    //       })
-    //       .catch((error) => {
-    //         console.log(error.response?.status);
-    //         alert("使用者尚未登入, 請前往登入");
-    //         next("/login");
-    //       });
-    //   } catch (error) {
-    //     console.error(error);
-    //     next("/login");
-    //   }
-    // },
+    beforeEnter: async (to, from, next) => {
+      const data = await getArticleInformation();
+      store.commit("setArticleContent", data);
+      next();
+    },
   },
   {
     path: "/create",
     name: "create",
     component: () => import("../views/MainView.vue"),
   },
+  // {
+  //   path: "/articles",
+  //   name: "articles",
+  //   component: MainView,
+  // },
   {
     path: "/login",
     name: "login",
@@ -74,14 +95,6 @@ const router = createRouter({
 
 // Navigation Guards
 router.beforeEach(async (to, from, next) => {
-  const publicPages = [
-    "/",
-    "/test",
-    "/login",
-    "/loginHandler",
-    "/register",
-    "/registerHandler",
-  ];
   // decide whether the page needs to be authenticated
   if (!publicPages.includes(to.path)) {
     try {

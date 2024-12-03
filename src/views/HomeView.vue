@@ -1,5 +1,11 @@
 <template>
-  <ArticleBlock upload="2024/10/17" update="2024/10/17" />
+  <NavBar />
+  <div class="row">
+    <div class="col m9 s12"><ArticleBlock" /></div>
+    <div class="col m3 s12 sticky">
+      <MyProfile />
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -13,3 +19,13 @@ import ArticleBlock from "../components/ArticleBlock.vue";
 })
 export default class HomeView extends Vue {}
 </script>
+
+<style scoped>
+.row {
+  margin-bottom: 0px;
+}
+.sticky {
+  position: sticky;
+  top: 0px;
+}
+</style>

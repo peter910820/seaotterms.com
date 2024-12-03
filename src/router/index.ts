@@ -29,6 +29,11 @@ const routes: Array<RouteRecordRaw> = [
     // },
   },
   {
+    path: "/create",
+    name: "create",
+    component: () => import("../views/MainView.vue"),
+  },
+  {
     path: "/login",
     name: "login",
     component: () => import("../views/MainView.vue"),
@@ -53,11 +58,6 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/registerHandler",
     name: "registerHandler",
-    component: () => import("../views/MainView.vue"),
-  },
-  {
-    path: "/create",
-    name: "create",
     component: () => import("../views/MainView.vue"),
   },
   {

@@ -1,10 +1,21 @@
 <template>
-  <component :is="currentComponent"></component>
+  <NavBar />
+  <div class="row">
+    <div class="col m9 s12">
+      <component :is="currentComponent" />
+    </div>
+    <div class="col m3 s12 sticky">
+      <MyProfile />
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from "vue";
 import { useRoute } from "vue-router";
+
+import NavBar from "../components/NavBar.vue";
+import MyProfile from "../components/MyProfile.vue";
 
 import LoginBlock from "../components/LoginBlock.vue";
 import RegisterBlock from "../components/RegisterBlock.vue";
@@ -39,9 +50,17 @@ export default defineComponent({
       }
     });
 
-    return { currentComponent };
+    return { currentComponent, NavBar, MyProfile };
   },
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.row {
+  margin-bottom: 0px;
+}
+.sticky {
+  position: sticky;
+  top: 0px;
+}
+</style>

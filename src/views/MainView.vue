@@ -26,6 +26,8 @@ import RegisterResult from "../components/RegisterResult.vue";
 import LoginResult from "../components/LoginResult.vue";
 import CreateArticle from "../components/CreateArticle.vue";
 
+import ErrorBlock from "../components/ErrorBlock.vue";
+
 export default defineComponent({
   components: {
     NavBar,
@@ -37,6 +39,8 @@ export default defineComponent({
     RegisterBlock,
     RegisterResult,
     CreateArticle,
+
+    ErrorBlock,
   },
   setup() {
     const route = useRoute();
@@ -55,7 +59,7 @@ export default defineComponent({
         case "/create":
           return "CreateArticle";
         default:
-          return null;
+          return "ErrorBlock";
       }
     });
     return { currentComponent };

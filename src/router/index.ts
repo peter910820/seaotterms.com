@@ -2,18 +2,10 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import axios from "axios";
 import store from "../store/store";
 import Cookies from "js-cookie";
-
+import { RouteLocationNormalized, NavigationGuardNext } from "vue-router";
 import MainView from "../views/MainView.vue";
 
-const publicPages = [
-  "/",
-  "/test",
-  "/login",
-  "/loginHandler",
-  "/register",
-  "/registerHandler",
-];
-
+const publicPages = ["/article", "/create"];
 const getArticleInformation = async () => {
   return "data{}";
   try {
@@ -86,6 +78,12 @@ const routes: Array<RouteRecordRaw> = [
     name: "test",
     component: () => import("../views/TestView.vue"),
   },
+  // match all route
+  {
+    path: "/:pathMatch(.*)*",
+    name: "notFound",
+    component: () => import("../views/MainView.vue"),
+  },
 ];
 
 const router = createRouter({
@@ -93,28 +91,68 @@ const router = createRouter({
   routes,
 });
 
-// Navigation Guards
-router.beforeEach(async (to, from, next) => {
-  // decide whether the page needs to be authenticated
-  if (!publicPages.includes(to.path)) {
-    try {
-      await axios
-        .post("/api/check-session")
-        .then(() => {
-          // login now
-          next();
-        })
-        .catch((error) => {
-          console.log(error.response?.status);
-          alert("使用者尚未登入, 請前往登入");
-          next("/login");
-        });
-    } catch (error) {
-      console.error(error);
-      next("/login");
+// Navigation Guards(beforeEach)
+const middlewares = [
+  // check session
+  async (
+    to: RouteLocationNormalized,
+    from: RouteLocationNormalized,
+    next: NavigationGuardNext
+  ) => {
+    if (publicPages.includes(to.path)) {
+      try {
+        await axios
+          .post("/api/check-session")
+          .then(() => {
+            // login now
+            next();
+          })
+          .catch((error) => {
+            console.log(error.response?.status);
+            alert("使用者尚未登入, 請前往登入");
+            next("/login");
+          });
+      } catch (error) {
+        console.error(error);
+        next("/login");
+      }
+    } else {
+      next();
     }
-  } else {
+  },
+  // check session
+  async (
+    to: RouteLocationNormalized,
+    from: RouteLocationNormalized,
+    next: NavigationGuardNext
+  ) => {
+    console.log("Middleware 2: Checking admin rights");
     next();
-  }
+  },
+  async (
+    to: RouteLocationNormalized,
+    from: RouteLocationNormalized,
+    next: NavigationGuardNext
+  ) => {
+    console.log("Middleware 3: Checking admin rights");
+    next();
+  },
+];
+
+router.beforeEach((to, from, next) => {
+  let index = 0;
+
+  const executeMiddleware = () => {
+    if (index < middlewares.length) {
+      const middleware = middlewares[index];
+      index++;
+      middleware(to, from, executeMiddleware);
+    } else {
+      next();
+    }
+  };
+
+  executeMiddleware();
 });
+
 export default router;

@@ -1,20 +1,43 @@
-<template>
-  <div class="row wow animate__flipInX">
+<template v-if="dataDisplay">
+  <div
+    v-for="article in articleContent"
+    :key="article.ID"
+    class="row wow animate__flipInX"
+  >
     <div class="col s4">
       <img alt="" src="" />
     </div>
     <div class="col s8">
-      <div class="title">article title</div>
+      <div class="title">{{ article.Title }}</div>
       <div class="information">
-        <i class="material-icons">upgrade</i>發表於
-        <i class="material-icons">update</i>更新於
+        <i class="material-icons">upgrade</i>發表於{{ article.CreatedAt }}
+        <i class="material-icons">update</i>更新於{{ article.UpdatedAt }}
       </div>
-      <div class="tag">TAG</div>
+      <div class="tag">{{ article.Tags }}</div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script lang="ts">
+import { defineComponent } from "vue";
+import { useRoute } from "vue-router";
+import { mapState } from "vuex";
+
+export default defineComponent({
+  computed: {
+    ...mapState(["articleContent"]),
+    dataDisplay() {
+      console.log(this.articleContent);
+      const route = useRoute();
+      if (route.path === "/") {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  },
+});
+</script>
 
 <style scoped>
 .row {

@@ -1,7 +1,6 @@
 <template>
   <NavBar />
   <div class="row">
-    <h1>{{ articleContent }}</h1>
     <div class="col m9 s12">
       <component :is="currentComponent" />
     </div>
@@ -64,7 +63,17 @@ export default defineComponent({
     });
     return { currentComponent };
   },
-  computed: { ...mapState(["articleContent"]) },
+  computed: {
+    ...mapState(["articleContent"]),
+    dataDisplay() {
+      const route = useRoute();
+      if (route.path === "/") {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  },
   // beforeRouteEnter(to, from, next) {
   //   console.log("beforeRouteEnter triggered");
   //   next();

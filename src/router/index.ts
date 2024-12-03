@@ -5,23 +5,36 @@ import Cookies from "js-cookie";
 import { RouteLocationNormalized, NavigationGuardNext } from "vue-router";
 import MainView from "../views/MainView.vue";
 
+interface StoreData {
+  ID: number;
+  Title: string;
+  Username: string;
+  Tags: Array<string>;
+  Content: string;
+  CreatedAt: string;
+  UpdatedAt: string;
+}
+
 const publicPages = ["/article", "/create"];
 const getArticleInformation = async () => {
-  return "data{}";
+  let data;
   try {
     await axios
-      .post("/api/articles")
+      .post("http://127.0.0.1:3000/api/articles")
       .then((response) => {
         // succcess
-        return "111";
+        data = response.data.data;
       })
       .catch((error) => {
         // faild
-        return error;
+        console.log(error);
+        return 1;
       });
   } catch (error) {
     console.log(error);
+    return 1;
   }
+  return data;
 };
 
 // routes
@@ -31,7 +44,23 @@ const routes: Array<RouteRecordRaw> = [
     name: "home",
     component: MainView,
     beforeEnter: async (to, from, next) => {
-      const data = await getArticleInformation();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const data = (await getArticleInformation()) as any;
+      if (data === 1) {
+        next();
+      }
+      const storeData: Map<string, StoreData> = new Map<string, StoreData>();
+      for (const prop in data) {
+        storeData.set(prop, {
+          ID: data[prop].ID,
+          Title: data[prop].Title,
+          Username: data[prop].Username,
+          Tags: data[prop].Tags,
+          Content: data[prop].Content,
+          CreatedAt: data[prop].CreatedAt,
+          UpdatedAt: data[prop].UpdatedAt,
+        });
+      }
       store.commit("setArticleContent", data);
       next();
     },
@@ -138,7 +167,7 @@ const middlewares = [
     next();
   },
 ];
-
+// use Chain-of-responsibility pattern handle Navigation Guards
 router.beforeEach((to, from, next) => {
   let index = 0;
 

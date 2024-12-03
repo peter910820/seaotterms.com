@@ -17,6 +17,7 @@ import { useRoute } from "vue-router";
 import NavBar from "../components/NavBar.vue";
 import MyProfile from "../components/MyProfile.vue";
 
+import ArticleBlock from "../components/ArticleBlock.vue";
 import LoginBlock from "../components/LoginBlock.vue";
 import RegisterBlock from "../components/RegisterBlock.vue";
 import RegisterResult from "../components/RegisterResult.vue";
@@ -25,6 +26,10 @@ import CreateArticle from "../components/CreateArticle.vue";
 
 export default defineComponent({
   components: {
+    NavBar,
+    MyProfile,
+
+    ArticleBlock,
     LoginBlock,
     LoginResult,
     RegisterBlock,
@@ -35,6 +40,8 @@ export default defineComponent({
     const route = useRoute();
     const currentComponent = computed(() => {
       switch (route.path) {
+        case "/":
+          return "ArticleBlock";
         case "/login":
           return "LoginBlock";
         case "/loginHandler":
@@ -50,7 +57,7 @@ export default defineComponent({
       }
     });
 
-    return { currentComponent, NavBar, MyProfile };
+    return { currentComponent };
   },
 });
 </script>

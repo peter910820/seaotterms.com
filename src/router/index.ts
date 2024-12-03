@@ -2,13 +2,13 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-import HomeView from "../views/HomeView.vue";
+import MainView from "../views/MainView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "home",
-    component: HomeView,
+    component: MainView,
     // beforeEnter: async (to, from, next) => {
     //   try {
     //     await axios

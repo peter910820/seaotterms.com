@@ -125,7 +125,7 @@ const router = createRouter({
   routes,
 });
 
-// Navigation Guards(beforeEach)
+// Navigation Guards(global)
 router.beforeEach(
   async (
     to: RouteLocationNormalized,
@@ -154,7 +154,7 @@ router.beforeEach(
     }
   }
 );
-// Navigation Guards2(beforeEach)
+// Navigation Guards2(global)
 router.beforeEach(
   async (
     to: RouteLocationNormalized,
@@ -165,7 +165,7 @@ router.beforeEach(
     next();
   }
 );
-// Navigation Guards3(beforeEach)
+// Navigation Guards3(global)
 router.beforeEach(
   async (
     to: RouteLocationNormalized,

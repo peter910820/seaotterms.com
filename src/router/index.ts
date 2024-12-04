@@ -42,6 +42,27 @@ const getArticleInformation = async () => {
   return data;
 };
 
+const getSingleArticleInformation = async (articleID: any) => {
+  let data;
+  try {
+    await axios
+      .post(`/api/articles/${articleID}`)
+      .then((response) => {
+        // succcess
+        data = response.data.data;
+      })
+      .catch((error) => {
+        // faild
+        console.log(error);
+        return 1;
+      });
+  } catch (error) {
+    console.log(error);
+    return 1;
+  }
+  return data;
+};
+
 // routes
 const routes: Array<RouteRecordRaw> = [
   {
@@ -77,8 +98,12 @@ const routes: Array<RouteRecordRaw> = [
   },
   // dynamic routes for articles
   {
-    path: "/articles/:articleTitle",
+    path: "/articles/:articleID",
     name: "articles",
+    beforeEnter: (to, from, next) => {
+      const data = (await getArticleInformation(to.params.articleID)) as any;
+      next();
+    },
     component: () => import("../views/MainView.vue"),
   },
   {

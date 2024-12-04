@@ -1,7 +1,7 @@
 <template>
   <NavBar />
   <div class="row">
-    <div class="col m9 s12 center">
+    <div class="col m9 s12">
       <component :is="currentComponent" />
     </div>
     <div class="col m3 s12 sticky">
@@ -18,6 +18,7 @@ import { mapState } from "vuex";
 import NavBar from "../components/NavBar.vue";
 import MyProfile from "../components/MyProfile.vue";
 
+import MainBlock from "../components/MainBlock.vue";
 import ArticleBlock from "../components/ArticleBlock.vue";
 import LoginBlock from "../components/LoginBlock.vue";
 import RegisterBlock from "../components/RegisterBlock.vue";
@@ -31,6 +32,7 @@ export default defineComponent({
     NavBar,
     MyProfile,
 
+    MainBlock,
     MessageBlcok,
     ArticleBlock,
     LoginBlock,
@@ -41,10 +43,14 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute();
+    console.log(route.matched);
     const currentComponent = computed(() => {
+      if (route.name === "articles") {
+        return "ArticleBlock";
+      }
       switch (route.path) {
         case "/":
-          return "ArticleBlock";
+          return "MainBlock";
         case "/login":
           return "LoginBlock";
         case "/loginHandler":

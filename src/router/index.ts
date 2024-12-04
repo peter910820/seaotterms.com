@@ -20,6 +20,7 @@ interface StoreData {
 }
 // the page need to check the login
 const privatePages = ["/article", "/create"];
+
 const getArticleInformation = async () => {
   let data;
   try {
@@ -135,7 +136,7 @@ const middlewares = [
     if (privatePages.includes(to.path)) {
       try {
         await axios
-          .post("/api/check-session")
+          .post("/api/verify")
           .then(() => {
             // login now
             next();

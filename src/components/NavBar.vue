@@ -55,7 +55,15 @@
   </ul>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { onMounted } from "vue";
+
+onMounted(() => {
+  const elems = document.querySelectorAll(".sidenav");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-undef
+  const instances = M.Sidenav.init(elems);
+});
+</script>
 
 <style scoped>
 .nav-wrapper {

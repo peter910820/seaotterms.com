@@ -21,9 +21,8 @@ import MyProfile from "../components/MyProfile.vue";
 import ArticleBlock from "../components/ArticleBlock.vue";
 import LoginBlock from "../components/LoginBlock.vue";
 import RegisterBlock from "../components/RegisterBlock.vue";
-import RegisterResult from "../components/RegisterResult.vue";
-import LoginResult from "../components/LoginResult.vue";
 import CreateArticle from "../components/CreateArticle.vue";
+import MessageBlcok from "../components/MessageBlcok.vue";
 
 import ErrorBlock from "../components/ErrorBlock.vue";
 
@@ -32,11 +31,10 @@ export default defineComponent({
     NavBar,
     MyProfile,
 
+    MessageBlcok,
     ArticleBlock,
     LoginBlock,
-    LoginResult,
     RegisterBlock,
-    RegisterResult,
     CreateArticle,
 
     ErrorBlock,
@@ -50,11 +48,10 @@ export default defineComponent({
         case "/login":
           return "LoginBlock";
         case "/loginHandler":
-          return "LoginResult";
+        case "/registerHandler":
+          return "MessageBlcok";
         case "/register":
           return "RegisterBlock";
-        case "/registerHandler":
-          return "RegisterResult";
         case "/create":
           return "CreateArticle";
         default:

@@ -4,7 +4,7 @@
     <router-link to="/">
       <button class="btn waves-effect waves-light" type="submit" name="action">
         回到首頁
-        <i class="material-icons right">send</i>
+        <i class="material-icons right">home</i>
       </button>
     </router-link>
   </div>

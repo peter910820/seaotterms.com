@@ -126,8 +126,7 @@ const router = createRouter({
 });
 
 // Navigation Guards(beforeEach)
-const middlewares = [
-  // check session
+router.beforeEach(
   async (
     to: RouteLocationNormalized,
     from: RouteLocationNormalized,
@@ -153,8 +152,10 @@ const middlewares = [
     } else {
       next();
     }
-  },
-  // check session
+  }
+);
+// Navigation Guards2(beforeEach)
+router.beforeEach(
   async (
     to: RouteLocationNormalized,
     from: RouteLocationNormalized,
@@ -162,7 +163,10 @@ const middlewares = [
   ) => {
     console.log("Middleware 2: Checking admin rights");
     next();
-  },
+  }
+);
+// Navigation Guards3(beforeEach)
+router.beforeEach(
   async (
     to: RouteLocationNormalized,
     from: RouteLocationNormalized,
@@ -170,23 +174,7 @@ const middlewares = [
   ) => {
     console.log("Middleware 3: Checking admin rights");
     next();
-  },
-];
-// use Chain-of-responsibility pattern handle Navigation Guards
-router.beforeEach((to, from, next) => {
-  let index = 0;
-
-  const executeMiddleware = () => {
-    if (index < middlewares.length) {
-      const middleware = middlewares[index];
-      index++;
-      middleware(to, from, executeMiddleware);
-    } else {
-      next();
-    }
-  };
-
-  executeMiddleware();
-});
+  }
+);
 
 export default router;

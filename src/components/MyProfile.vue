@@ -14,7 +14,6 @@
         >這是專案本身:pepega:</a
       >
     </div>
-    <div></div>
     <div class="socialLink">
       <a
         href="https://github.com/peter910820"
@@ -64,7 +63,7 @@ export default class MyProfile extends Vue {
     // eslint-disable-next-line no-undef
     new Typed(".typer", {
       strings: ["一個不知道在幹嘛，每天一直假裝自己有在做事的人。"],
-      typeSpeed: 80,
+      typeSpeed: 100,
     });
   }
 }
@@ -72,12 +71,12 @@ export default class MyProfile extends Vue {
 
 <style scoped>
 .row {
-  /* margin: 10px; */
-  /* border: 2px solid black;
-  border-radius: 5px; */
-  max-height: 100vh;
-  height: 100vh;
+  min-height: 80vh;
+  max-height: 80vh;
   > div {
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
     max-height: 10%;
     height: 10%;
     display: flex;
@@ -130,5 +129,8 @@ export default class MyProfile extends Vue {
 }
 .btn-large:hover {
   background-color: rgb(100, 100, 100);
+}
+.typer {
+  font-size: 18px;
 }
 </style>

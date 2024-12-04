@@ -93,4 +93,9 @@ export default defineComponent({
   position: sticky;
   top: 0px;
 }
+.border {
+  border: 2px solid black;
+  border-radius: 5px;
+  padding-top: 20px;
+}
 </style>

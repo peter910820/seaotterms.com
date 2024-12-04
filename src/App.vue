@@ -11,7 +11,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-color: skyblue;
+  background-color: rgba(245, 245, 220, 0.637);
   min-height: 100vh;
   margin-bottom: 0px !important;
 }

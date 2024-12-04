@@ -1,7 +1,7 @@
 <template>
   <div class="row wow animate__flipInX">
-    <h1>註冊</h1>
     <form class="col s12" method="post" @submit.prevent="handleRegisterSubmit">
+      <h1>註冊</h1>
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">account_circle</i>
@@ -130,7 +130,6 @@ const handleRegisterSubmit = async () => {
 
 <style scoped>
 .row {
-  height: 900px;
   padding: 50px;
 }
 .passwordCheck {

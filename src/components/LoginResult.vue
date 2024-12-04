@@ -14,7 +14,6 @@ const msg = sessionStorage.getItem("msg");
 
 <style scoped>
 .row {
-  height: 900px;
   padding: 50px;
 }
 </style>

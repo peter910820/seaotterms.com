@@ -1,4 +1,5 @@
 <template v-if="dataDisplay">
+  <h1>文章</h1>
   <div
     v-for="article in articleContent"
     :key="article.ID"

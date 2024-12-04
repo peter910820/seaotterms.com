@@ -1,7 +1,7 @@
 <template>
   <div class="row wow animate__flipInX">
-    <h1>建立</h1>
     <form class="col s12" method="post" @submit.prevent="handleCreateSubmit">
+      <h1>建立</h1>
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">title</i>
@@ -139,7 +139,6 @@ const renderedMarkdown = computed(() => {
 
 <style scoped>
 .row {
-  height: 900px;
   padding: 50px;
 }
 .hint {

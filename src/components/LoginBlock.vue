@@ -1,7 +1,7 @@
 <template>
   <div class="row wow animate__flipInX">
-    <h1>登入</h1>
     <form class="col s12" method="post" @submit.prevent="handleLoginSubmit">
+      <h1>登入</h1>
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">account_circle</i>
@@ -78,7 +78,6 @@ const handleLoginSubmit = async () => {
 
 <style scoped>
 .row {
-  height: 900px;
   padding: 50px;
 }
 </style>

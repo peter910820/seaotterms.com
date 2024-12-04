@@ -18,7 +18,7 @@
 <script setup lang="ts"></script>
 <style scoped>
 .row {
-  height: 900px;
+  height: 800px;
   padding: 50px;
 }
 h1 {

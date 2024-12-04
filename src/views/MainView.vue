@@ -1,7 +1,7 @@
 <template>
   <NavBar />
   <div class="row">
-    <div class="col m9 s12">
+    <div class="col m9 s12 center">
       <component :is="currentComponent" />
     </div>
     <div class="col m3 s12 sticky">
@@ -83,7 +83,11 @@ export default defineComponent({
 
 <style scoped>
 .row {
+  height: 100%;
   margin-bottom: 0px;
+}
+.center {
+  text-align: center;
 }
 .sticky {
   position: sticky;

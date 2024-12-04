@@ -1,20 +1,21 @@
 <template>
-  <h1>{{ msg }}</h1>
-  <TestBlcok v-model="msg" />
+  <h1>{{ currentRoute }}</h1>
+  <!-- <TestBlcok v-model="msg" /> -->
 </template>
 
 <script lang="ts">
-import TestBlcok from "../components/TestBlcok.vue";
+import { defineComponent, computed } from "vue";
+import { useRoute } from "vue-router";
 
-export default {
-  name: "App",
-  components: {
-    TestBlcok,
+// import TestBlcok from "../components/TestBlcok.vue";
+
+export default defineComponent({
+  setup() {
+    const route = useRoute();
+    const currentRoute = computed(() => {
+      return route.fullPath;
+    });
+    return { currentRoute };
   },
-  data() {
-    return {
-      msg: "msg",
-    };
-  },
-};
+});
 </script>

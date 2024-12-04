@@ -75,8 +75,8 @@ export default class MyProfile extends Vue {
   margin: 10px;
   /* border: 2px solid black;
   border-radius: 5px; */
-  max-height: 900px;
-  height: 900px;
+  max-height: 800px;
+  height: 800px;
   > div {
     max-height: 10%;
     height: 10%;

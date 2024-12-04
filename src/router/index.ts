@@ -75,11 +75,12 @@ const routes: Array<RouteRecordRaw> = [
     name: "create",
     component: () => import("../views/MainView.vue"),
   },
-  // {
-  //   path: "/articles",
-  //   name: "articles",
-  //   component: MainView,
-  // },
+  // dynamic routes for articles
+  {
+    path: "/articles/:articleTitle",
+    name: "articles-:articleTitle",
+    component: () => import("../views/TestView.vue"),
+  },
   {
     path: "/login",
     name: "login",

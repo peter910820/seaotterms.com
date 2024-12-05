@@ -90,6 +90,7 @@ const routes: Array<RouteRecordRaw> = [
         to.params.articleID as string
       )) as object | number;
       if (typeof data !== "number") {
+        console.log(data);
         next();
       } else {
         next("notFound"); // goto notdefined route to catch 404 status code

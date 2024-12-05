@@ -102,27 +102,19 @@ const handleRegisterSubmit = async () => {
     err.value = "";
   }
   try {
-    await axios.post("/api/registerHandler", form.value).then((response) => {
-      if (response.status === 200) {
-        sessionStorage.setItem("msg", "帳號註冊成功");
-        router.push("/registerHandler");
-      } else {
-        sessionStorage.setItem("msg", response.data.msg);
-        router.push("/registerHandler");
-      }
-    });
+    await axios.post("/api/registerHandler", form.value);
+    sessionStorage.setItem("msg", "帳號註冊成功");
+    router.push("/registerHandler");
   } catch (error) {
-    if (axios.isAxiosError(error) && error.response?.status !== 200) {
-      console.log(
-        "status code: " +
-          error.response?.status +
-          ":\n" +
-          error.response?.data.msg
+    if (axios.isAxiosError(error)) {
+      sessionStorage.setItem(
+        "msg",
+        `${error.response?.status}: ${error.response?.data.msg}`
       );
-      sessionStorage.setItem("msg", error.response?.data.msg);
       router.push("/registerHandler");
     } else {
       console.log("未知錯誤: " + error);
+      router.push("/notFound");
     }
   }
 };

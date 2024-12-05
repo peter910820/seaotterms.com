@@ -62,10 +62,18 @@ const handleLoginSubmit = async () => {
   try {
     const response = await axios.post("/api/loginHandler", form.value);
     sessionStorage.setItem("msg", response.data.msg);
-    router.push("/loginHandler");
+    router.push("/message");
   } catch (error) {
-    console.log("未知錯誤: " + error);
-    router.push("/notFound");
+    if (axios.isAxiosError(error)) {
+      sessionStorage.setItem(
+        "msg",
+        `${error.response?.status}: ${error.response?.data.msg}`
+      );
+      router.push("/message");
+    } else {
+      console.log("未知錯誤: " + error);
+      router.push("/notFound");
+    }
   }
 };
 </script>

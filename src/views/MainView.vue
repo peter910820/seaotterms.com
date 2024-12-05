@@ -53,8 +53,7 @@ export default defineComponent({
           return "MainBlock";
         case "/login":
           return "LoginBlock";
-        case "/loginHandler":
-        case "/registerHandler":
+        case "/message":
           return "MessageBlcok";
         case "/register":
           return "RegisterBlock";

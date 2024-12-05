@@ -21,46 +21,31 @@ interface StoreData {
 // the page need to check the login
 const privatePages = ["/article", "/create"];
 
-const getArticleInformation = async () => {
-  let data;
+const getArticleInformation = async (): Promise<object | number> => {
   try {
-    await axios
-      .post("/api/articles")
-      .then((response) => {
-        // succcess
-        data = response.data.data;
-      })
-      .catch((error) => {
-        // faild
-        console.log(error);
-        return 1;
-      });
-  } catch (error) {
-    console.log(error);
-    return 1;
+    const response = await axios.post("/api/articles");
+    return response.data.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.log(error); // debug
+    return error.response?.status;
   }
-  return data;
 };
 
-const getSingleArticleInformation = async (articleID: any) => {
-  let data;
-  try {
-    await axios
-      .post(`/api/articles/${articleID}`)
-      .then((response) => {
-        // succcess
-        data = response.data.data;
-      })
-      .catch((error) => {
-        // faild
-        console.log(error);
-        return 1;
-      });
-  } catch (error) {
-    console.log(error);
-    return 1;
+const getSingleArticleInformation = async (
+  articleID: string
+): Promise<object | number> => {
+  if (!(Number.isInteger(Number(articleID)) && Number(articleID) > 0)) {
+    return 400; // enter an ID that is not allowed
   }
-  return data;
+  try {
+    const response = await axios.post(`/api/articles/${articleID}`);
+    return response.data.data as object;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.log(error); // debug
+    return error.response?.status; // return status code
+  }
 };
 
 // routes
@@ -102,9 +87,13 @@ const routes: Array<RouteRecordRaw> = [
     name: "articles",
     beforeEnter: async (to, from, next) => {
       const data = (await getSingleArticleInformation(
-        to.params.articleID
-      )) as any;
-      next();
+        to.params.articleID as string
+      )) as object | number;
+      if (typeof data !== "number") {
+        next();
+      } else {
+        next("notFound"); // goto notdefined route to catch 404 status code
+      }
     },
     component: () => import("../views/MainView.vue"),
   },

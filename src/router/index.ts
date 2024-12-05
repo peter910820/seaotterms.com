@@ -100,8 +100,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/articles/:articleID",
     name: "articles",
-    beforeEnter: (to, from, next) => {
-      const data = (await getArticleInformation(to.params.articleID)) as any;
+    beforeEnter: async (to, from, next) => {
+      const data = (await getSingleArticleInformation(
+        to.params.articleID
+      )) as any;
       next();
     },
     component: () => import("../views/MainView.vue"),

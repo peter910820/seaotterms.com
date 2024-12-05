@@ -1,7 +1,7 @@
 <template>
   <div class="row banner">
     <div class="articleTitle">
-      <h1>Title</h1>
+      <h1>{{ title }}</h1>
     </div>
     <div class="articleInformation">
       <i class="material-icons">account_circle</i>SeaotterMS
@@ -31,7 +31,8 @@ export default defineComponent({
 </script> -->
 
 <script>
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed, ref } from "vue";
+import { useRoute } from "vue-router";
 // import { useStore } from "vuex";
 // import axios from "axios";
 import MarkdownIt from "markdown-it";
@@ -40,6 +41,10 @@ import "highlight.js/styles/github-dark.css"; // highlight-styles
 
 export default defineComponent({
   setup() {
+    const route = useRoute();
+    console.log(route.path.split("/")[2]);
+
+    const title = ref(route.path.split("/")[2]);
     // 使用 vuex store
     // const store = useStore();
     // const articleContent = computed(() => store.state.articleContent);
@@ -76,6 +81,7 @@ export default defineComponent({
 
     return {
       renderedMarkdown,
+      title,
     };
   },
 });

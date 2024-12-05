@@ -133,4 +133,10 @@ export default class MyProfile extends Vue {
 .typer {
   font-size: 18px;
 }
+@media (max-width: 600px) {
+  .row {
+    min-height: 100vh;
+    max-height: 100vh;
+  }
+}
 </style>

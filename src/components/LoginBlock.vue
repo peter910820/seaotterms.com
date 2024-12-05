@@ -60,18 +60,12 @@ const form = ref({
 });
 const handleLoginSubmit = async () => {
   try {
-    await axios
-      .post("/api/loginHandler", form.value)
-      .then((response) => {
-        // login successful
-        sessionStorage.setItem("msg", response.data.msg);
-      })
-      .catch((error) => {
-        sessionStorage.setItem("msg", error.response?.data.msg);
-      });
+    const response = await axios.post("/api/loginHandler", form.value);
+    sessionStorage.setItem("msg", response.data.msg);
     router.push("/loginHandler");
   } catch (error) {
     console.log("未知錯誤: " + error);
+    router.push("/notFound");
   }
 };
 </script>

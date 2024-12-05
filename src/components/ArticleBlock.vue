@@ -1,12 +1,12 @@
 <template>
   <div class="row banner">
     <div class="articleTitle">
-      <h1>{{ title }}</h1>
+      <h1>{{ articleData.Title }}</h1>
     </div>
     <div class="articleInformation">
-      <i class="material-icons">account_circle</i>SeaotterMS
-      <i class="material-icons">add_circle</i>2024-12-04 20:23:32.231301+08
-      <i class="material-icons">edit</i>2024-12-04 20:23:32.231301+08
+      <i class="material-icons">account_circle</i>{{ articleData.Username }}
+      <i class="material-icons">add_circle</i>{{ articleData.CreatedAt }}
+      <i class="material-icons">edit</i>{{ articleData.UpdatedAt }}
     </div>
     <div class="articleTags">
       <button class="button-85" role="button">Python</button>
@@ -31,23 +31,17 @@ export default defineComponent({
 </script> -->
 
 <script>
-import { defineComponent, computed, ref } from "vue";
-import { useRoute } from "vue-router";
-// import { useStore } from "vuex";
-// import axios from "axios";
+import { defineComponent, computed } from "vue";
+import { useStore } from "vuex";
+
 import MarkdownIt from "markdown-it";
 import hljs from "highlight.js";
 import "highlight.js/styles/github-dark.css"; // highlight-styles
 
 export default defineComponent({
   setup() {
-    const route = useRoute();
-    console.log(route.path.split("/")[2]);
-
-    const title = ref(route.path.split("/")[2]);
-    // 使用 vuex store
-    // const store = useStore();
-    // const articleContent = computed(() => store.state.articleContent);
+    const store = useStore();
+    const articleData = computed(() => store.state.articleContent);
 
     const renderMarkdown = (content) => {
       const md = MarkdownIt({
@@ -76,12 +70,12 @@ export default defineComponent({
     };
 
     const renderedMarkdown = computed(() =>
-      renderMarkdown("```go\npackage main\n```\n # AAA")
+      renderMarkdown(articleData.value.Content)
     );
 
     return {
+      articleData,
       renderedMarkdown,
-      title,
     };
   },
 });

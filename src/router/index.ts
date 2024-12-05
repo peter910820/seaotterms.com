@@ -39,7 +39,9 @@ const getSingleArticleInformation = async (
     return 400; // enter an ID that is not allowed
   }
   try {
-    const response = await axios.post(`/api/articles/${articleID}`);
+    const response = await axios.post(
+      `http://127.0.0.1:3000/api/articles/${articleID}`
+    );
     return response.data.data as object;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -88,9 +90,21 @@ const routes: Array<RouteRecordRaw> = [
     beforeEnter: async (to, from, next) => {
       const data = (await getSingleArticleInformation(
         to.params.articleID as string
-      )) as object | number;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      )) as any;
       if (typeof data !== "number") {
         console.log(data);
+        const storeData: Map<string, StoreData> = new Map<string, StoreData>();
+        storeData.set(data.ID, {
+          ID: data.ID,
+          Title: data.Title,
+          Username: data.Username,
+          Tags: data.Tags,
+          Content: data.Content,
+          CreatedAt: data.CreatedAt,
+          UpdatedAt: data.UpdatedAt,
+        });
+        store.commit("setArticleContent", data);
         next();
       } else {
         next("notFound"); // goto notdefined route to catch 404 status code

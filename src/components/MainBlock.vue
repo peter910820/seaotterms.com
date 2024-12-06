@@ -4,7 +4,7 @@
     <div class="col s12"></div>
   </div>
   <div
-    class="col s12 articles wow animate__bounceIn"
+    class="col s12 articles floatup-div wow animate__bounceIn"
     v-for="article in articleContent"
     :key="article.ID"
     @click="link(article.ID)"

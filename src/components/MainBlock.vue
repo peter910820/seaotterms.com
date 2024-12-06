@@ -1,8 +1,8 @@
 <template v-if="dataDisplay">
-  <h1>文章</h1>
   <div class="col s12 banner wow animate__flipInX">
     <div class="col s12"></div>
   </div>
+  <h1>文章</h1>
   <div
     class="col s12 articles floatup-div wow animate__bounceIn"
     v-for="article in articleContent"

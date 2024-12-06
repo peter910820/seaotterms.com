@@ -98,17 +98,20 @@ const handleCreateSubmit = async () => {
   try {
     form.value.tags = middleTags.value.split(",");
     console.log(form.value.tags);
-    await axios
-      .post("/api/create-article", form.value)
-      .then(() => {
-        sessionStorage.setItem("msg", "資料創建成功");
-      })
-      .catch((error) => {
-        sessionStorage.setItem("msg", error.response?.data.msg);
-      });
-    router.push("/loginHandler");
+    await axios.post("/api/create-article", form.value);
+    sessionStorage.setItem("msg", "資料創建成功");
+    router.push("/message");
   } catch (error) {
-    console.log("未知錯誤: " + error);
+    if (axios.isAxiosError(error)) {
+      sessionStorage.setItem(
+        "msg",
+        `${error.response?.status}: ${error.response?.data.msg}`
+      );
+      router.push("/message");
+    } else {
+      console.log("未知錯誤: " + error);
+      router.push("/notFound");
+    }
   }
   console.log(form.value.content);
 };

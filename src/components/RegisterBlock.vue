@@ -98,8 +98,6 @@ const handleRegisterSubmit = async () => {
   if (form.value.password !== form.value.checkPassword) {
     err.value = "密碼確認錯誤，請確定輸入相同密碼";
     return;
-  } else {
-    err.value = "";
   }
   try {
     await axios.post("/api/registerHandler", form.value);

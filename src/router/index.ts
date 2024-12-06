@@ -59,23 +59,24 @@ const routes: Array<RouteRecordRaw> = [
     beforeEnter: async (to, from, next) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const data = (await getArticleInformation()) as any;
-      if (data === 1) {
+      if (typeof data !== "number") {
+        const storeData: Map<string, StoreData> = new Map<string, StoreData>();
+        for (const prop in data) {
+          storeData.set(prop, {
+            ID: data[prop].ID,
+            Title: data[prop].Title,
+            Username: data[prop].Username,
+            Tags: data[prop].Tags,
+            Content: data[prop].Content,
+            CreatedAt: data[prop].CreatedAt,
+            UpdatedAt: data[prop].UpdatedAt,
+          });
+        }
+        store.commit("setArticleContent", data);
         next();
+      } else {
+        next("notFound");
       }
-      const storeData: Map<string, StoreData> = new Map<string, StoreData>();
-      for (const prop in data) {
-        storeData.set(prop, {
-          ID: data[prop].ID,
-          Title: data[prop].Title,
-          Username: data[prop].Username,
-          Tags: data[prop].Tags,
-          Content: data[prop].Content,
-          CreatedAt: data[prop].CreatedAt,
-          UpdatedAt: data[prop].UpdatedAt,
-        });
-      }
-      store.commit("setArticleContent", data);
-      next();
     },
   },
   {

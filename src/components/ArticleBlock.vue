@@ -95,13 +95,11 @@ export default defineComponent({
     word-wrap: break-word;
     color: rebeccapurple;
   }
-  > .articleInformation {
-    display: flex;
-    gap: 10px;
-  }
   > .articleTags {
-    display: flex;
-    gap: 10px;
+    > button {
+      margin-left: 10px;
+      margin-top: 10px;
+    }
   }
 }
 .content {

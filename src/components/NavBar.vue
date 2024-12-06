@@ -67,6 +67,6 @@ onMounted(() => {
 
 <style scoped>
 .nav-wrapper {
-  background-color: plum;
+  background-color: pink;
 }
 </style>

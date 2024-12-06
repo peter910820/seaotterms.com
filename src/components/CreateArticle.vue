@@ -145,6 +145,7 @@ export default defineComponent({
     const renderedMarkdown = computed(() => renderMarkdown(form.value.content));
     return {
       form,
+      middleTags,
       handleCreateSubmit,
       renderedMarkdown,
     };

@@ -91,6 +91,9 @@ export default defineComponent({
   padding-right: 50px;
   padding-left: 50px;
 }
+.col {
+  max-width: 100%;
+}
 .banner {
   min-height: 300px;
   > div {

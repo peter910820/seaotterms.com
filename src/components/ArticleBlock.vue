@@ -9,9 +9,14 @@
       <i class="material-icons">edit</i>{{ articleData.UpdatedAt }}
     </div>
     <div class="articleTags">
-      <button class="button-85" role="button">Python</button>
-      <button class="button-85" role="button">Tkinter</button>
-      <button class="button-85" role="button">GUI</button>
+      <button
+        class="button-85"
+        role="button"
+        v-for="(Tag, index) in articleData.Tags"
+        :key="index"
+      >
+        {{ Tag }}
+      </button>
     </div>
   </div>
   <div class="row content">

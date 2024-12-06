@@ -1,4 +1,4 @@
-<template v-if="dataDisplay">
+<template>
   <div class="col s12 banner wow animate__flipInX">
     <div class="col s12"></div>
   </div>

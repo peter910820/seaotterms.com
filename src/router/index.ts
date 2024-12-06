@@ -140,11 +140,6 @@ const routes: Array<RouteRecordRaw> = [
     name: "registerHandler",
     component: () => import("../views/MainView.vue"),
   },
-  {
-    path: "/test",
-    name: "test",
-    component: () => import("../views/TestView.vue"),
-  },
   // match all route
   {
     path: "/:pathMatch(.*)*",

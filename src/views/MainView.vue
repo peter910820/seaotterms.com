@@ -13,7 +13,6 @@
 <script lang="ts">
 import { defineComponent, computed } from "vue";
 import { useRoute } from "vue-router";
-import { mapState } from "vuex";
 
 import NavBar from "../components/NavBar.vue";
 import MyProfile from "../components/MyProfile.vue";
@@ -65,21 +64,6 @@ export default defineComponent({
     });
     return { currentComponent };
   },
-  computed: {
-    ...mapState(["articleContent"]),
-    dataDisplay() {
-      const route = useRoute();
-      if (route.path === "/") {
-        return true;
-      } else {
-        return false;
-      }
-    },
-  },
-  // beforeRouteEnter(to, from, next) {
-  //   console.log("beforeRouteEnter triggered");
-  //   next();
-  // },
 });
 </script>
 

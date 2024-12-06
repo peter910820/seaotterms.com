@@ -68,75 +68,91 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref, computed } from "vue";
+<script>
+import { ref, computed, defineComponent } from "vue";
 import { useRouter } from "vue-router";
 
 import axios from "axios";
+
 import MarkdownIt from "markdown-it";
 import hljs from "highlight.js";
 import "highlight.js/styles/github-dark.css"; // highlight-styles
 
-interface ArticleData {
-  title: string;
-  username: string;
-  tags: string[];
-  content: string;
-}
-const form = ref<ArticleData>({
-  title: "",
-  username: "SeaotterMS",
-  // const username = "SeaotterMS"; // get username
-  tags: [],
-  content: "",
-});
-const middleTags = ref("");
+// interface ArticleData {
+//   title: string;
+//   username: string;
+//   tags: string[];
+//   content: string;
+// }
 
-const router = useRouter();
+export default defineComponent({
+  setup() {
+    const form = ref({
+      title: "",
+      username: "SeaotterMS",
+      // const username = "SeaotterMS"; // get username
+      tags: [],
+      content: "",
+    });
+    const middleTags = ref("");
 
-const handleCreateSubmit = async () => {
-  try {
-    form.value.tags = middleTags.value.split(",");
-    console.log(form.value.tags);
-    await axios.post("/api/create-article", form.value);
-    sessionStorage.setItem("msg", "資料創建成功");
-    router.push("/message");
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      sessionStorage.setItem(
-        "msg",
-        `${error.response?.status}: ${error.response?.data.msg}`
-      );
-      router.push("/message");
-    } else {
-      console.log("未知錯誤: " + error);
-      router.push("/notFound");
-    }
-  }
-  console.log(form.value.content);
-};
-const md = new MarkdownIt({
-  html: true, // 允許渲染HTML標籤
-  linkify: true, // 允許自動將網址轉換為超連結
-  highlight: (str, lang) => {
-    if (lang && hljs.getLanguage(lang)) {
+    const router = useRouter();
+    const handleCreateSubmit = async () => {
       try {
-        return (
-          '<pre><code class="hljs">' +
-          hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
-          "</code></pre>"
-        );
-      } catch (e) {
-        return ""; // 遇到例外狀況，返回原始內容
+        form.value.tags = middleTags.value.split(",");
+        console.log(form.value.tags);
+        await axios.post("/api/create-article", form.value);
+        sessionStorage.setItem("msg", "資料創建成功");
+        router.push("/message");
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          sessionStorage.setItem(
+            "msg",
+            `${error.response?.status}: ${error.response?.data.msg}`
+          );
+          router.push("/message");
+        } else {
+          console.log("未知錯誤: " + error);
+          router.push("/notFound");
+        }
       }
-    }
-    return ""; // 無法識別語言，返回空字串
-  },
-});
+    };
+    const renderMarkdown = (content) => {
+      const md = MarkdownIt({
+        highlight: function (str, lang) {
+          if (lang && hljs.getLanguage(lang)) {
+            try {
+              return (
+                '<pre><code class="hljs">' +
+                hljs.highlight(str, { language: lang, ignoreIllegals: true })
+                  .value +
+                "</code></pre>"
+              );
+            } catch (error) {
+              console.log(error);
+            }
+          }
 
-const renderedMarkdown = computed(() => {
-  // const md = new MarkdownIt({ html: true, linkify: true });
-  return md.render(form.value.content);
+          return (
+            '<pre><code class="hljs">' +
+            md.utils.escapeHtml(str) +
+            "</code></pre>"
+          );
+        },
+      });
+      return md.render(content);
+    };
+    const renderedMarkdown = computed(() => renderMarkdown(form.value.content));
+    return {
+      form,
+      handleCreateSubmit,
+      renderedMarkdown,
+    };
+  },
+  // beforeUnmount() {
+  //   const hiddenDivs = document.querySelectorAll(".hiddendiv.common");
+  //   hiddenDivs.forEach((div) => div.remove());
+  // },
 });
 </script>
 

@@ -31,7 +31,7 @@ export default defineComponent({
 </script> -->
 
 <script>
-import { defineComponent, computed, onMounted, ref } from "vue";
+import { defineComponent, ref, computed } from "vue";
 import { useStore } from "vuex";
 
 import MarkdownIt from "markdown-it";
@@ -41,8 +41,7 @@ import "highlight.js/styles/github-dark.css"; // highlight-styles
 export default defineComponent({
   setup() {
     const store = useStore();
-    const articleData = computed(() => store.state.articleContent);
-    const renderedMarkdown = ref(null);
+    const articleData = ref(store.state.articleContent);
 
     const renderMarkdown = (content) => {
       const md = MarkdownIt({
@@ -70,9 +69,9 @@ export default defineComponent({
       return md.render(content);
     };
 
-    onMounted(() => {
-      renderedMarkdown.value = renderMarkdown(articleData.value.Content);
-    });
+    const renderedMarkdown = computed(() =>
+      renderMarkdown(articleData.value.Content)
+    );
 
     return {
       articleData,

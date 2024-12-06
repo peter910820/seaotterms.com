@@ -55,7 +55,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "home",
-    component: () => import("../views/MainView.vue"),
+    component: MainView,
     beforeEnter: async (to, from, next) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const data = (await getArticleInformation()) as any;

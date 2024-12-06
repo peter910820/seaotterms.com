@@ -15,7 +15,7 @@
     </div>
   </div>
   <div class="row content">
-    <div class="markdown-preview col s6" v-html="renderedMarkdown"></div>
+    <div class="markdown-preview col" v-html="renderedMarkdown"></div>
   </div>
 </template>
 

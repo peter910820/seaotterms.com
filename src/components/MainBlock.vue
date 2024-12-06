@@ -1,31 +1,53 @@
 <template v-if="dataDisplay">
   <h1>文章</h1>
+  <div class="col s12 banner wow animate__flipInX">
+    <div class="col s12"></div>
+  </div>
   <div
+    class="col s12 articles wow animate__bounceIn"
     v-for="article in articleContent"
     :key="article.ID"
-    class="row wow animate__flipInX"
+    @click="link(article.ID)"
   >
-    <div class="col s4">
-      <img alt="" src="" />
+    <div class="title">{{ article.Title }}</div>
+    <div class="username">
+      <i class="material-icons">person</i>{{ article.Username }}
     </div>
-    <div class="col s8">
-      <div class="title">{{ article.Title }}</div>
-      <div class="information">
-        <i class="material-icons">upgrade</i>發表於{{ article.CreatedAt }}
-        <i class="material-icons">update</i>更新於{{ article.UpdatedAt }}
-      </div>
-      <div class="tag">{{ article.Tags }}</div>
+    <div class="information">
+      <i class="material-icons">edit</i>{{ article.CreatedAt }}
+      <i class="material-icons">update</i>{{ article.UpdatedAt }}
     </div>
+    <div class="tag">{{ article.Tags }}</div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { mapState } from "vuex";
+import { defineComponent, onMounted, ref } from "vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
-  computed: {
-    ...mapState(["articleContent"]),
+  setup() {
+    const store = useStore();
+    const articleContent = ref(store.state.articleContent);
+
+    const link = (articleID: string) => {
+      window.location.href = `./articles/${articleID}`;
+    };
+
+    onMounted(() => {
+      // eslint-disable-next-line no-undef
+      new Typed(".banner>div", {
+        strings: ["正在嘗試進步，", "學很多怪技術跟做很多小東西。"],
+        typeSpeed: 80,
+        loop: true,
+        showCursor: false,
+      });
+    });
+
+    return {
+      link,
+      articleContent,
+    };
   },
 });
 </script>
@@ -43,25 +65,35 @@ export default defineComponent({
   border-radius: 5px;
   padding-top: 20px;
 }
-.col.s8 > div {
-  max-height: 33%;
-  height: 33%;
-  overflow: hidden;
+.banner {
+  min-height: 250px;
+  max-height: 250px;
+  text-align: center;
+  > div {
+    word-wrap: break-word;
+    font-size: 60px;
+  }
 }
-.title {
-  font-size: 30px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.title:hover {
-  color: orange;
-}
-.information:hover {
-  color: orange;
-}
-.tag {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
+.articles {
+  margin-top: 10px;
+  > .title {
+    font-size: 30px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  > .information {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  > .tag {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 }
 </style>

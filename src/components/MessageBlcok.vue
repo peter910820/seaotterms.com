@@ -9,7 +9,14 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from "vue";
 const msg = sessionStorage.getItem("msg") || "";
+onMounted(() => {
+  console.log("正在清理materialize-textarea自適應化高度的多餘組件");
+  const hiddenDivs = document.querySelectorAll(".hiddendiv.common");
+  hiddenDivs.forEach((div) => div.remove());
+  console.log("清理完畢!");
+});
 </script>
 
 <style scoped>

@@ -149,10 +149,6 @@ export default defineComponent({
       renderedMarkdown,
     };
   },
-  // beforeUnmount() {
-  //   const hiddenDivs = document.querySelectorAll(".hiddendiv.common");
-  //   hiddenDivs.forEach((div) => div.remove());
-  // },
 });
 </script>
 

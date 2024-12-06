@@ -31,7 +31,7 @@ export default defineComponent({
 </script> -->
 
 <script>
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";
 
 import MarkdownIt from "markdown-it";
@@ -42,6 +42,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const articleData = computed(() => store.state.articleContent);
+    const renderedMarkdown = ref(null);
 
     const renderMarkdown = (content) => {
       const md = MarkdownIt({
@@ -69,9 +70,9 @@ export default defineComponent({
       return md.render(content);
     };
 
-    const renderedMarkdown = computed(() =>
-      renderMarkdown(articleData.value.Content)
-    );
+    onMounted(() => {
+      renderedMarkdown.value = renderMarkdown(articleData.value.Content);
+    });
 
     return {
       articleData,

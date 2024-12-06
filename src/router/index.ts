@@ -23,7 +23,7 @@ const privatePages = ["/article", "/create"];
 
 const getArticleInformation = async (): Promise<object | number> => {
   try {
-    const response = await axios.post("/api/articles");
+    const response = await axios.post("http://127.0.0.1:3000/api/articles");
     return response.data.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -55,7 +55,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "home",
-    component: MainView,
+    component: () => import("../views/MainView.vue"),
     beforeEnter: async (to, from, next) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const data = (await getArticleInformation()) as any;

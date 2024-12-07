@@ -1,11 +1,13 @@
 <template>
-  <NavBar />
-  <div class="row">
-    <div class="col m9 s12">
-      <component :is="currentComponent" />
-    </div>
-    <div class="col m3 s12 sticky">
-      <MyProfile />
+  <div class="mainFonts">
+    <NavBar />
+    <div class="row">
+      <div class="col m9 s12">
+        <component :is="currentComponent" />
+      </div>
+      <div class="col m3 s12 sticky">
+        <MyProfile />
+      </div>
     </div>
   </div>
 </template>
@@ -83,5 +85,13 @@ export default defineComponent({
   border: 2px solid black;
   border-radius: 5px;
   padding-top: 20px;
+}
+/* font-settings */
+@font-face {
+  font-family: "Cubic_11_1.100_R";
+  src: url("@/assets/fonts/Cubic_11_1.100_R.ttf") format("truetype");
+}
+.mainFonts {
+  font-family: "Cubic_11_1.100_R";
 }
 </style>

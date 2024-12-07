@@ -17,7 +17,15 @@
       <i class="material-icons">edit</i>{{ article.CreatedAt }}
       <i class="material-icons">update</i>{{ article.UpdatedAt }}
     </div>
-    <div class="tag">{{ article.Tags }}</div>
+    <div class="tag">
+      <div
+        class="button-tags"
+        v-for="(tag, index) in article.Tags"
+        :key="index"
+      >
+        {{ tag }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -94,6 +102,9 @@ export default defineComponent({
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    > div {
+      margin-left: 5px;
+    }
   }
 }
 </style>

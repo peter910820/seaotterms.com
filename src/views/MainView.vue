@@ -93,6 +93,7 @@ export default defineComponent({
 }
 
 .mainStyle {
+  min-height: 100vh;
   font-family: "Cubic_11_1.100_R";
 
   background: linear-gradient(

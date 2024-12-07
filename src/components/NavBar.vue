@@ -27,11 +27,6 @@
             >註冊<i class="material-icons left">how_to_reg</i></router-link
           >
         </li>
-        <li>
-          <router-link to="/test"
-            >TestPage<i class="material-icons left">bug_report</i></router-link
-          >
-        </li>
       </ul>
     </div>
   </nav>
@@ -48,9 +43,6 @@
     </li>
     <li>
       <router-link to="/register">註冊</router-link>
-    </li>
-    <li>
-      <router-link to="/test">TestPage</router-link>
     </li>
   </ul>
 </template>

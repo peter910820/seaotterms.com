@@ -10,7 +10,7 @@
     </div>
     <div class="articleTags">
       <button
-        class="button-85"
+        class="button-article-tags"
         role="button"
         v-for="(Tag, index) in articleData.Tags"
         :key="index"

@@ -23,7 +23,7 @@ const privatePages = ["/article", "/create"];
 
 const getArticleInformation = async (): Promise<object | number> => {
   try {
-    const response = await axios.post("http://127.0.0.1:3000/api/articles");
+    const response = await axios.post("/api/articles");
     return response.data.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -39,9 +39,7 @@ const getSingleArticleInformation = async (
     return 400; // enter an ID that is not allowed
   }
   try {
-    const response = await axios.post(
-      `http://127.0.0.1:3000/api/articles/${articleID}`
-    );
+    const response = await axios.post(`/api/articles/${articleID}`);
     return response.data.data as object;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {

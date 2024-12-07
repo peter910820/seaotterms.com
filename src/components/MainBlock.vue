@@ -1,8 +1,10 @@
 <template>
   <div class="col s12 banner wow animate__flipInX">
-    <div class="col s12"></div>
+    <div><div></div></div>
   </div>
-  <h1>文章</h1>
+  <div class="col s12 center">
+    <h1>首頁/文章</h1>
+  </div>
   <div
     class="col s12 articles floatup-div wow animate__bounceIn"
     v-for="article in articleContent"
@@ -44,7 +46,7 @@ export default defineComponent({
 
     onMounted(() => {
       // eslint-disable-next-line no-undef
-      new Typed(".banner>div", {
+      new Typed(".banner>div>div", {
         strings: ["正在嘗試進步，", "學很多怪技術跟做很多小東西。"],
         typeSpeed: 80,
         loop: true,
@@ -61,29 +63,49 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.row {
-  margin: 10px;
-  border: 2px solid black;
-  border-radius: 5px;
-}
 .col {
   max-height: 180px;
   height: 180px;
-  border: 2px solid black;
-  border-radius: 5px;
   padding-top: 20px;
+  margin-top: 10px;
+}
+.center {
+  text-align: center;
 }
 .banner {
   min-height: 250px;
   max-height: 250px;
+  border: 2px solid white;
+  border-radius: 100px;
   text-align: center;
+  background-image: url("https://seaottermsc.com/image/background.png");
+  background-size: cover;
+  background-position: 50% 20%;
+  position: relative;
   > div {
-    word-wrap: break-word;
-    font-size: 60px;
+    min-height: 100%;
+    max-height: 100%;
+    border: 2px solid white;
+    border-radius: 100px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(240, 248, 255, 0.459);
+    > div {
+      min-height: 100%;
+      max-height: 100%;
+      margin: 50px;
+      font-family: "ChenYuluoyan-Thin";
+      word-wrap: break-word;
+      font-size: 60px;
+    }
   }
 }
 .articles {
-  margin-top: 10px;
+  border: 2px solid white;
+  border-radius: 20px;
   > .title {
     font-size: 30px;
     white-space: nowrap;
@@ -106,5 +128,10 @@ export default defineComponent({
       margin-left: 5px;
     }
   }
+}
+/* font-settings */
+@font-face {
+  font-family: "ChenYuluoyan-Thin";
+  src: url("@/assets/fonts/ChenYuluoyan-Thin.ttf") format("truetype");
 }
 </style>

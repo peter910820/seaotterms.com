@@ -9,14 +9,14 @@
       <i class="material-icons">edit</i>{{ articleData.UpdatedAt }}
     </div>
     <div class="articleTags">
-      <button
+      <div
         class="button-article-tags"
         role="button"
         v-for="(Tag, index) in articleData.Tags"
         :key="index"
       >
         {{ Tag }}
-      </button>
+      </div>
     </div>
   </div>
   <div class="row content">
@@ -103,16 +103,21 @@ export default defineComponent({
     word-wrap: break-word;
     color: rebeccapurple;
   }
-  > .articleTags {
-    > button {
-      margin-left: 10px;
-      margin-top: 10px;
-    }
-  }
 }
 .content {
-  border: 1px solid white;
-  border-radius: 20px;
   min-height: 500px;
+  font-family: "Anonymice-Powerline-Bold";
+  > .col {
+    min-width: 100%;
+    min-height: 500px;
+    border: 2px solid transparent;
+    box-shadow: inset 0 0 10px 1px white;
+    border-radius: 20px;
+  }
+}
+/* font-settings */
+@font-face {
+  font-family: "Anonymice-Powerline-Bold";
+  src: url("@/assets/fonts/Anonymice-Powerline-Bold.ttf") format("truetype");
 }
 </style>

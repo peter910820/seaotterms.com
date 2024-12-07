@@ -81,11 +81,6 @@ export default defineComponent({
   position: sticky;
   top: 0px;
 }
-.border {
-  border: 2px solid black;
-  border-radius: 5px;
-  padding-top: 20px;
-}
 /* font-settings */
 @font-face {
   font-family: "Cubic_11_1.100_R";

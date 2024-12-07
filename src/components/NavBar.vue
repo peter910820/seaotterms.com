@@ -1,7 +1,7 @@
 <template>
   <nav>
     <div class="nav-wrapper">
-      <a href="#!" class="brand-logo">Logo</a>
+      <router-link to="/" class="brand-logo">Home</router-link>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"
         ><i class="material-icons">menu</i></a
       >
@@ -60,5 +60,8 @@ onMounted(() => {
 <style scoped>
 .nav-wrapper {
   background-color: pink;
+}
+.brand-logo {
+  margin-left: 10px;
 }
 </style>

@@ -47,6 +47,9 @@
 }
 /* button-article-tags */
 .button-article-tags {
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 10px;
     padding: 0.6em 2em;
     border: none;
     outline: none;

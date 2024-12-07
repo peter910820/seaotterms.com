@@ -1,5 +1,5 @@
 <template>
-  <div class="mainFonts">
+  <div class="mainStyle">
     <NavBar />
     <div class="row">
       <div class="col m9 s12">
@@ -91,7 +91,30 @@ export default defineComponent({
   font-family: "Cubic_11_1.100_R";
   src: url("@/assets/fonts/Cubic_11_1.100_R.ttf") format("truetype");
 }
-.mainFonts {
+
+.mainStyle {
   font-family: "Cubic_11_1.100_R";
+
+  background: linear-gradient(
+    -45deg,
+    #667e297c,
+    #63aa756e,
+    #62558570,
+    #10778a80
+  );
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 </style>

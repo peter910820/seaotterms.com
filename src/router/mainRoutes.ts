@@ -34,6 +34,13 @@ const getSingleArticleInformation = async (
   }
 };
 
+const getTagInformation = async () => {
+  try {
+    const response = await axios.post(`http://127.0.0.1:3000/api/tags/`);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {}
+};
+
 const mainRoutes: Array<RouteRecordRaw> = [
   {
     path: "/",

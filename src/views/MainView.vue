@@ -15,8 +15,8 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import NavBar from "../components/NavBar.vue";
-import MyProfile from "../components/MyProfile.vue";
+import NavBar from "../components/main/NavBar.vue";
+import MyProfile from "../components/main/MyProfile.vue";
 
 export default defineComponent({
   components: {

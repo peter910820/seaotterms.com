@@ -43,7 +43,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
       {
         path: "",
         name: "main-home",
-        component: () => import("../components/MainBlock.vue"),
+        component: () => import("../components/main/MainBlock.vue"),
         beforeEnter: async (to, from, next) => {
           if (to.name === "main-home") {
             const data = await getArticleInformation();
@@ -61,13 +61,18 @@ const mainRoutes: Array<RouteRecordRaw> = [
       {
         path: "create",
         name: "main-create",
-        component: () => import("../components/CreateArticle.vue"),
+        component: () => import("../components/main/CreateArticle.vue"),
+      },
+      {
+        path: "message",
+        name: "main-message",
+        component: () => import("../components/main/MessageBlcok.vue"),
       },
       // dynamic routes for articles
       {
         path: "articles/:articleID",
         name: "main-articles",
-        component: () => import("../components/ArticleBlock.vue"),
+        component: () => import("../components/main/ArticleBlock.vue"),
         beforeEnter: async (to, from, next) => {
           const data = (await getSingleArticleInformation(
             to.params.articleID as string
@@ -85,7 +90,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
       {
         path: "login",
         name: "main-login",
-        component: () => import("../components/LoginBlock.vue"),
+        component: () => import("../components/main/LoginBlock.vue"),
         beforeEnter: (to, from, next) => {
           if (Cookies.get("session_id") !== undefined) {
             console.log(Cookies.get("session_id"));
@@ -97,13 +102,13 @@ const mainRoutes: Array<RouteRecordRaw> = [
       {
         path: "register",
         name: "main-register",
-        component: () => import("../components/RegisterBlock.vue"),
+        component: () => import("../components/main/RegisterBlock.vue"),
       },
       // match all route
       {
         path: ":pathMatch(.*)*",
         name: "main-notFound",
-        component: () => import("../components/ErrorBlock.vue"),
+        component: () => import("../components/main/ErrorBlock.vue"),
       },
     ],
   },

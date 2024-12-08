@@ -3,7 +3,7 @@
     <NavBar />
     <div class="row">
       <div class="col m9 s12">
-        <component :is="currentComponent" />
+        <router-view />
       </div>
       <div class="col m3 s12 sticky">
         <MyProfile />
@@ -13,58 +13,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
-import { useRoute } from "vue-router";
+import { defineComponent } from "vue";
 
 import NavBar from "../components/NavBar.vue";
 import MyProfile from "../components/MyProfile.vue";
-
-import MainBlock from "../components/MainBlock.vue";
-import ArticleBlock from "../components/ArticleBlock.vue";
-import LoginBlock from "../components/LoginBlock.vue";
-import RegisterBlock from "../components/RegisterBlock.vue";
-import CreateArticle from "../components/CreateArticle.vue";
-import MessageBlcok from "../components/MessageBlcok.vue";
-
-import ErrorBlock from "../components/ErrorBlock.vue";
 
 export default defineComponent({
   components: {
     NavBar,
     MyProfile,
-
-    MainBlock,
-    MessageBlcok,
-    ArticleBlock,
-    LoginBlock,
-    RegisterBlock,
-    CreateArticle,
-
-    ErrorBlock,
   },
   setup() {
-    const route = useRoute();
-    console.log(route.matched);
-    const currentComponent = computed(() => {
-      if (route.name === "articles") {
-        return "ArticleBlock";
-      }
-      switch (route.path) {
-        case "/":
-          return "MainBlock";
-        case "/login":
-          return "LoginBlock";
-        case "/message":
-          return "MessageBlcok";
-        case "/register":
-          return "RegisterBlock";
-        case "/create":
-          return "CreateArticle";
-        default:
-          return "ErrorBlock";
-      }
-    });
-    return { currentComponent };
+    return;
   },
 });
 </script>

@@ -88,6 +88,14 @@ const mainRoutes: Array<RouteRecordRaw> = [
         },
       },
       {
+        path: "tags/:tagName",
+        name: "main-tags",
+        component: () => import("../components/main/TagBlock.vue"),
+        // beforeEnter: (to, form, next) => {
+
+        // },
+      },
+      {
         path: "login",
         name: "main-login",
         component: () => import("../components/main/LoginBlock.vue"),

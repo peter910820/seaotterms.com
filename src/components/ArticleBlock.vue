@@ -106,7 +106,7 @@ export default defineComponent({
 }
 .content {
   min-height: 500px;
-  font-family: "Anonymice-Powerline-Bold";
+  font-family: "jf-openhuninn-2.1";
   > .col {
     min-width: 100%;
     min-height: 500px;
@@ -117,7 +117,7 @@ export default defineComponent({
 }
 /* font-settings */
 @font-face {
-  font-family: "Anonymice-Powerline-Bold";
-  src: url("@/assets/fonts/Anonymice-Powerline-Bold.ttf") format("truetype");
+  font-family: "jf-openhuninn-2.1";
+  src: url("@/assets/fonts/jf-openhuninn-2.1.ttf") format("truetype");
 }
 </style>

@@ -1,31 +1,33 @@
 <template>
-  <div class="col s12 banner wow animate__flipInX">
-    <div><div></div></div>
-  </div>
-  <div class="col s12 center">
-    <h1>首頁/文章</h1>
-  </div>
-  <div
-    class="col s12 articles floatup-div wow animate__bounceIn"
-    v-for="article in articleContent"
-    :key="article.ID"
-    @click="link(article.ID)"
-  >
-    <div class="title">{{ article.Title }}</div>
-    <div class="username">
-      <i class="material-icons">person</i>{{ article.Username }}
+  <div class="mainBlock">
+    <div class="col s12 banner wow animate__flipInX">
+      <div><div></div></div>
     </div>
-    <div class="information">
-      <i class="material-icons">edit</i>{{ article.CreatedAt }}
-      <i class="material-icons">update</i>{{ article.UpdatedAt }}
+    <div class="col s12 center">
+      <h1>首頁/文章</h1>
     </div>
-    <div class="tag">
-      <div
-        class="button-tags"
-        v-for="(tag, index) in article.Tags"
-        :key="index"
-      >
-        {{ tag }}
+    <div
+      class="col s12 articles floatup-div wow animate__bounceIn"
+      v-for="article in articleContent"
+      :key="article.ID"
+      @click="link(article.ID)"
+    >
+      <div class="title">{{ article.Title }}</div>
+      <div class="username">
+        <i class="material-icons">person</i>{{ article.Username }}
+      </div>
+      <div class="information">
+        <i class="material-icons">edit</i>{{ article.CreatedAt }}
+        <i class="material-icons">update</i>{{ article.UpdatedAt }}
+      </div>
+      <div class="tag">
+        <div
+          class="button-tags"
+          v-for="(tag, index) in article.Tags"
+          :key="index"
+        >
+          {{ tag }}
+        </div>
       </div>
     </div>
   </div>
@@ -69,6 +71,9 @@ export default defineComponent({
   padding-top: 20px;
   margin-top: 10px;
 }
+.mainBlock {
+  padding: 25px;
+}
 .center {
   text-align: center;
 }
@@ -85,7 +90,7 @@ export default defineComponent({
   > div {
     min-height: 100%;
     max-height: 100%;
-    border: 2px solid white;
+    border: 2px solid transparent;
     border-radius: 100px;
     position: absolute;
     top: 0;

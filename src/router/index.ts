@@ -1,25 +1,26 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import axios from "axios";
-import Cookies from "js-cookie";
 // type
 import { RouteLocationNormalized, NavigationGuardNext } from "vue-router";
-
+import axios from "axios";
+import Cookies from "js-cookie";
+// vuex store
 import store from "../store/store";
-
+// views
 import MainView from "../views/MainView.vue";
 
-// db article data(send to vuex)
-interface StoreData {
-  ID: number;
-  Title: string;
-  Username: string;
-  Tags: Array<string>;
-  Content: string;
-  CreatedAt: string;
-  UpdatedAt: string;
-}
 // the page need to check the login
-const privatePages = ["/article", "/create"];
+const privatePages = ["/create"];
+
+// db article data(send to vuex)
+// interface StoreData {
+//   ID: number;
+//   Title: string;
+//   Username: string;
+//   Tags: Array<string>;
+//   Content: string;
+//   CreatedAt: string;
+//   UpdatedAt: string;
+// }
 
 const getArticleInformation = async (): Promise<object | number> => {
   try {
@@ -55,25 +56,12 @@ const routes: Array<RouteRecordRaw> = [
     name: "home",
     component: MainView,
     beforeEnter: async (to, from, next) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const data = (await getArticleInformation()) as any;
+      const data = await getArticleInformation();
       if (typeof data !== "number") {
-        const storeData: Map<string, StoreData> = new Map<string, StoreData>();
-        for (const prop in data) {
-          storeData.set(prop, {
-            ID: data[prop].ID,
-            Title: data[prop].Title,
-            Username: data[prop].Username,
-            Tags: data[prop].Tags,
-            Content: data[prop].Content,
-            CreatedAt: data[prop].CreatedAt,
-            UpdatedAt: data[prop].UpdatedAt,
-          });
-        }
         store.commit("setArticleContent", data);
         next();
       } else {
-        next("notFound");
+        next("/message");
       }
     },
   },
@@ -93,16 +81,6 @@ const routes: Array<RouteRecordRaw> = [
       )) as any;
       if (typeof data !== "number") {
         console.log(data);
-        const storeData: Map<string, StoreData> = new Map<string, StoreData>();
-        storeData.set(data.ID, {
-          ID: data.ID,
-          Title: data.Title,
-          Username: data.Username,
-          Tags: data.Tags,
-          Content: data.Content,
-          CreatedAt: data.CreatedAt,
-          UpdatedAt: data.UpdatedAt,
-        });
         store.commit("setArticleContent", data);
         next();
       } else {
@@ -124,18 +102,8 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/loginHandler",
-    name: "loginHandler",
-    component: () => import("../views/MainView.vue"),
-  },
-  {
     path: "/register",
     name: "register",
-    component: () => import("../views/MainView.vue"),
-  },
-  {
-    path: "/registerHandler",
-    name: "registerHandler",
     component: () => import("../views/MainView.vue"),
   },
   // match all route
@@ -145,12 +113,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/MainView.vue"),
   },
 ];
-
+// createRouter
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
-
 // Navigation Guards(global)
 router.beforeEach(
   async (
@@ -160,46 +127,26 @@ router.beforeEach(
   ) => {
     if (privatePages.includes(to.path)) {
       try {
-        await axios
-          .post("/api/verify")
-          .then(() => {
-            // login now
-            next();
-          })
-          .catch((error) => {
-            console.log(error.response?.status);
-            alert("使用者尚未登入, 請前往登入");
-            next("/login");
-          });
+        await axios.post("/api/verify");
+        // login now
+        next();
       } catch (error) {
-        console.error(error);
-        next("/login");
+        if (axios.isAxiosError(error)) {
+          console.log(`${error.response?.status}: ${error.response?.data.msg}`);
+          sessionStorage.setItem(
+            "msg",
+            `${error.response?.status}: ${error.response?.data.msg}`
+          );
+          alert("使用者尚未登入, 請前往登入");
+          next("/login");
+        } else {
+          console.error(error);
+          next("/message");
+        }
       }
     } else {
       next();
     }
-  }
-);
-// Navigation Guards2(global)
-router.beforeEach(
-  async (
-    to: RouteLocationNormalized,
-    from: RouteLocationNormalized,
-    next: NavigationGuardNext
-  ) => {
-    console.log("Middleware 2: Checking admin rights");
-    next();
-  }
-);
-// Navigation Guards3(global)
-router.beforeEach(
-  async (
-    to: RouteLocationNormalized,
-    from: RouteLocationNormalized,
-    next: NavigationGuardNext
-  ) => {
-    console.log("Middleware 3: Checking admin rights");
-    next();
   }
 );
 

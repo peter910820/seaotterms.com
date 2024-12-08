@@ -3,7 +3,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import { RouteLocationNormalized, NavigationGuardNext } from "vue-router";
 
 import axios from "axios";
-// views
+// Routes for different views
 import mainRoutes from "./mainRoutes";
 
 // the page need to check the login

@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="myProfile">
     <div class="h4">
       <div class="headShot">
         <img src="@/assets/headshot.png" alt="" />
@@ -70,7 +70,7 @@ export default class MyProfile extends Vue {
 </script>
 
 <style scoped>
-.row {
+.myProfile {
   min-height: 100vh;
   max-height: 100vh;
   > div {
@@ -93,8 +93,10 @@ export default class MyProfile extends Vue {
   }
 }
 .headShot {
-  max-height: 100%;
+  max-height: 500px;
   height: 100%;
+  max-width: 500px;
+  width: 100%;
   overflow: hidden;
   display: flex;
   align-items: center;

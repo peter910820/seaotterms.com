@@ -2,10 +2,10 @@
   <div class="mainStyle">
     <NavBar />
     <div class="row">
-      <div class="col l9 m12">
+      <div class="col l9 m12 s12">
         <router-view />
       </div>
-      <div class="col l3 m12 sticky">
+      <div class="col l3 m12 s12 sticky">
         <MyProfile />
       </div>
     </div>

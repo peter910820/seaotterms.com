@@ -71,8 +71,8 @@ export default class MyProfile extends Vue {
 
 <style scoped>
 .row {
-  min-height: 80vh;
-  max-height: 80vh;
+  min-height: 100vh;
+  max-height: 100vh;
   > div {
     margin-top: 10px;
     margin-left: 5px;

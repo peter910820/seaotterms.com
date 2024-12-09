@@ -14,6 +14,7 @@
         role="button"
         v-for="(Tag, index) in articleData.Tags"
         :key="index"
+        @click="link(Tag)"
       >
         {{ Tag }}
       </div>
@@ -35,7 +36,7 @@ export default defineComponent({
 });
 </script> -->
 
-<script>
+<script lang="ts">
 import { defineComponent, ref, computed } from "vue";
 import { useStore } from "vuex";
 
@@ -48,8 +49,10 @@ export default defineComponent({
     const store = useStore();
     const articleData = ref(store.state.articleContent);
 
-    const renderMarkdown = (content) => {
-      const md = MarkdownIt({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const renderMarkdown = (content: any) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const md: any = MarkdownIt({
         highlight: function (str, lang) {
           if (lang && hljs.getLanguage(lang)) {
             try {
@@ -78,9 +81,14 @@ export default defineComponent({
       renderMarkdown(articleData.value.Content)
     );
 
+    const link = (tagName: string) => {
+      window.location.href = `/tags/${tagName}`;
+    };
+
     return {
       articleData,
       renderedMarkdown,
+      link,
     };
   },
 });

@@ -10,7 +10,7 @@
       class="col s12 articles floatup-div wow animate__bounceIn"
       v-for="article in articleContent"
       :key="article.ID"
-      @click="link(article.ID)"
+      @click="link('article', article.ID)"
     >
       <div class="title">{{ article.Title }}</div>
       <div class="username">
@@ -25,6 +25,7 @@
           class="button-tags"
           v-for="(tag, index) in article.Tags"
           :key="index"
+          @click="tagClick(tag, $event)"
         >
           {{ tag }}
         </div>
@@ -42,8 +43,17 @@ export default defineComponent({
     const store = useStore();
     const articleContent = ref(store.state.articleContent);
 
-    const link = (articleID: string) => {
-      window.location.href = `./articles/${articleID}`;
+    const link = (mod: string, target: string) => {
+      if (mod === "article") {
+        window.location.href = `./articles/${target}`;
+      } else {
+        window.location.href = `./tags/${target}`;
+      }
+    };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const tagClick = (tag: string, event: any) => {
+      event.stopPropagation();
+      link("tag", tag);
     };
 
     onMounted(() => {
@@ -58,6 +68,7 @@ export default defineComponent({
 
     return {
       link,
+      tagClick,
       articleContent,
     };
   },

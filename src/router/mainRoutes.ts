@@ -35,6 +35,16 @@ const getSingleArticleInformation = async (
     return error.response?.status; // return status code
   }
 };
+const getAllTagInformation = async (): Promise<object | number> => {
+  try {
+    const response = await axios.post(`http://127.0.0.1:3000/api/tags`);
+    return response.data.data as object;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.log(error);
+    return error.response?.status;
+  }
+};
 
 const getTagInformation = async (tagName: string): Promise<object | number> => {
   try {
@@ -99,6 +109,20 @@ const mainRoutes: Array<RouteRecordRaw> = [
             next();
           } else {
             next("notFound"); // goto notdefined route to catch 404 status code
+          }
+        },
+      },
+      {
+        path: "tags",
+        name: "main-tags-all",
+        component: () => import("../components/main/TagsBlock.vue"),
+        beforeEnter: async (to, form, next) => {
+          const data = await getAllTagInformation();
+          if (typeof data !== "number") {
+            store.commit("setTagArticle", data);
+            next();
+          } else {
+            next("notFound");
           }
         },
       },

@@ -115,3 +115,36 @@
     top: 0;
     border-radius: 10px;
   }
+/* button-flip */
+.button-flip {
+  background-color: rgba(0, 140, 255, 0.678);
+  font-weight: bold;
+  overflow: hidden;
+  transition: transform 0.5s ease, background-color 0.5s ease;
+}
+
+.button-flip:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.219);
+  border: 1px solid transparent;
+  border-radius: 50px;
+  transition: all 0.5s ease;
+}
+
+.button-flip:hover {
+  transform: scale(0.5);
+  background-color: cornflowerblue;
+}
+
+.button-flip:hover:after {
+  width: 0;
+  height: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

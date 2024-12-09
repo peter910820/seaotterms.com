@@ -36,12 +36,16 @@ const getSingleArticleInformation = async (
   }
 };
 
-const getTagInformation = async () => {
+const getTagInformation = async (tagName: string): Promise<object | number> => {
   try {
-    const response = await axios.post(`http://127.0.0.1:3000/api/tags/`);
+    const response = await axios.post(
+      `http://127.0.0.1:3000/api/tags/${tagName}`
+    );
+    return response.data.data as object;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    console.log("test");
+    console.log(error);
+    return error.response?.status;
   }
 };
 
@@ -102,9 +106,15 @@ const mainRoutes: Array<RouteRecordRaw> = [
         path: "tags/:tagName",
         name: "main-tags",
         component: () => import("../components/main/TagBlock.vue"),
-        // beforeEnter: (to, form, next) => {
-
-        // },
+        beforeEnter: async (to, form, next) => {
+          const data = await getTagInformation(to.params.tagName as string);
+          if (typeof data !== "number") {
+            store.commit("setTagArticle", data);
+            next();
+          } else {
+            next("notFound");
+          }
+        },
       },
       {
         path: "login",

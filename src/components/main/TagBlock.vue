@@ -1,24 +1,40 @@
 <template>
   <div class="col s12 tagBlock">
     <div class="col s12">
-      <h1>Linux</h1>
+      <h1>{{ tagName }}</h1>
     </div>
-    <div class="col s6">
-      <div class="floatup-div wow animate__bounceIn">這是一個linux文章</div>
-    </div>
-    <div class="col s6">
-      <div class="floatup-div wow animate__bounceIn">這是一個linux文章</div>
-    </div>
-    <div class="col s6">
-      <div class="floatup-div wow animate__bounceIn">這是一個linux文章</div>
-    </div>
-    <div class="col s6">
-      <div class="floatup-div wow animate__bounceIn">這是一個linux文章</div>
+    <div class="col s6" v-for="Tag in tagData" :key="Tag.ID">
+      <div class="floatup-div wow animate__bounceIn" @click="link(Tag.ID)">
+        {{ Tag.Title }}
+      </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script lang="ts">
+import { defineComponent, ref } from "vue";
+import { useRoute } from "vue-router";
+
+import { useStore } from "vuex";
+
+export default defineComponent({
+  setup() {
+    const route = useRoute();
+    const store = useStore();
+    const tagName = route.params.tagName;
+    const tagData = ref(store.state.tagArticle);
+
+    const link = (articleID: string) => {
+      window.location.href = `/articles/${articleID}`;
+    };
+    return {
+      tagName,
+      tagData,
+      link,
+    };
+  },
+});
+</script>
 
 <style scoped>
 h1 {

@@ -59,9 +59,13 @@ onMounted(() => {
 
 <style scoped>
 .nav-wrapper {
-  background-color: pink;
+  background-color: #f2ebea;
 }
 .brand-logo {
   margin-left: 10px;
+}
+
+a {
+  color: #444444 !important;
 }
 </style>

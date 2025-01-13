@@ -94,7 +94,7 @@ export default defineComponent({
   border: 2px solid white;
   border-radius: 100px;
   text-align: center;
-  background-image: url("https://seaottermsc.com/image/background.png");
+  background-image: url("@/assets/background.png");
   background-size: cover;
   background-position: 50% 20%;
   position: relative;

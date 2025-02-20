@@ -108,7 +108,7 @@ export default defineComponent({
     bottom: 0;
     right: 0;
     left: 0;
-    background-color: rgba(240, 248, 255, 0.459);
+    background-color: rgba(240, 248, 255, 0.5);
     > div {
       min-height: 100%;
       max-height: 100%;

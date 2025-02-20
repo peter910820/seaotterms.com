@@ -157,6 +157,11 @@ const mainRoutes: Array<RouteRecordRaw> = [
         name: "main-register",
         component: () => import("../components/main/RegisterBlock.vue"),
       },
+      {
+        path: "galgame",
+        name: "main-galgame",
+        component: () => import("../components/main/GalgameRecord.vue"),
+      },
       // match all route
       {
         path: ":pathMatch(.*)*",

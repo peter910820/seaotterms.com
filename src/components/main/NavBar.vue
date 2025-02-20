@@ -27,6 +27,11 @@
             >註冊<i class="material-icons left">how_to_reg</i></router-link
           >
         </li>
+        <li>
+          <router-link to="/galgame"
+            >Galgame紀錄<i class="material-icons left">casino</i></router-link
+          >
+        </li>
       </ul>
     </div>
   </nav>
@@ -43,6 +48,9 @@
     </li>
     <li>
       <router-link to="/register">註冊</router-link>
+    </li>
+    <li>
+      <router-link to="/galgame">Galgame紀錄</router-link>
     </li>
   </ul>
 </template>

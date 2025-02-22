@@ -56,12 +56,23 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, nextTick } from "vue";
 
 onMounted(() => {
-  const elems = document.querySelectorAll(".sidenav");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-undef
-  const instances = M.Sidenav.init(elems);
+  nextTick(() => {
+    const elems = document.querySelectorAll(".sidenav");
+    let options = {};
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-undef
+    const instances = M.Sidenav.init(elems, options);
+
+    // change position for navbar overlay
+    const overlay = document.querySelector(".sidenav-overlay");
+    const sidenav = document.querySelector(".sidenav");
+
+    if (overlay && sidenav) {
+      sidenav.parentNode?.insertBefore(overlay, sidenav);
+    }
+  });
 });
 </script>
 

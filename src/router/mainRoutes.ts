@@ -162,6 +162,11 @@ const mainRoutes: Array<RouteRecordRaw> = [
         name: "main-galgame",
         component: () => import("../components/main/GalgameRecord.vue"),
       },
+      {
+        path: "galgameBrand/insert",
+        name: "main-insertgalgamebrand",
+        component: () => import("../components/main/InsertGalgameBrand.vue"),
+      },
       // match all route
       {
         path: ":pathMatch(.*)*",

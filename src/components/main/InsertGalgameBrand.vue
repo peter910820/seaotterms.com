@@ -41,7 +41,7 @@
   </div>
 </template>
 <script>
-import { ref, defineProps, defineComponent } from "vue";
+import { ref, defineComponent } from "vue";
 import { useRouter } from "vue-router";
 
 import axios from "axios";
@@ -59,8 +59,12 @@ export default defineComponent({
     const handleSubmit = async () => {
       try {
         form.value.brand = form.value.brand.trim();
-        if (form.value.completed < 0 || form.value.total < 0) {
-          sessionStorage.setItem("msg", "數值不可低於0");
+        if (
+          form.value.completed < 0 ||
+          form.value.total < 0 ||
+          form.value.completed > form.value.total
+        ) {
+          sessionStorage.setItem("msg", "數值有誤");
           router.push("/message");
           return;
         } else if (form.value.brand === "") {
@@ -69,15 +73,9 @@ export default defineComponent({
           return;
         }
 
-        console.log(form.value.brand);
-        console.log(form.value.completed);
-        console.log(form.value.total);
-        console.log(form.value.dissolution);
-        // form.value.tags = middleTags.value.split(",");
-        // console.log(form.value.tags);
-        // await axios.post("/api/create-article", form.value);
-        // sessionStorage.setItem("msg", "資料創建成功");
-        // router.push("/message");
+        let response = await axios.post("/api/galgame-brand", form.value);
+        sessionStorage.setItem("msg", response?.data.msg);
+        router.push("/message");
       } catch (error) {
         if (axios.isAxiosError(error)) {
           sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);

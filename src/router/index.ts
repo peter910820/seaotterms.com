@@ -7,7 +7,7 @@ import axios from "axios";
 import mainRoutes from "./mainRoutes";
 
 // the page need to check the login
-const privatePages = ["/create"];
+const privatePages = ["/create", "/galgamebrand/insert"];
 
 // db article data(send to vuex)
 // interface StoreData {

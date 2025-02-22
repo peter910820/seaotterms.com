@@ -6,7 +6,20 @@ import Cookies from "js-cookie";
 import store from "../store/store";
 // views
 import MainView from "../views/MainView.vue";
-
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+const getGalgameBrand = async (): Promise<object | number> => {
+  try {
+    const response = await axios.get("http://127.0.0.1:3000/api/galgame-brand");
+    return response.data.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.log(error); // debug
+    return error.response?.status;
+  }
+};
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 const getArticleInformation = async (): Promise<object | number> => {
   try {
     const response = await axios.post("http://127.0.0.1:3000/api/articles");
@@ -155,6 +168,19 @@ const mainRoutes: Array<RouteRecordRaw> = [
         path: "galgamebrand",
         name: "main-galgameBrand",
         component: () => import("../components/main/GalgameBrand.vue"),
+        beforeEnter: async (to, from, next) => {
+          if (to.name === "main-galgameBrand") {
+            const data = await getGalgameBrand();
+            if (typeof data !== "number") {
+              store.commit("setGalgameBrandData", data);
+              next();
+            } else {
+              next("/message");
+            }
+          } else {
+            next();
+          }
+        },
       },
       {
         path: "galgamebrand/insert",

@@ -4,6 +4,8 @@ export default createStore({
   state: {
     articleContent: "",
     tagArticle: "",
+    // -------------------- //
+    galgameBrandData: "",
   },
   mutations: {
     setArticleContent(state, articleContent) {
@@ -11,6 +13,10 @@ export default createStore({
     },
     setTagArticle(state, tagArticle) {
       state.tagArticle = tagArticle;
+    },
+    // -------------------- //
+    setGalgameBrandData(state, galgameBrandData) {
+      state.galgameBrandData = galgameBrandData;
     },
   },
 });

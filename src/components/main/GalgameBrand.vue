@@ -1,32 +1,46 @@
 <template>
   <div class="row wow animate__flipInX">
-    <h1>Galgame紀錄</h1>
+    <h1>Galgameブランド紀錄</h1>
     <table>
       <thead>
         <tr>
           <th>ブランド</th>
-          <th>ゲーム</th>
+          <th>攻略數</th>
+          <th>總遊戲數</th>
+          <th>狀態</th>
+          <th>解散</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>NanaWind</td>
-          <td>春音アリス＊グラム</td>
-        </tr>
-        <tr>
-          <td>PULLTOP</td>
-          <td>見上げてごらん、夜空の星を</td>
-        </tr>
-        <tr>
-          <td>きゃべつそふと</td>
-          <td>ジュエリー・ハーツ・アカデミア -We will wing wonder world-</td>
+        <tr v-for="galgameBrand in galgameBrandData" :key="galgameBrand.Brand">
+          <td>{{ galgameBrand.brand }}</td>
+          <td>{{ galgameBrand.completed }}</td>
+          <td>{{ galgameBrand.total }}</td>
+          <td>{{ galgameBrand.annotation }}</td>
+          <td>{{ galgameBrand.dissolution ? "解散" : "" }}</td>
         </tr>
       </tbody>
     </table>
     <button><router-link to="/galgamebrand/insert">新增</router-link></button>
   </div>
 </template>
-<script setup lang="ts"></script>
+
+<script lang="ts">
+import { defineComponent, ref } from "vue";
+import { useStore } from "vuex";
+
+export default defineComponent({
+  setup() {
+    const store = useStore();
+    const galgameBrandData = ref(store.state.galgameBrandData);
+
+    return {
+      galgameBrandData,
+    };
+  },
+});
+</script>
+
 <style scoped>
 .row {
   height: 800px;

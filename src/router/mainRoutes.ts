@@ -10,7 +10,7 @@ import MainView from "../views/MainView.vue";
 // ----------------------------------------------------------------------------
 const getGalgameBrand = async (): Promise<object | number> => {
   try {
-    const response = await axios.get("http://127.0.0.1:3000/api/galgame-brand");
+    const response = await axios.get("/api/galgame-brand");
     return response.data.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -22,7 +22,7 @@ const getGalgameBrand = async (): Promise<object | number> => {
 // ----------------------------------------------------------------------------
 const getArticleInformation = async (): Promise<object | number> => {
   try {
-    const response = await axios.post("http://127.0.0.1:3000/api/articles");
+    const response = await axios.post("/api/articles");
     return response.data.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -36,7 +36,7 @@ const getSingleArticleInformation = async (articleID: string): Promise<object | 
     return 400; // enter an ID that is not allowed
   }
   try {
-    const response = await axios.post(`http://127.0.0.1:3000/api/articles/${articleID}`);
+    const response = await axios.post(`/api/articles/${articleID}`);
     return response.data.data as object;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -46,7 +46,7 @@ const getSingleArticleInformation = async (articleID: string): Promise<object | 
 };
 const getAllTagInformation = async (): Promise<object | number> => {
   try {
-    const response = await axios.post(`http://127.0.0.1:3000/api/tags`);
+    const response = await axios.post(`/api/tags`);
     return response.data.data as object;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -57,7 +57,7 @@ const getAllTagInformation = async (): Promise<object | number> => {
 
 const getTagInformation = async (tagName: string): Promise<object | number> => {
   try {
-    const response = await axios.post(`http://127.0.0.1:3000/api/tags/${tagName}`);
+    const response = await axios.post(`/api/tags/${tagName}`);
     return response.data.data as object;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {

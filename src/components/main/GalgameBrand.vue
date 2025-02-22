@@ -1,20 +1,20 @@
 <template>
   <div class="mainBlock">
-    <div class="col s12 center">
-      <h1>Galgameブランド紀錄</h1>
-    </div>
-    <div class="col s12 galgameBrandInsert">
-      <button class="button-simple">
-        <router-link to="/galgamebrand/insert">點我新增</router-link>
-      </button>
+    <div class="col s12 center galgameBrandTitle">
+      <div class="col s12">
+        Galgameブランド紀錄
+        <button class="button-simple">
+          <router-link to="/galgamebrand/insert">點我新增</router-link>
+        </button>
+      </div>
     </div>
     <div class="col s12 galgameBrandHeader">
       <div class="col s3">ブランド</div>
-      <div class="col s1">攻略數</div>
+      <div class="col s2">攻略數</div>
       <div class="col s2">總遊戲數</div>
       <div class="col s2">狀態</div>
       <div class="col s2">解散</div>
-      <div class="col s2">修改</div>
+      <div class="col s1">修改</div>
     </div>
     <div
       class="col s12 galgameBrand floatup-div wow animate__bounceIn"
@@ -22,7 +22,7 @@
       :key="galgameBrand.brand"
     >
       <div class="col s3 brand">{{ galgameBrand.brand }}</div>
-      <div class="col s1">{{ galgameBrand.completed }}</div>
+      <div class="col s2">{{ galgameBrand.completed }}</div>
       <div class="col s2">{{ galgameBrand.total }}</div>
       <div class="col s2" v-if="galgameBrand.annotation === '制霸'">
         <b>
@@ -33,11 +33,9 @@
       <div class="col s2">
         <font color="red">{{ galgameBrand.dissolution ? "解散" : "" }}</font>
       </div>
-      <div class="col s2 right">
+      <div class="col s1">
         <button class="button-simple">
-          <router-link :to="`/galgamebrand/update/${galgameBrand.brand}`">
-            我修改API還沒寫QQ
-          </router-link>
+          <router-link :to="`/galgamebrand/update/${galgameBrand.brand}`">修改</router-link>
         </button>
       </div>
     </div>
@@ -62,24 +60,35 @@ export default defineComponent({
 
 <style scoped>
 .col {
-  max-height: 150px;
-  height: 150px;
-  padding-top: 20px;
+  max-height: 50px;
+  height: 50px;
   margin-top: 10px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  cursor: default;
 }
 .mainBlock {
   padding: 25px;
+}
+.galgameBrandTitle {
+  text-align: center;
+  font-size: 50px;
+  font-weight: bold;
+  max-height: 100px;
+  height: 100px;
+  > .col {
+    padding: 0px;
+    margin: 0px;
+    min-height: 100%;
+  }
 }
 .galgameBrandHeader {
   text-align: center;
   font-size: x-large;
   font-weight: bold;
-  max-height: 100%;
-}
-.galgameBrandInsert {
-  text-align: center;
-  max-height: 50px;
-  height: 50px;
+  max-height: 80px;
+  height: 80px;
 }
 .galgameBrand {
   text-align: center;
@@ -91,9 +100,12 @@ export default defineComponent({
     margin-left: 5px;
     padding: 0px;
     max-height: 100%;
-  }
-  > .right {
-    text-align: right;
+    > button {
+      padding: 0px !important;
+      height: 30px;
+      max-height: 30px;
+      font-size: 20px;
+    }
   }
 }
 .brand {

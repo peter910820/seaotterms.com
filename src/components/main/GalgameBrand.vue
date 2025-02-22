@@ -23,6 +23,7 @@
         </tr>
       </tbody>
     </table>
+    <button><router-link to="/galgamebrand/insert">新增</router-link></button>
   </div>
 </template>
 <script setup lang="ts"></script>

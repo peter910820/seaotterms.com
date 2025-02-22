@@ -58,8 +58,7 @@ export default defineComponent({
             try {
               return (
                 '<pre><code class="hljs">' +
-                hljs.highlight(str, { language: lang, ignoreIllegals: true })
-                  .value +
+                hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
                 "</code></pre>"
               );
             } catch (error) {
@@ -67,19 +66,13 @@ export default defineComponent({
             }
           }
 
-          return (
-            '<pre><code class="hljs">' +
-            md.utils.escapeHtml(str) +
-            "</code></pre>"
-          );
+          return '<pre><code class="hljs">' + md.utils.escapeHtml(str) + "</code></pre>";
         },
       });
       return md.render(content);
     };
 
-    const renderedMarkdown = computed(() =>
-      renderMarkdown(articleData.value.Content)
-    );
+    const renderedMarkdown = computed(() => renderMarkdown(articleData.value.Content));
 
     const link = (tagName: string) => {
       window.location.href = `/tags/${tagName}`;

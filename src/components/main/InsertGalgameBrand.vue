@@ -1,73 +1,38 @@
 <template>
   <div class="row wow animate__flipInX">
     <h1>Galgameブランド新增</h1>
-    <form class="col s12" method="post">
+    <form class="col s12" method="post" @submit.prevent="handleSubmit">
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">apartment</i>
-          <input
-            id="brand"
-            v-model="insertForm.brand"
-            type="text"
-            class="validate"
-            required
-          />
-          <span
-            class="helper-text"
-            data-error="此欄不能為空"
-            data-success=""
-          ></span>
+          <input id="brand" v-model="form.brand" type="text" class="validate" required />
+          <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
           <label for="brand">ブランド</label>
         </div>
         <div class="input-field col s6">
           <i class="material-icons prefix">done_outline</i>
-          <input
-            id="completed"
-            v-model="insertForm.completed"
-            type="number"
-            class="validate"
-            required
-          />
-          <span
-            class="helper-text"
-            data-error="此欄不能為空"
-            data-success=""
-          ></span>
+          <input id="completed" v-model="form.completed" type="number" class="validate" required />
+          <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
           <label for="completed">Completed</label>
           <!-- <label for="username">userName</label> -->
         </div>
         <div class="input-field col s6">
           <i class="material-icons prefix">format_list_bulleted</i>
-          <input
-            id="total"
-            v-model="insertForm.total"
-            type="number"
-            class="validate"
-            required
-          />
-          <span
-            class="helper-text"
-            data-error="此欄不能為空"
-            data-success=""
-          ></span>
+          <input id="total" v-model="form.total" type="number" class="validate" required />
+          <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
           <label for="total">Total</label>
-          <!-- <label for="username">userName</label> -->
         </div>
         <div class="input-field col s6">
           <p>
             <label>
-              <input type="checkbox" class="filled-in" v-model="isChecked" />
+              <input type="checkbox" class="filled-in" v-model="form.dissolution" />
               <span>解散</span>
             </label>
           </p>
         </div>
         <div class="col s12">
-          <button
-            class="btn waves-effect waves-light"
-            type="submit"
-            name="action"
-          >
-            Submit
+          <button class="btn waves-effect waves-light" type="submit" name="action">
+            新增
             <i class="material-icons right">send</i>
           </button>
         </div>
@@ -82,15 +47,50 @@ import { useRouter } from "vue-router";
 import axios from "axios";
 export default defineComponent({
   setup() {
-    const insertForm = ref({
+    const form = ref({
       brand: "",
       username: "SeaotterMS",
-      completed: "",
-      total: "",
-      dissolution: "",
+      completed: 0,
+      total: 0,
+      dissolution: false,
     });
+    const router = useRouter();
+
+    const handleSubmit = async () => {
+      try {
+        form.value.brand = form.value.brand.trim();
+        if (form.value.completed < 0 || form.value.total < 0) {
+          sessionStorage.setItem("msg", "數值不可低於0");
+          router.push("/message");
+          return;
+        } else if (form.value.brand === "") {
+          sessionStorage.setItem("msg", "ブランド不得為空");
+          router.push("/message");
+          return;
+        }
+
+        console.log(form.value.brand);
+        console.log(form.value.completed);
+        console.log(form.value.total);
+        console.log(form.value.dissolution);
+        // form.value.tags = middleTags.value.split(",");
+        // console.log(form.value.tags);
+        // await axios.post("/api/create-article", form.value);
+        // sessionStorage.setItem("msg", "資料創建成功");
+        // router.push("/message");
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
+          router.push("/message");
+        } else {
+          console.log("未知錯誤: " + error);
+          router.push("/notFound");
+        }
+      }
+    };
     return {
-      insertForm,
+      form,
+      handleSubmit,
     };
   },
 });

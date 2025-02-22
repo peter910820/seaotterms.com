@@ -18,16 +18,12 @@ const getArticleInformation = async (): Promise<object | number> => {
   }
 };
 
-const getSingleArticleInformation = async (
-  articleID: string
-): Promise<object | number> => {
+const getSingleArticleInformation = async (articleID: string): Promise<object | number> => {
   if (!(Number.isInteger(Number(articleID)) && Number(articleID) > 0)) {
     return 400; // enter an ID that is not allowed
   }
   try {
-    const response = await axios.post(
-      `http://127.0.0.1:3000/api/articles/${articleID}`
-    );
+    const response = await axios.post(`http://127.0.0.1:3000/api/articles/${articleID}`);
     return response.data.data as object;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -48,9 +44,7 @@ const getAllTagInformation = async (): Promise<object | number> => {
 
 const getTagInformation = async (tagName: string): Promise<object | number> => {
   try {
-    const response = await axios.post(
-      `http://127.0.0.1:3000/api/tags/${tagName}`
-    );
+    const response = await axios.post(`http://127.0.0.1:3000/api/tags/${tagName}`);
     return response.data.data as object;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -158,13 +152,13 @@ const mainRoutes: Array<RouteRecordRaw> = [
         component: () => import("../components/main/RegisterBlock.vue"),
       },
       {
-        path: "galgame",
-        name: "main-galgame",
-        component: () => import("../components/main/GalgameRecord.vue"),
+        path: "galgamebrand",
+        name: "main-galgameBrand",
+        component: () => import("../components/main/GalgameBrand.vue"),
       },
       {
-        path: "galgameBrand/insert",
-        name: "main-insertgalgamebrand",
+        path: "galgamebrand/insert",
+        name: "main-insertGalgameBrand",
         component: () => import("../components/main/InsertGalgameBrand.vue"),
       },
       // match all route

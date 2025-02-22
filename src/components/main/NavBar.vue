@@ -8,19 +8,13 @@
       <!-- common -->
       <ul class="right hide-on-med-and-down">
         <li>
-          <router-link to="/"
-            >首頁<i class="material-icons left">home</i></router-link
-          >
+          <router-link to="/">首頁<i class="material-icons left">home</i></router-link>
         </li>
         <li>
-          <router-link to="/create"
-            >建立<i class="material-icons left">edit</i></router-link
-          >
+          <router-link to="/create">建立<i class="material-icons left">edit</i></router-link>
         </li>
         <li>
-          <router-link to="/login"
-            >登入<i class="material-icons left">login</i></router-link
-          >
+          <router-link to="/login">登入<i class="material-icons left">login</i></router-link>
         </li>
         <li>
           <router-link to="/register"
@@ -28,7 +22,7 @@
           >
         </li>
         <li>
-          <router-link to="/galgame"
+          <router-link to="/galgamebrand"
             >Galgame紀錄<i class="material-icons left">casino</i></router-link
           >
         </li>
@@ -50,7 +44,7 @@
       <router-link to="/register">註冊</router-link>
     </li>
     <li>
-      <router-link to="/galgame">Galgame紀錄</router-link>
+      <router-link to="/galgamebrand">Galgame紀錄</router-link>
     </li>
   </ul>
 </template>

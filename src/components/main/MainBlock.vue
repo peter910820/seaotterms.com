@@ -13,9 +13,7 @@
       @click="link('article', article.ID)"
     >
       <div class="title">{{ article.Title }}</div>
-      <div class="username">
-        <i class="material-icons">person</i>{{ article.Username }}
-      </div>
+      <div class="username"><i class="material-icons">person</i>{{ article.Username }}</div>
       <div class="information">
         <i class="material-icons">edit</i>{{ article.CreatedAt }}
         <i class="material-icons">update</i>{{ article.UpdatedAt }}

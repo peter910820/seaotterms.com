@@ -5,18 +5,8 @@
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">title</i>
-          <input
-            id="title"
-            v-model="form.title"
-            type="text"
-            class="validate"
-            required
-          />
-          <span
-            class="helper-text"
-            data-error="此欄不能為空"
-            data-success=""
-          ></span>
+          <input id="title" v-model="form.title" type="text" class="validate" required />
+          <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
           <label for="title">title</label>
         </div>
         <div class="input-field col s6">
@@ -26,27 +16,13 @@
         </div>
         <div class="input-field col s6">
           <i class="material-icons prefix">sell</i>
-          <input
-            id="tag"
-            v-model="middleTags"
-            type="text"
-            class="validate"
-            required
-          />
-          <span
-            class="helper-text"
-            data-error="此欄不能為空"
-            data-success=""
-          ></span>
+          <input id="tag" v-model="middleTags" type="text" class="validate" required />
+          <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
           <label for="tag">tag</label>
         </div>
         <div class="input-field col s6">
           <i class="material-icons prefix">mode_edit</i>
-          <textarea
-            id="textarea1"
-            v-model="form.content"
-            class="materialize-textarea"
-          ></textarea>
+          <textarea id="textarea1" v-model="form.content" class="materialize-textarea"></textarea>
           <label for="textarea1">Content</label>
         </div>
         <div class="markdown-preview col s6" v-html="renderedMarkdown"></div>
@@ -54,11 +30,7 @@
           <p class="hint">本功能使用markdown支援(右邊會有markdown即時預覽)</p>
         </div>
         <div class="col s12">
-          <button
-            class="btn waves-effect waves-light"
-            type="submit"
-            name="action"
-          >
+          <button class="btn waves-effect waves-light" type="submit" name="action">
             Submit
             <i class="material-icons right">send</i>
           </button>
@@ -106,10 +78,7 @@ export default defineComponent({
         router.push("/message");
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          sessionStorage.setItem(
-            "msg",
-            `${error.response?.status}: ${error.response?.data.msg}`
-          );
+          sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
           router.push("/message");
         } else {
           console.log("未知錯誤: " + error);
@@ -124,8 +93,7 @@ export default defineComponent({
             try {
               return (
                 '<pre><code class="hljs">' +
-                hljs.highlight(str, { language: lang, ignoreIllegals: true })
-                  .value +
+                hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
                 "</code></pre>"
               );
             } catch (error) {
@@ -133,11 +101,7 @@ export default defineComponent({
             }
           }
 
-          return (
-            '<pre><code class="hljs">' +
-            md.utils.escapeHtml(str) +
-            "</code></pre>"
-          );
+          return '<pre><code class="hljs">' + md.utils.escapeHtml(str) + "</code></pre>";
         },
       });
       return md.render(content);

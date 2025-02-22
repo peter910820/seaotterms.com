@@ -15,35 +15,17 @@
       >
     </div>
     <div class="socialLink">
-      <a
-        href="https://github.com/peter910820"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href="https://github.com/peter910820" target="_blank" rel="noopener noreferrer">
         <i
-          :class="[
-            'fa-brands',
-            'fa-github',
-            'fa-2xl',
-            { 'fa-spin': isHoveredGithub },
-          ]"
+          :class="['fa-brands', 'fa-github', 'fa-2xl', { 'fa-spin': isHoveredGithub }]"
           @mouseover="isHoveredGithub = true"
           @mouseleave="isHoveredGithub = false"
           style="color: #000000"
         ></i>
       </a>
-      <a
-        href="https://x.com/seaotterMS"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href="https://x.com/seaotterMS" target="_blank" rel="noopener noreferrer">
         <i
-          :class="[
-            'fa-brands',
-            'fa-twitter',
-            'fa-2xl',
-            { 'fa-spin': isHoveredTwitter },
-          ]"
+          :class="['fa-brands', 'fa-twitter', 'fa-2xl', { 'fa-spin': isHoveredTwitter }]"
           @mouseover="isHoveredTwitter = true"
           @mouseleave="isHoveredTwitter = false"
           style="color: #74c0fc"

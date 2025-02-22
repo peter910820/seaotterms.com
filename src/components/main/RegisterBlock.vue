@@ -5,50 +5,20 @@
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">account_circle</i>
-          <input
-            id="username"
-            v-model="form.username"
-            type="text"
-            class="validate"
-            required
-          />
-          <span
-            class="helper-text"
-            data-error="此欄不能為空"
-            data-success=""
-          ></span>
+          <input id="username" v-model="form.username" type="text" class="validate" required />
+          <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
           <label for="username">userName</label>
         </div>
         <div class="input-field col s12">
           <i class="material-icons prefix">mail</i>
-          <input
-            id="email"
-            v-model="form.email"
-            type="email"
-            class="validate"
-            required
-          />
-          <span
-            class="helper-text"
-            data-error="格式錯誤"
-            data-success=""
-          ></span>
+          <input id="email" v-model="form.email" type="email" class="validate" required />
+          <span class="helper-text" data-error="格式錯誤" data-success=""></span>
           <label for="email">email</label>
         </div>
         <div class="input-field col s12">
           <i class="material-icons prefix">lock</i>
-          <input
-            id="password"
-            v-model="form.password"
-            type="password"
-            class="validate"
-            required
-          />
-          <span
-            class="helper-text"
-            data-error="此欄不能為空"
-            data-success=""
-          ></span>
+          <input id="password" v-model="form.password" type="password" class="validate" required />
+          <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
           <label for="password">password</label>
         </div>
         <div class="input-field col s12">
@@ -60,19 +30,11 @@
             class="validate"
             required
           />
-          <span
-            class="helper-text"
-            data-error="此欄不能為空"
-            data-success=""
-          ></span>
+          <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
           <label for="checkPassword">check password</label>
         </div>
         <div class="passwordCheck">{{ err }}</div>
-        <button
-          class="btn waves-effect waves-light"
-          type="submit"
-          name="action"
-        >
+        <button class="btn waves-effect waves-light" type="submit" name="action">
           Submit
           <i class="material-icons right">send</i>
         </button>
@@ -105,10 +67,7 @@ const handleRegisterSubmit = async () => {
     router.push("/message");
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      sessionStorage.setItem(
-        "msg",
-        `${error.response?.status}: ${error.response?.data.msg}`
-      );
+      sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
       router.push("/message");
     } else {
       console.log("未知錯誤: " + error);

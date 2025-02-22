@@ -4,10 +4,7 @@
       <h1>標籤一覽</h1>
     </div>
     <div class="col s6" v-for="Tag in tagData" :key="Tag.ID">
-      <div
-        class="button-flip floatup-div wow animate__bounceIn"
-        @click="link(Tag.Name)"
-      >
+      <div class="button-flip floatup-div wow animate__bounceIn" @click="link(Tag.Name)">
         <span>{{ Tag.Name }}</span>
       </div>
     </div>

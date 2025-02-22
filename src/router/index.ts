@@ -29,11 +29,7 @@ const router = createRouter({
 });
 // Navigation Guards(global)
 router.beforeEach(
-  async (
-    to: RouteLocationNormalized,
-    from: RouteLocationNormalized,
-    next: NavigationGuardNext
-  ) => {
+  async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
     if (privatePages.includes(to.path)) {
       try {
         await axios.post("/api/verify");
@@ -42,10 +38,7 @@ router.beforeEach(
       } catch (error) {
         if (axios.isAxiosError(error)) {
           console.log(`${error.response?.status}: ${error.response?.data.msg}`);
-          sessionStorage.setItem(
-            "msg",
-            `${error.response?.status}: ${error.response?.data.msg}`
-          );
+          sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
           alert("使用者尚未登入, 請前往登入");
           next("/login");
         } else {

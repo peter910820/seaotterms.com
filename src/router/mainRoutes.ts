@@ -8,16 +8,23 @@ import store from "../store/store";
 import MainView from "../views/MainView.vue";
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
-const getGalgameBrand = async (): Promise<object | number> => {
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getGalgameBrand = async (mode: number, path?: string): Promise<any> => {
+  let apiUrl = "http://127.0.0.1:3000/api/galgame-brand";
+  if (mode === 1) {
+    apiUrl = `http://127.0.0.1:3000/api/galgame-brand/${path}`;
+  }
   try {
-    const response = await axios.get("/api/galgame-brand");
-    return response.data.data;
+    const response = await axios.get(apiUrl);
+    return response;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.log(error); // debug
-    return error.response?.status;
+    return error.response;
   }
 };
+
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
 const getArticleInformation = async (): Promise<object | number> => {
@@ -170,11 +177,12 @@ const mainRoutes: Array<RouteRecordRaw> = [
         component: () => import("../components/main/GalgameBrand.vue"),
         beforeEnter: async (to, from, next) => {
           if (to.name === "main-galgameBrand") {
-            const data = await getGalgameBrand();
-            if (typeof data !== "number") {
-              store.commit("setGalgameBrandData", data);
+            const response = await getGalgameBrand(0);
+            if (response.status === 200) {
+              store.commit("setGalgameBrandData", response.data.data);
               next();
             } else {
+              sessionStorage.setItem("msg", `${response?.status}: ${response?.data.msg}`);
               next("/message");
             }
           } else {
@@ -186,6 +194,25 @@ const mainRoutes: Array<RouteRecordRaw> = [
         path: "galgamebrand/insert",
         name: "main-insertGalgameBrand",
         component: () => import("../components/main/InsertGalgameBrand.vue"),
+      },
+      {
+        path: "galgamebrand/edit/:brand",
+        name: "main-editGalgameBrand",
+        component: () => import("../components/main/EditGalgameBrand.vue"),
+        beforeEnter: async (to, from, next) => {
+          if (to.name === "main-editGalgameBrand") {
+            const response = await getGalgameBrand(1, to.path.split("/").pop());
+            if (response?.status === 200) {
+              store.commit("setgalgameBrandSingleData", response.data.data);
+              next();
+            } else {
+              sessionStorage.setItem("msg", `${response?.status}: ${response?.data.msg}`);
+              next("/message");
+            }
+          } else {
+            next();
+          }
+        },
       },
       // match all route
       {

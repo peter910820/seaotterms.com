@@ -35,7 +35,7 @@
       </div>
       <div class="col s1">
         <button class="button-simple">
-          <router-link :to="`/galgamebrand/update/${galgameBrand.brand}`">修改</router-link>
+          <router-link :to="`/galgamebrand/edit/${galgameBrand.brand}`">修改</router-link>
         </button>
       </div>
     </div>

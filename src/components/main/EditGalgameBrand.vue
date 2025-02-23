@@ -1,10 +1,10 @@
 <template>
   <div class="row wow animate__flipInX">
     <h1>Galgameブランド修改</h1>
-    <form class="col s12" method="post">
+    <form class="col s12" method="patch" @submit.prevent="handleSubmit">
       <div class="row">
         <div class="col s6 update-div">
-          <h2 class="label">上次更新使用者: {{ form.updateName }}</h2>
+          <h2 class="label">上次更新使用者: {{ form.username }}</h2>
         </div>
         <div class="col s6 update-div">
           <h2 class="label">上次更新時間: {{ form.updateTime }}</h2>
@@ -38,7 +38,7 @@
         </div>
         <div class="col s12">
           <button class="btn waves-effect waves-light" type="submit" name="action">
-            新增
+            更新
             <i class="material-icons right">send</i>
           </button>
         </div>
@@ -48,26 +48,61 @@
 </template>
 <script>
 import { ref, defineComponent } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import axios from "axios";
 
 export default defineComponent({
   setup() {
+    const router = useRouter();
     const store = useStore();
     const galgameBrandSingleData = ref(store.state.galgameBrandSingleData);
 
     const form = ref({
       brand: galgameBrandSingleData.value.brand,
-      updateName: galgameBrandSingleData.value.update_name,
-      updateTime: galgameBrandSingleData.value.update_time,
       completed: galgameBrandSingleData.value.completed,
       total: galgameBrandSingleData.value.total,
       dissolution: galgameBrandSingleData.value.dissolution,
+      username: galgameBrandSingleData.value.update_name,
+      updateTime: galgameBrandSingleData.value.update_time,
     });
 
-    console.log(form.value.updateName);
-    console.log(form.value.updateTime);
+    const handleSubmit = async () => {
+      try {
+        form.value.brand = form.value.brand.trim();
+        if (
+          form.value.completed < 0 ||
+          form.value.total < 0 ||
+          form.value.completed > form.value.total
+        ) {
+          sessionStorage.setItem("msg", "數值有誤");
+          router.push("/message");
+          return;
+        } else if (form.value.brand === "") {
+          sessionStorage.setItem("msg", "ブランド不得為空");
+          router.push("/message");
+          return;
+        }
+        console.log(form);
+        let response = await axios.patch(
+          `/api/galgame-brand/${galgameBrandSingleData.value.brand}`,
+          form.value
+        );
+        sessionStorage.setItem("msg", response?.data.msg);
+        router.push("/message");
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
+          router.push("/message");
+        } else {
+          console.log("未知錯誤: " + error);
+          router.push("/notFound");
+        }
+      }
+    };
     return {
       form,
+      handleSubmit,
     };
   },
 });

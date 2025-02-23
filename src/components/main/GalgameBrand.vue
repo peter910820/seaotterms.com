@@ -32,7 +32,7 @@
         <font color="red">{{ galgameBrand.dissolution ? "解散" : "" }}</font>
       </div>
       <div class="col s1">
-        <router-link :to="`/galgamebrand/edit/${galgameBrand.brand}`" class="button-simple">
+        <router-link :to="`/galgamebrand/edit/${galgameBrand.brand}`" class="button-simple modify">
           修改
         </router-link>
       </div>
@@ -108,6 +108,10 @@ export default defineComponent({
 }
 .brand {
   font-weight: bold;
+}
+.modify {
+  height: 30px;
+  width: 40px;
 }
 td {
   font-size: large;

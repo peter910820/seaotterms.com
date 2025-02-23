@@ -3,9 +3,7 @@
     <div class="col s12 center galgameBrandTitle">
       <div class="col s12">
         Galgameブランド紀錄
-        <button class="button-simple">
-          <router-link to="/galgamebrand/insert">點我新增</router-link>
-        </button>
+        <router-link to="/galgamebrand/insert" class="button-simple">點我新增</router-link>
       </div>
     </div>
     <div class="col s12 galgameBrandHeader">
@@ -34,9 +32,9 @@
         <font color="red">{{ galgameBrand.dissolution ? "解散" : "" }}</font>
       </div>
       <div class="col s1">
-        <button class="button-simple">
-          <router-link :to="`/galgamebrand/edit/${galgameBrand.brand}`">修改</router-link>
-        </button>
+        <router-link :to="`/galgamebrand/edit/${galgameBrand.brand}`" class="button-simple">
+          修改
+        </router-link>
       </div>
     </div>
   </div>

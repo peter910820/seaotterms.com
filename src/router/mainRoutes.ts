@@ -172,6 +172,11 @@ const mainRoutes: Array<RouteRecordRaw> = [
         component: () => import("../components/main/RegisterBlock.vue"),
       },
       {
+        path: "galgame/insert",
+        name: "main-insertGalgame",
+        component: () => import("../components/main/InsertGalgame.vue"),
+      },
+      {
         path: "galgamebrand",
         name: "main-galgameBrand",
         component: () => import("../components/main/GalgameBrand.vue"),

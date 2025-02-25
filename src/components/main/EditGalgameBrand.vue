@@ -63,8 +63,8 @@ export default defineComponent({
       completed: galgameBrandSingleData.value.completed,
       total: galgameBrandSingleData.value.total,
       dissolution: galgameBrandSingleData.value.dissolution,
-      username: galgameBrandSingleData.value.update_name,
-      updateTime: galgameBrandSingleData.value.update_time,
+      username: galgameBrandSingleData.value.updateName,
+      updateTime: galgameBrandSingleData.value.updateTime,
     });
 
     const handleSubmit = async () => {

@@ -175,6 +175,20 @@ const mainRoutes: Array<RouteRecordRaw> = [
         path: "galgame/insert",
         name: "main-insertGalgame",
         component: () => import("../components/main/InsertGalgame.vue"),
+        beforeEnter: async (to, from, next) => {
+          if (to.name === "main-insertGalgame") {
+            const response = await getGalgameBrand(0);
+            if (response.status === 200) {
+              store.commit("setGalgameBrandData", response.data.data);
+              next();
+            } else {
+              sessionStorage.setItem("msg", `${response?.status}: ${response?.data.msg}`);
+              next("/message");
+            }
+          } else {
+            next();
+          }
+        },
       },
       {
         path: "galgamebrand",

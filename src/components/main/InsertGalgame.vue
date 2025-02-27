@@ -11,11 +11,11 @@
         </div>
         <div class="input-field col s12">
           <i class="material-icons prefix">apartment</i>
-          <select>
+          <select v-model="form.brand">
             <option class="validate" value="" disabled selected>請選擇ブランド</option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
+            <option v-for="item in galgameBrandData" :key="item.brand" :value="item.brand">
+              {{ item.brand }}
+            </option>
           </select>
           <label>ブランド</label>
         </div>
@@ -53,19 +53,23 @@
 <script>
 import { ref, defineComponent } from "vue";
 import { useRouter } from "vue-router";
-import axios from "axios";
+import { useStore } from "vuex";
 import { onMounted, nextTick } from "vue";
+import axios from "axios";
 
 export default defineComponent({
   setup() {
+    const store = useStore();
+    const router = useRouter();
+    const galgameBrandData = ref(store.state.galgameBrandData);
     const form = ref({
       username: "SeaotterMS",
+      brand: "",
       name: "",
       releaseDate: "",
       allAges: false,
       endDate: "",
     });
-    const router = useRouter();
     onMounted(() => {
       nextTick(() => {
         var elems = document.querySelectorAll(".datepicker");
@@ -80,36 +84,20 @@ export default defineComponent({
       });
     });
     const handleSubmit = async () => {
-      //   try {
-      //     form.value.brand = form.value.brand.trim();
-      //     if (
-      //       form.value.completed < 0 ||
-      //       form.value.total < 0 ||
-      //       form.value.completed > form.value.total
-      //     ) {
-      //       sessionStorage.setItem("msg", "數值有誤");
-      //       router.push("/message");
-      //       return;
-      //     } else if (form.value.brand === "") {
-      //       sessionStorage.setItem("msg", "ブランド不得為空");
-      //       router.push("/message");
-      //       return;
-      //     }
-      //     let response = await axios.post("/api/galgame-brand", form.value);
-      //     sessionStorage.setItem("msg", response?.data.msg);
-      //     router.push("/message");
-      //   } catch (error) {
-      //     if (axios.isAxiosError(error)) {
-      //       sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
-      //       router.push("/message");
-      //     } else {
-      //       console.log("未知錯誤: " + error);
-      //       router.push("/notFound");
-      //     }
-      //   }
+      if (form.value.name.trim() == "") {
+        sessionStorage.setItem("msg", "遊戲名稱不得為空白");
+        router.push("/message");
+        return;
+      }
+      if (form.value.brand.trim() == "") {
+        sessionStorage.setItem("msg", "請選擇品牌名稱");
+        router.push("/message");
+        return;
+      }
     };
     return {
       form,
+      galgameBrandData,
       handleSubmit,
     };
   },

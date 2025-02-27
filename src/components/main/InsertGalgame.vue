@@ -70,10 +70,11 @@ export default defineComponent({
       allAges: false,
       endDate: "",
     });
+    // init datepicker & select for materializecss
     onMounted(() => {
       nextTick(() => {
         var elems = document.querySelectorAll(".datepicker");
-        let options = {};
+        let options = { format: "yyyy-mm-dd" };
         // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-undef
         var instances = M.Datepicker.init(elems, options);
 
@@ -93,6 +94,28 @@ export default defineComponent({
         sessionStorage.setItem("msg", "請選擇品牌名稱");
         router.push("/message");
         return;
+      }
+      const releaseDate = new Date(document.getElementById("releaseDate").value);
+      const endDate = new Date(document.getElementById("endDate").value);
+      if (endDate <= releaseDate) {
+        sessionStorage.setItem("msg", "輸入日期不正確");
+        router.push("/message");
+        return;
+      }
+      form.value.releaseDate = releaseDate;
+      form.value.endDate = endDate;
+      try {
+        let response = await axios.post("/api/galgame", form.value);
+        sessionStorage.setItem("msg", response?.data.msg);
+        router.push("/message");
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
+          router.push("/message");
+        } else {
+          console.log("未知錯誤: " + error);
+          router.push("/notFound");
+        }
       }
     };
     return {

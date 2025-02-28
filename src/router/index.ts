@@ -9,6 +9,7 @@ import mainRoutes from "./mainRoutes";
 // the page need to check the login
 const privatePages = ["/create", "/galgamebrand/insert", "/galgame/insert"];
 const privateRegex = /^\/galgamebrand\/edit\/[^/]+\/?$/;
+const privateRegex2 = /^\/galgame\/edit\/[^/]+\/?$/;
 
 // routes
 const routes: Array<RouteRecordRaw> = [...mainRoutes];
@@ -20,7 +21,11 @@ const router = createRouter({
 // Navigation Guards(global)
 router.beforeEach(
   async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
-    if (privatePages.includes(to.path) || privateRegex.test(to.path)) {
+    if (
+      privatePages.includes(to.path) ||
+      privateRegex.test(to.path) ||
+      privateRegex2.test(to.path)
+    ) {
       try {
         await axios.post("/api/verify");
         // login now

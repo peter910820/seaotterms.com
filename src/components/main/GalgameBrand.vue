@@ -63,12 +63,12 @@
           <div class="col s2 brand">{{ brandGames.name }}</div>
           <div class="col s4">{{ formatDate(brandGames.releaseDate) }}</div>
           <div class="col s4">{{ formatDate(brandGames.endDate) }}</div>
-          <div class="col s1" v-if="brandGames.allAges === true">
+          <div class="col s1" v-if="brandGames.allAges === false">
             <b>
-              <font color="pink">全年齡</font>
+              <font color="pink">18+</font>
             </b>
           </div>
-          <div class="col s1" v-else>18+</div>
+          <div class="col s1" v-else>全年齡</div>
           <div class="col s1">
             <router-link :to="`/`" class="button-simple modify"> 修改 </router-link>
           </div>

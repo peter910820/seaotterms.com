@@ -1,6 +1,6 @@
 <template>
   <div class="row wow animate__flipInX">
-    <h1>Galgameブランド修改</h1>
+    <h1>遊玩完畢Galgame修改(Develop)</h1>
     <form class="col s12" method="patch" @submit.prevent="handleSubmit">
       <div class="row">
         <div class="col s6 update-div">
@@ -10,35 +10,46 @@
           <h2 class="label">上次更新時間: {{ form.updateTime }}</h2>
         </div>
         <div class="input-field col s12">
-          <i class="material-icons prefix">apartment</i>
-          <input id="brand" v-model="form.brand" type="text" class="validate" required />
+          <i class="material-icons prefix">sports_esports</i>
+          <input id="gameName" v-model="form.name" type="text" class="validate" required />
           <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
-          <label for="brand">ブランド</label>
+          <label for="gameName">ゲーム</label>
         </div>
         <div class="input-field col s6">
-          <i class="material-icons prefix">done_outline</i>
-          <input id="completed" v-model="form.completed" type="number" class="validate" required />
+          <i class="material-icons prefix">event</i>
+          <input
+            id="releaseDate"
+            v-model="form.releaseDate"
+            type="text"
+            class="datepicker validate"
+            required
+          />
           <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
-          <label for="completed">Completed</label>
-          <!-- <label for="username">userName</label> -->
+          <label for="releaseDate">発売日</label>
         </div>
         <div class="input-field col s6">
-          <i class="material-icons prefix">format_list_bulleted</i>
-          <input id="total" v-model="form.total" type="number" class="validate" required />
+          <i class="material-icons prefix">check_circle</i>
+          <input
+            id="endDate"
+            v-model="form.endDate"
+            type="text"
+            class="datepicker validate"
+            required
+          />
           <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
-          <label for="total">Total</label>
+          <label for="endDate">遊玩結束時間</label>
         </div>
         <div class="input-field col s6">
           <p>
             <label>
-              <input type="checkbox" class="filled-in" v-model="form.dissolution" />
-              <span>解散</span>
+              <input type="checkbox" class="filled-in" v-model="form.allAges" />
+              <span>全年齡</span>
             </label>
           </p>
         </div>
         <div class="col s12">
           <button class="btn waves-effect waves-light" type="submit" name="action">
-            更新
+            修改(Develop)
             <i class="material-icons right">send</i>
           </button>
         </div>
@@ -46,45 +57,37 @@
     </form>
   </div>
 </template>
-<script>
+
+<script lang="ts">
 import { ref, defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { onMounted, nextTick } from "vue";
 import axios from "axios";
+import dayjs from "dayjs";
 
 export default defineComponent({
   setup() {
+    console.log("這是開發用的頁面，請確定你真的知道自己在幹嘛再執行動作");
     const router = useRouter();
     const store = useStore();
-    const galgameBrandSingleData = ref(store.state.galgameBrandSingleData);
-
+    const galgameSingleData = ref(store.state.galgameSingleData);
     const form = ref({
-      brand: galgameBrandSingleData.value.brand,
-      completed: galgameBrandSingleData.value.completed,
-      total: galgameBrandSingleData.value.total,
-      dissolution: galgameBrandSingleData.value.dissolution,
-      username: galgameBrandSingleData.value.updateName,
-      updateTime: galgameBrandSingleData.value.updateTime,
+      name: galgameSingleData.value.name,
+      brand: galgameSingleData.value.brand,
+      releaseDate: galgameSingleData.value.releaseDate,
+      allAges: galgameSingleData.value.allAges,
+      endDate: galgameSingleData.value.endDate,
+      updateTime: galgameSingleData.value.updateTime,
+      username:
+        galgameSingleData.value.updateName?.trim() === ""
+          ? galgameSingleData.value.inputName
+          : galgameSingleData.value.updateName,
     });
-
     const handleSubmit = async () => {
       try {
-        form.value.brand = form.value.brand.trim();
-        if (
-          form.value.completed < 0 ||
-          form.value.total < 0 ||
-          form.value.completed > form.value.total
-        ) {
-          sessionStorage.setItem("msg", "數值有誤");
-          router.push("/message");
-          return;
-        } else if (form.value.brand === "") {
-          sessionStorage.setItem("msg", "ブランド不得為空");
-          router.push("/message");
-          return;
-        }
         let response = await axios.patch(
-          `/api/galgame-brand/${galgameBrandSingleData.value.brand}`,
+          `/api/galgame/develop/${galgameSingleData.value.name}`,
           form.value
         );
         sessionStorage.setItem("msg", response?.data.msg);
@@ -99,6 +102,7 @@ export default defineComponent({
         }
       }
     };
+
     return {
       form,
       handleSubmit,

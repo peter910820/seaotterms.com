@@ -7,6 +7,7 @@ export default createStore({
     // -------------------- //
     galgameBrandData: "",
     galgameBrandSingleData: {},
+    galgameSingleData: {},
   },
   mutations: {
     setArticleContent(state, articleContent) {
@@ -21,6 +22,9 @@ export default createStore({
     },
     setgalgameBrandSingleData(state, galgameBrandSingleData) {
       state.galgameBrandSingleData = galgameBrandSingleData;
+    },
+    setgalgameSingleData(state, galgameSingleData) {
+      state.galgameSingleData = galgameSingleData;
     },
   },
 });

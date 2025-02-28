@@ -14,7 +14,6 @@
           <input id="completed" v-model="form.completed" type="number" class="validate" required />
           <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
           <label for="completed">Completed</label>
-          <!-- <label for="username">userName</label> -->
         </div>
         <div class="input-field col s6">
           <i class="material-icons prefix">format_list_bulleted</i>

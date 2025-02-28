@@ -64,8 +64,8 @@ export default defineComponent({
     const galgameBrandData = ref(store.state.galgameBrandData);
     const form = ref({
       username: "SeaotterMS",
-      brand: "",
       name: "",
+      brand: "",
       releaseDate: "",
       allAges: false,
       endDate: "",
@@ -95,8 +95,8 @@ export default defineComponent({
         router.push("/message");
         return;
       }
-      const releaseDate = new Date(document.getElementById("releaseDate").value);
-      const endDate = new Date(document.getElementById("endDate").value);
+      const releaseDate = new Date(document.getElementById("releaseDate").value).toISOString();
+      const endDate = new Date(document.getElementById("endDate").value).toISOString();
       if (endDate <= releaseDate) {
         sessionStorage.setItem("msg", "輸入日期不正確");
         router.push("/message");

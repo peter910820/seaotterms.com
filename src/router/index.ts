@@ -10,17 +10,6 @@ import mainRoutes from "./mainRoutes";
 const privatePages = ["/create", "/galgamebrand/insert"];
 const privateRegex = /^\/galgamebrand\/edit\/[^/]+\/?$/;
 
-// db article data(send to vuex)
-// interface StoreData {
-//   ID: number;
-//   Title: string;
-//   Username: string;
-//   Tags: Array<string>;
-//   Content: string;
-//   CreatedAt: string;
-//   UpdatedAt: string;
-// }
-
 // routes
 const routes: Array<RouteRecordRaw> = [...mainRoutes];
 // createRouter

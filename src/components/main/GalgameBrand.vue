@@ -3,7 +3,9 @@
     <div class="col s12 center galgameBrandTitle">
       <div class="col s12">
         Galgameブランド紀錄
-        <router-link to="/galgamebrand/insert" class="button-simple">點我新增</router-link>
+        <router-link to="/galgamebrand/insert" class="button-simple">點我新增品牌</router-link>
+
+        <router-link to="/galgame/insert" class="button-simple">點我新增遊戲</router-link>
       </div>
     </div>
     <div class="col s12 galgameBrandHeader">
@@ -55,25 +57,20 @@
         </div>
         <div
           class="col s12 galgameBrand floatup-div"
-          v-for="galgameBrand in galgameBrandData"
-          :key="galgameBrand.brand"
+          v-for="brandGames in selectedBrandGames"
+          :key="brandGames.name"
         >
-          <div class="col s2 brand">{{ galgameBrand.brand }}</div>
-          <div class="col s4">{{ galgameBrand.completed }}</div>
-          <div class="col s4">{{ galgameBrand.total }}</div>
-          <div class="col s1" v-if="galgameBrand.annotation === '制霸'">
+          <div class="col s2 brand">{{ brandGames.name }}</div>
+          <div class="col s4">{{ formatDate(brandGames.releaseDate) }}</div>
+          <div class="col s4">{{ formatDate(brandGames.endDate) }}</div>
+          <div class="col s1" v-if="brandGames.allAges === true">
             <b>
-              <font color="blue">{{ galgameBrand.annotation }}</font>
+              <font color="pink">18+</font>
             </b>
           </div>
-          <div class="col s1" v-else>{{ galgameBrand.annotation }}</div>
+          <div class="col s1" v-else>全年齡</div>
           <div class="col s1">
-            <router-link
-              :to="`/galgamebrand/edit/${galgameBrand.brand}`"
-              class="button-simple modify"
-            >
-              修改
-            </router-link>
+            <router-link :to="`/`" class="button-simple modify"> 修改 </router-link>
           </div>
         </div>
       </div>
@@ -84,6 +81,8 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { useStore } from "vuex";
+import axios from "axios";
+import dayjs from "dayjs";
 
 export default defineComponent({
   setup() {
@@ -91,15 +90,38 @@ export default defineComponent({
     const galgameBrandData = ref(store.state.galgameBrandData);
     const modalVisible = ref(false);
     const selectedBrand = ref("");
+    const selectedBrandGames = ref<
+      Array<{
+        name: string;
+        releaseDate: string;
+        allAges: boolean;
+        endDate: string;
+      }>
+    >([]);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const openModal = (brand: any) => {
+    const openModal = async (brand: any) => {
       selectedBrand.value = brand;
+      try {
+        let response = await axios.get(`/api/galgame/${brand}`);
+        selectedBrandGames.value = response.data.data;
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          console.log(`${error.response?.status}: ${error.response?.data.msg}`);
+          selectedBrandGames.value = [];
+        } else {
+          console.log("未知錯誤: " + error);
+          selectedBrandGames.value = [];
+        }
+      }
       modalVisible.value = true;
     };
+
     const closeModal = () => {
       modalVisible.value = false;
     };
+
+    const formatDate = (date: string) => dayjs(date).format("YYYY-MM-DD");
 
     return {
       galgameBrandData,
@@ -107,6 +129,8 @@ export default defineComponent({
       selectedBrand,
       modalVisible,
       closeModal,
+      selectedBrandGames,
+      formatDate,
     };
   },
 });

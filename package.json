@@ -7,6 +7,13 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+
+  "resolutions": {
+    "path-to-regexp": "0.1.12",
+    "cross-spawn": "^6.0.6",
+    "postcss": "^8.4.31"
+  },
+
   "dependencies": {
     "@types/jquery": "^3.5.32",
     "@types/markdown-it": "^14.1.2",

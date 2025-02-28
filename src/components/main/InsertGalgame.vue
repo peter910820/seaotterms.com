@@ -105,7 +105,7 @@ export default defineComponent({
       form.value.releaseDate = releaseDate;
       form.value.endDate = endDate;
       try {
-        let response = await axios.post("/api/galgame", form.value);
+        let response = await axios.post("http://127.0.0.1:3000/api/galgame", form.value);
         sessionStorage.setItem("msg", response?.data.msg);
         router.push("/message");
       } catch (error) {

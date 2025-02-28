@@ -11,7 +11,7 @@ import MainView from "../views/MainView.vue";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getGalgameBrand = async (mode: number, path?: string): Promise<any> => {
-  let apiUrl = "/api/galgame-brand";
+  let apiUrl = "http://127.0.0.1:3000/api/galgame-brand";
   if (mode === 1) {
     apiUrl = `/api/galgame-brand/${path}`;
   }

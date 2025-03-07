@@ -40,6 +40,7 @@ const getGalgameBrand = async (mode: number, path?: string): Promise<any> => {
 
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
+
 const getArticleInformation = async (): Promise<object | number> => {
   try {
     const response = await axios.post("/api/articles");
@@ -64,20 +65,14 @@ const getSingleArticleInformation = async (articleID: string): Promise<object | 
     return error.response?.status; // return status code
   }
 };
-const getAllTagInformation = async (): Promise<object | number> => {
-  try {
-    const response = await axios.post(`/api/tags`);
-    return response.data.data as object;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    console.log(error);
-    return error.response?.status;
-  }
-};
 
-const getTagInformation = async (tagName: string): Promise<object | number> => {
+const getTagInformation = async (mode: number, tagName?: string): Promise<object | number> => {
+  let apiUrl = "/api/tags";
+  if (mode === 1) {
+    apiUrl = `/api/tags/${tagName}`;
+  }
   try {
-    const response = await axios.post(`/api/tags/${tagName}`);
+    const response = await axios.post(apiUrl);
     return response.data.data as object;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -144,7 +139,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
         name: "main-tags-all",
         component: () => import("../components/main/TagsBlock.vue"),
         beforeEnter: async (to, form, next) => {
-          const data = await getAllTagInformation();
+          const data = await getTagInformation(0);
           if (typeof data !== "number") {
             store.commit("setTagArticle", data);
             next();
@@ -158,7 +153,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
         name: "main-tags",
         component: () => import("../components/main/TagBlock.vue"),
         beforeEnter: async (to, form, next) => {
-          const data = await getTagInformation(to.params.tagName as string);
+          const data = await getTagInformation(1, to.params.tagName as string);
           if (typeof data !== "number") {
             store.commit("setTagArticle", data);
             next();
@@ -252,7 +247,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
         component: () => import("../components/main/EditGalgameBrand.vue"),
         beforeEnter: async (to, from, next) => {
           if (to.name === "main-editGalgameBrand") {
-            const response = await getGalgameBrand(1, to.path.split("/").pop());
+            const response = await getGalgameBrand(1, to.params.brand as string);
             if (response?.status === 200) {
               store.commit("setgalgameBrandSingleData", response.data.data);
               next();

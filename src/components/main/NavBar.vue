@@ -17,9 +17,9 @@
           <router-link to="/login">登入<i class="material-icons left">login</i></router-link>
         </li>
         <li>
-          <router-link to="/register"
+          <!-- <router-link to="/register"
             >註冊<i class="material-icons left">how_to_reg</i></router-link
-          >
+          > -->
         </li>
         <li>
           <router-link to="/galgamebrand"
@@ -40,9 +40,9 @@
     <li>
       <router-link to="/login">登入</router-link>
     </li>
-    <li>
+    <!-- <li>
       <router-link to="/register">註冊</router-link>
-    </li>
+    </li> -->
     <li>
       <router-link to="/galgamebrand">Galgame紀錄</router-link>
     </li>

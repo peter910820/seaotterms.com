@@ -5,7 +5,7 @@
         <img src="@/assets/headshot.png" alt="" />
       </div>
     </div>
-    <div class="myName">SeaotterMS</div>
+    <div class="myName">{{ userName }}</div>
     <div class="aboutMe typer"></div>
     <div class="littleItem h2">
       <a
@@ -36,19 +36,29 @@
 </template>
 
 <script lang="ts">
-import { Vue } from "vue-class-component";
+import { defineComponent, ref, onMounted, computed } from "vue";
+import { useStore } from "vuex";
 
-export default class MyProfile extends Vue {
-  isHoveredGithub = false;
-  isHoveredTwitter = false;
-  mounted() {
-    // eslint-disable-next-line no-undef
-    new Typed(".typer", {
-      strings: ["一個不知道在幹嘛，每天一直假裝自己有在做事的人。"],
-      typeSpeed: 100,
+export default defineComponent({
+  setup() {
+    const store = useStore();
+
+    const isHoveredGithub = ref(false);
+    const isHoveredTwitter = ref(false);
+
+    const userName = computed(() => store.state.userData);
+
+    onMounted(() => {
+      // eslint-disable-next-line no-undef
+      new Typed(".typer", {
+        strings: ["一個不知道在幹嘛，每天一直假裝自己有在做事的人。"],
+        typeSpeed: 100,
+      });
     });
-  }
-}
+
+    return { isHoveredGithub, isHoveredTwitter, userName };
+  },
+});
 </script>
 
 <style scoped>

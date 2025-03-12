@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
   state: {
@@ -8,6 +9,8 @@ export default createStore({
     galgameBrandData: "",
     galgameBrandSingleData: {},
     galgameSingleData: {},
+    // -------------------- //
+    userData: "",
   },
   mutations: {
     setArticleContent(state, articleContent) {
@@ -26,5 +29,9 @@ export default createStore({
     setgalgameSingleData(state, galgameSingleData) {
       state.galgameSingleData = galgameSingleData;
     },
+    setUserData(state, userData) {
+      state.userData = userData;
+    },
   },
+  plugins: [createPersistedState()],
 });

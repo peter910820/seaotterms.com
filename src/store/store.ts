@@ -31,6 +31,7 @@ export default createStore({
     setgalgameSingleData(state, galgameSingleData) {
       state.galgameSingleData = galgameSingleData;
     },
+    // -------------------- //
     setUserData(state, userData) {
       state.userData = userData;
     },

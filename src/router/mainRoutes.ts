@@ -4,6 +4,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 // vuex store
 import store from "../store/store";
+
+import { useStore } from "vuex";
 // views
 import MainView from "../views/MainView.vue";
 // ----------------------------------------------------------------------------
@@ -169,8 +171,8 @@ const mainRoutes: Array<RouteRecordRaw> = [
         beforeEnter: (to, from, next) => {
           if (Cookies.get("session_id") !== undefined) {
             Cookies.remove("session_id");
-            store.commit("setUserData", "");
           }
+          store.commit("setUserData", "");
           next();
         },
       },

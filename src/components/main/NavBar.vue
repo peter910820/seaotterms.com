@@ -14,7 +14,12 @@
           <router-link to="/create">建立<i class="material-icons left">edit</i></router-link>
         </li>
         <li>
-          <router-link to="/login">登入<i class="material-icons left">login</i></router-link>
+          <router-link v-if="userData === ''" to="/login"
+            >登入<i class="material-icons left">login</i></router-link
+          >
+          <router-link v-else to="/login"
+            >登出<i class="material-icons left">logout</i></router-link
+          >
         </li>
         <li>
           <!-- <router-link to="/register"
@@ -38,7 +43,8 @@
       <router-link to="/create">建立</router-link>
     </li>
     <li>
-      <router-link to="/login">登入</router-link>
+      <router-link v-if="userData === ''" to="/login">登入</router-link>
+      <router-link v-else to="/login">登出</router-link>
     </li>
     <!-- <li>
       <router-link to="/register">註冊</router-link>
@@ -50,7 +56,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, nextTick } from "vue";
+import { onMounted, nextTick, computed } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore();
+
+const userData = computed(() => store.state.userData);
 
 onMounted(() => {
   nextTick(() => {

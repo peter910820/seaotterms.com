@@ -4,8 +4,6 @@ import axios from "axios";
 import Cookies from "js-cookie";
 // vuex store
 import store from "../store/store";
-
-import { useStore } from "vuex";
 // views
 import MainView from "../views/MainView.vue";
 // ----------------------------------------------------------------------------

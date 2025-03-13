@@ -62,9 +62,7 @@
 import { ref, defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import { onMounted, nextTick } from "vue";
 import axios from "axios";
-import dayjs from "dayjs";
 
 export default defineComponent({
   setup() {

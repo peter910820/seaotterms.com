@@ -168,7 +168,6 @@ const mainRoutes: Array<RouteRecordRaw> = [
         component: () => import("../components/main/LoginBlock.vue"),
         beforeEnter: (to, from, next) => {
           if (Cookies.get("session_id") !== undefined) {
-            console.log(Cookies.get("session_id"));
             Cookies.remove("session_id");
             store.commit("setUserData", "");
           }

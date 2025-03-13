@@ -1,17 +1,19 @@
 import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 
+const getDefaultState = () => ({
+  articleContent: "",
+  tagArticle: "",
+  // -------------------- //
+  galgameBrandData: "",
+  galgameBrandSingleData: {},
+  galgameSingleData: {},
+  // -------------------- //
+  userData: "",
+});
+
 export default createStore({
-  state: {
-    articleContent: "",
-    tagArticle: "",
-    // -------------------- //
-    galgameBrandData: "",
-    galgameBrandSingleData: {},
-    galgameSingleData: {},
-    // -------------------- //
-    userData: "",
-  },
+  state: getDefaultState(),
   mutations: {
     setArticleContent(state, articleContent) {
       state.articleContent = articleContent;
@@ -33,5 +35,5 @@ export default createStore({
       state.userData = userData;
     },
   },
-  plugins: [createPersistedState()],
+  plugins: [createPersistedState({ paths: ["userData"] })],
 });

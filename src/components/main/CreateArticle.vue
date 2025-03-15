@@ -43,7 +43,7 @@
 <script>
 import { ref, computed, defineComponent } from "vue";
 import { useRouter } from "vue-router";
-
+import { useStore } from "vuex";
 import axios from "axios";
 
 import MarkdownIt from "markdown-it";
@@ -59,10 +59,10 @@ import "highlight.js/styles/github-dark.css"; // highlight-styles
 
 export default defineComponent({
   setup() {
+    const store = useStore();
     const form = ref({
       title: "",
-      username: "SeaotterMS",
-      // const username = "SeaotterMS"; // get username
+      username: store.state.userData,
       tags: [],
       content: "",
     });

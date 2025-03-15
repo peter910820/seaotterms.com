@@ -42,18 +42,20 @@
 <script>
 import { ref, defineComponent } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import axios from "axios";
 
 export default defineComponent({
   setup() {
+    const router = useRouter();
+    const store = useStore();
     const form = ref({
       brand: "",
-      username: "SeaotterMS",
+      username: store.state.userData,
       completed: 0,
       total: 0,
       dissolution: false,
     });
-    const router = useRouter();
 
     const handleSubmit = async () => {
       try {

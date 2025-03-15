@@ -32,12 +32,12 @@ router.beforeEach(
     ) {
       try {
         const response = await axios.post("/api/verify");
-        store.commit("setUserData", response?.data.username);
+        store.commit("setUserData", response?.data.userData);
         // login now
         next();
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          store.commit("setUserData", "");
+          store.commit("setUserData", {});
           console.log(`${error.response?.status}: ${error.response?.data.msg}`);
           sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
           alert("使用者尚未登入, 請前往登入");

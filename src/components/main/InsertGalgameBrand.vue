@@ -51,7 +51,7 @@ export default defineComponent({
     const store = useStore();
     const form = ref({
       brand: "",
-      username: store.state.userData,
+      username: store.state.userData.username,
       completed: 0,
       total: 0,
       dissolution: false,

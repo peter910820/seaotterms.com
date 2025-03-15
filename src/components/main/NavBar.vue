@@ -14,7 +14,7 @@
           <router-link to="/create">建立<i class="material-icons left">edit</i></router-link>
         </li>
         <li>
-          <router-link v-if="userData === ''" to="/login"
+          <router-link v-if="userData === '' || userData === undefined" to="/login"
             >登入<i class="material-icons left">login</i></router-link
           >
           <router-link v-else to="/login"
@@ -43,7 +43,7 @@
       <router-link to="/create">建立</router-link>
     </li>
     <li>
-      <router-link v-if="userData === ''" to="/login">登入</router-link>
+      <router-link v-if="userData === '' || userData === undefined" to="/login">登入</router-link>
       <router-link v-else to="/login">登出</router-link>
     </li>
     <!-- <li>
@@ -61,7 +61,7 @@ import { useStore } from "vuex";
 
 const store = useStore();
 
-const userData = computed(() => store.state.userData);
+const userData = computed(() => store.state.userData?.username);
 
 onMounted(() => {
   nextTick(() => {

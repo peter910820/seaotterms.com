@@ -62,7 +62,7 @@ export default defineComponent({
     const store = useStore();
     const form = ref({
       title: "",
-      username: store.state.userData,
+      username: store.state.userData.username,
       tags: [],
       content: "",
     });

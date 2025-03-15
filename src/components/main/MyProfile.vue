@@ -46,7 +46,7 @@ export default defineComponent({
     const isHoveredGithub = ref(false);
     const isHoveredTwitter = ref(false);
 
-    const userName = computed(() => store.state.userData);
+    const userName = computed(() => store.state.userData.username);
 
     onMounted(() => {
       // eslint-disable-next-line no-undef

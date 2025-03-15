@@ -170,7 +170,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
           if (Cookies.get("session_id") !== undefined) {
             Cookies.remove("session_id");
           }
-          store.commit("setUserData", "");
+          store.commit("setUserData", {});
           next();
         },
       },

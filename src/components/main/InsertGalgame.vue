@@ -63,7 +63,7 @@ export default defineComponent({
     const router = useRouter();
     const galgameBrandData = ref(store.state.galgameBrandData);
     const form = ref({
-      username: store.state.userData,
+      username: store.state.userData.username,
       name: "",
       brand: "",
       releaseDate: "",

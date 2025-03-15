@@ -40,7 +40,7 @@ const handleLoginSubmit = async () => {
   try {
     const response = await axios.post("/api/loginHandler", form.value);
     sessionStorage.setItem("msg", response.data.msg);
-    store.commit("setUserData", response.data.msg.substring(0, response.data.msg.length - 4));
+    store.commit("setUserData", response?.data.userData);
     router.push("/message");
   } catch (error) {
     if (axios.isAxiosError(error)) {

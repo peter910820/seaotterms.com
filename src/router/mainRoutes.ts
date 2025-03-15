@@ -260,6 +260,11 @@ const mainRoutes: Array<RouteRecordRaw> = [
           }
         },
       },
+      {
+        path: "user_maintain",
+        name: "main-user_maintain",
+        component: () => import("../components/main/UserMaintain.vue"),
+      },
       // match all route
       {
         path: ":pathMatch(.*)*",

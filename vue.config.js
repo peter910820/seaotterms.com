@@ -3,6 +3,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = defineConfig({
   transpileDependencies: true,
+  productionSourceMap: false, // 禁止生成 source map 檔案
   configureWebpack: (config) => {
     config.optimization = {
       minimize: true, // 啟用程式碼壓縮(此功能有問題)

@@ -2,10 +2,17 @@
   <div class="myProfile">
     <div class="h4">
       <div class="headShot">
-        <img src="@/assets/headshot.png" alt="" />
+        <img
+          v-if="userData.avatar !== '' && userData.avatar !== undefined"
+          :src="userData.avatar"
+        />
+        <img v-else src="@/assets/headshot.png" />
       </div>
     </div>
-    <div class="myName">{{ userName }}</div>
+    <div v-if="userData.username !== '' && userData.username !== undefined" class="myName">
+      {{ userData.username }}
+    </div>
+    <div v-else class="myName"><font color="blue">使用者未登入</font></div>
     <div class="aboutMe typer"></div>
     <div class="littleItem h2">
       <a
@@ -46,7 +53,7 @@ export default defineComponent({
     const isHoveredGithub = ref(false);
     const isHoveredTwitter = ref(false);
 
-    const userName = computed(() => store.state.userData.username);
+    const userData = computed(() => store.state.userData);
 
     onMounted(() => {
       // eslint-disable-next-line no-undef
@@ -56,7 +63,7 @@ export default defineComponent({
       });
     });
 
-    return { isHoveredGithub, isHoveredTwitter, userName };
+    return { isHoveredGithub, isHoveredTwitter, userData };
   },
 });
 </script>

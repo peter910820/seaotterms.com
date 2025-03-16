@@ -14,7 +14,9 @@
           <router-link to="/create">建立<i class="material-icons left">edit</i></router-link>
         </li>
         <li>
-          <router-link v-if="userData === '' || userData === undefined" to="/login"
+          <router-link
+            v-if="userData.username === '' || userData.username === undefined"
+            to="/login"
             >登入<i class="material-icons left">login</i></router-link
           >
           <router-link v-else to="/login"
@@ -31,6 +33,13 @@
             >Galgame紀錄<i class="material-icons left">casino</i></router-link
           >
         </li>
+        <li>
+          <router-link
+            v-if="userData.username !== '' && userData.username !== undefined"
+            to="/user_maintain"
+            >個人資料維護<i class="material-icons left">manage_accounts</i></router-link
+          >
+        </li>
       </ul>
     </div>
   </nav>
@@ -43,7 +52,9 @@
       <router-link to="/create">建立</router-link>
     </li>
     <li>
-      <router-link v-if="userData === '' || userData === undefined" to="/login">登入</router-link>
+      <router-link v-if="userData.username === '' || userData.username === undefined" to="/login"
+        >登入</router-link
+      >
       <router-link v-else to="/login">登出</router-link>
     </li>
     <!-- <li>
@@ -51,6 +62,13 @@
     </li> -->
     <li>
       <router-link to="/galgamebrand">Galgame紀錄</router-link>
+    </li>
+    <li>
+      <router-link
+        v-if="userData.username !== '' && userData.username !== undefined"
+        to="/user_maintain"
+        >個人資料維護</router-link
+      >
     </li>
   </ul>
 </template>
@@ -61,7 +79,7 @@ import { useStore } from "vuex";
 
 const store = useStore();
 
-const userData = computed(() => store.state.userData?.username);
+const userData = computed(() => store.state.userData);
 
 onMounted(() => {
   nextTick(() => {

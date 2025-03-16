@@ -58,6 +58,8 @@ export default defineComponent({
       try {
         let response = await axios.patch(`/api/users/${form.value.id}`, form.value);
         sessionStorage.setItem("msg", response?.data.msg);
+        response = await axios.post("/api/verify");
+        store.commit("setUserData", response?.data.userData);
         router.push("/message");
       } catch (error) {
         if (axios.isAxiosError(error)) {

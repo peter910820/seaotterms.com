@@ -15,6 +15,7 @@ interface State {
 }
 
 interface UserData {
+  id: number;
   username: string;
   email: string;
   exp: number;
@@ -34,6 +35,7 @@ const getDefaultState = (): State => ({
   galgameSingleData: {},
   // -------------------- //
   userData: {
+    id: 0,
     username: "",
     email: "",
     exp: 0,
@@ -66,6 +68,7 @@ export default createStore({
     },
     // -------------------- //
     setUserData(state, userData) {
+      state.userData.id = userData.id;
       state.userData.username = userData.username;
       state.userData.email = userData.email;
       state.userData.exp = userData.exp;

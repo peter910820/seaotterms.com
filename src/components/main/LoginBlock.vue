@@ -48,7 +48,8 @@ const handleLoginSubmit = async () => {
       router.push("/message");
     } else {
       console.log("未知錯誤: " + error);
-      router.push("/notFound");
+      sessionStorage.setItem("msg", `發生未知錯誤，請聯繫管理員`);
+      router.push("/message");
     }
   }
 };

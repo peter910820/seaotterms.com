@@ -3,22 +3,22 @@
     <form method="post" @submit.prevent="handleSubmit">
       <h1>使用者帳號維護</h1>
       <div class="col s12 sub-block floatup-div wow animate__bounceIn">
-        <div class="title">使用者名稱: {{ userData.username }}</div>
+        <div class="title">使用者名稱: {{ form.username }}</div>
         <div class="title">
           身分:
-          <span v-if="userData.management">管理員</span>
+          <span v-if="form.management">管理員</span>
           <span v-else>一般用戶</span>
         </div>
         <div class="input-field">
           <i class="material-icons prefix">sports_esports</i>
-          <input id="avatar" v-model="userData.avatar" type="text" class="validate" required />
+          <input id="avatar" v-model="form.avatar" type="text" class="validate" required />
           <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
           <label for="avatar">個人圖片URL</label>
         </div>
         <div>
           <span>圖片預覽:</span>
           <div class="headShot">
-            <img :src="userData.avatar" />
+            <img :src="form.avatar" />
           </div>
         </div>
         <div>
@@ -32,18 +32,45 @@
   </div>
 </template>
 <script>
-import { defineComponent } from "vue";
+import { ref, defineComponent } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import axios from "axios";
 
 export default defineComponent({
   setup() {
+    const router = useRouter();
     const store = useStore();
-    const userData = store.state.userData;
-    const handleSubmit = () => {
-      console.log("test");
+    const userData = ref(store.state.userData);
+    const form = ref({
+      id: userData.value.id,
+      username: userData.value.username,
+      email: userData.value.email,
+      exp: userData.value.exp,
+      management: userData.value.management,
+      created_at: userData.value.created_at,
+      updated_at: userData.value.updated_at,
+      update_name: userData.value.update_name,
+      avatar: userData.value.avatar,
+    });
+    const handleSubmit = async () => {
+      console.log(form);
+      try {
+        let response = await axios.patch(`/api/users/${form.value.id}`, form.value);
+        sessionStorage.setItem("msg", response?.data.msg);
+        router.push("/message");
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
+          router.push("/message");
+        } else {
+          console.log("未知錯誤: " + error);
+          sessionStorage.setItem("msg", `發生未知錯誤，請聯繫管理員`);
+          router.push("/message");
+        }
+      }
     };
-    return { userData, handleSubmit };
+    return { form, handleSubmit };
   },
 });
 </script>
@@ -58,9 +85,6 @@ export default defineComponent({
 }
 .mainBlock {
   padding: 25px;
-}
-.center {
-  text-align: center;
 }
 .sub-block {
   border: 2px solid white;

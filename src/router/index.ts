@@ -10,7 +10,7 @@ import axios from "axios";
 import mainRoutes from "./mainRoutes";
 
 // the page need to check the login
-const privatePages = ["/create", "/galgamebrand/insert", "/galgame/insert"];
+const privatePages = ["/create", "/galgamebrand/insert", "/galgame/insert", "/user_maintain"];
 const privateRegex = /^\/galgamebrand\/edit\/[^/]+\/?$/;
 const privateRegex2 = /^\/galgame\/edit\/[^/]+\/?$/;
 

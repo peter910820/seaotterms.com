@@ -68,15 +68,15 @@ export default createStore({
     },
     // -------------------- //
     setUserData(state, userData) {
-      state.userData.id = userData.id;
-      state.userData.username = userData.username;
-      state.userData.email = userData.email;
-      state.userData.exp = userData.exp;
-      state.userData.management = userData.management;
-      state.userData.created_at = userData.created_at;
-      state.userData.updated_at = userData.updated_at;
-      state.userData.update_name = userData.update_name;
-      state.userData.avatar = userData.avatar;
+      state.userData.id = userData.id || 0;
+      state.userData.username = userData.username || "";
+      state.userData.email = userData.email || "";
+      state.userData.exp = userData.exp || 0;
+      state.userData.management = userData.management || 0;
+      state.userData.created_at = userData.created_at || new Date();
+      state.userData.updated_at = userData.updated_at || new Date();
+      state.userData.update_name = userData.update_name || "";
+      state.userData.avatar = userData.avatar || "";
     },
   },
   plugins: [createPersistedState({ paths: ["userData"] })],

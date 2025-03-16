@@ -121,16 +121,20 @@ const mainRoutes: Array<RouteRecordRaw> = [
         name: "main-articles",
         component: () => import("../components/main/ArticleBlock.vue"),
         beforeEnter: async (to, from, next) => {
-          const data = (await getSingleArticleInformation(
-            to.params.articleID as string
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          )) as any;
-          if (typeof data !== "number") {
-            console.log(data);
-            store.commit("setArticleContent", data);
-            next();
+          if (to.name === "main-articles") {
+            const response = (await getSingleArticleInformation(
+              to.params.articleID as string
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            )) as any;
+            if (typeof response !== "number") {
+              console.log(response);
+              store.commit("setArticleContent", response);
+              next();
+            } else {
+              next("notFound"); // goto notdefined route to catch 404 status code
+            }
           } else {
-            next("notFound"); // goto notdefined route to catch 404 status code
+            next();
           }
         },
       },

@@ -25,17 +25,6 @@
   </div>
 </template>
 
-<!-- <script lang="ts">
-import { defineComponent } from "vue";
-import { mapState } from "vuex";
-
-export default defineComponent({
-  computed: {
-    ...mapState(["articleContent"]),
-  },
-});
-</script> -->
-
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue";
 import { useStore } from "vuex";

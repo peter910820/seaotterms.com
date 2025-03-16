@@ -13,19 +13,20 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 import { useStore } from "vuex";
 
 export default defineComponent({
   setup() {
     const route = useRoute();
+    const router = useRouter();
     const store = useStore();
     const tagName = route.params.tagName;
     const tagData = ref(store.state.tagArticle);
 
     const link = (articleID: string) => {
-      window.location.href = `/articles/${articleID}`;
+      router.push(`/articles/${articleID}`);
     };
     return {
       tagName,

@@ -34,18 +34,20 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 export default defineComponent({
   setup() {
+    const router = useRouter();
     const store = useStore();
     const articleContent = ref(store.state.articleContent);
 
     const link = (mod: string, target: string) => {
       if (mod === "article") {
-        window.location.href = `./articles/${target}`;
+        router.push(`/articles/${target}`);
       } else {
-        window.location.href = `./tags/${target}`;
+        router.push(`./tags/${target}`);
       }
     };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -27,6 +27,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 import MarkdownIt from "markdown-it";
@@ -35,6 +36,7 @@ import "highlight.js/styles/github-dark.css"; // highlight-styles
 
 export default defineComponent({
   setup() {
+    const router = useRouter();
     const store = useStore();
     const articleData = ref(store.state.articleContent);
 
@@ -64,7 +66,7 @@ export default defineComponent({
     const renderedMarkdown = computed(() => renderMarkdown(articleData.value.Content));
 
     const link = (tagName: string) => {
-      window.location.href = `/tags/${tagName}`;
+      router.push(`/tags/${tagName}`);
     };
 
     return {

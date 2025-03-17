@@ -31,6 +31,7 @@
     </form>
   </div>
 </template>
+
 <script>
 import { ref, defineComponent } from "vue";
 import { useRouter } from "vue-router";

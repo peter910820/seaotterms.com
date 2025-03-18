@@ -69,7 +69,7 @@ export default defineComponent({
       topic: "",
       title: "",
       status: 0,
-      deadline: new Date(),
+      deadline: null,
       createdAt: new Date(),
       createName: userData.value.username,
       updatedAt: new Date(),
@@ -90,7 +90,6 @@ export default defineComponent({
         const selectOptions = {
           dropdownOptions: {
             constrainWidth: false,
-            alignment: "left",
             container: document.body,
           },
         };

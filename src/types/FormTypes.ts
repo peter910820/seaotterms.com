@@ -4,7 +4,7 @@ export interface FormTodo {
   topic: string;
   title: string;
   status: number;
-  deadline: Date;
+  deadline: Date | null;
   createdAt: Date;
   createName: string;
   updatedAt: Date;

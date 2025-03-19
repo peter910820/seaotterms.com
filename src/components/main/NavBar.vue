@@ -34,6 +34,9 @@
           >
         </li>
         <li>
+          <router-link to="/todolist">TodoList</router-link>
+        </li>
+        <li>
           <router-link
             v-if="userData.username !== '' && userData.username !== undefined"
             to="/user_maintain"
@@ -64,6 +67,9 @@
       <router-link to="/galgamebrand">Galgame紀錄</router-link>
     </li>
     <li>
+      <router-link to="/todolist">TodoList</router-link>
+    </li>
+    <li>
       <router-link
         v-if="userData.username !== '' && userData.username !== undefined"
         to="/user_maintain"
@@ -74,6 +80,7 @@
 </template>
 
 <script setup lang="ts">
+import M from "materialize-css";
 import { onMounted, nextTick, computed } from "vue";
 import { useStore } from "vuex";
 

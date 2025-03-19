@@ -16,7 +16,6 @@
 </template>
 
 <script lang="ts">
-import M from "materialize-css";
 import { defineComponent } from "vue";
 
 import NavBar from "../components/main/NavBar.vue";

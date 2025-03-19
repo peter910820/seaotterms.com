@@ -2,51 +2,41 @@
   <div class="mainBlock">
     <h1>代辦清單</h1>
     <div class="col s12 add-block floatup-div wow animate__bounceIn">
-      <form class="col s12" method="post" @submit.prevent="handleSubmit">
-        <div class="col s2 input-field">
-          <select v-model="form.topic">
-            <option class="validate" value="" disabled selected>選擇主題</option>
-            <option v-for="item in todoTopics" :key="item.topicName" :value="item.topicName">
-              {{ item.topicName }}
-            </option>
-          </select>
-          <label>選擇主題</label>
-        </div>
-        <div class="col s7 input-field">
-          <input v-model="form.title" id="todo-title" type="text" class="validate" required />
-          <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
-          <label for="todo-title">標題</label>
-        </div>
-        <div class="col s3 input-field">
-          <i class="material-icons prefix">browse_gallery</i>
-          <input v-model="form.deadline" id="deadline" type="text" class="datepicker validate" />
-          <label for="deadline">截止日期</label>
-        </div>
-        <div class="col s2">
-          <button class="btn waves-effect waves-light" type="submit" name="action">
-            新增
-            <i class="material-icons right">send</i>
-          </button>
-        </div>
-      </form>
+      <div class="col s2 input-field">
+        <select v-model="form.topic">
+          <option class="validate" value="" disabled selected>選擇主題</option>
+          <option v-for="item in todoTopics" :key="item.topicName" :value="item.topicName">
+            {{ item.topicName }}
+          </option>
+        </select>
+        <label>選擇主題</label>
+      </div>
+      <div class="col s5 input-field">
+        <input v-model="form.title" id="todo-title" type="text" class="validate" required />
+        <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
+        <label for="todo-title">標題</label>
+      </div>
+      <div class="col s3 input-field">
+        <i class="material-icons prefix">browse_gallery</i>
+        <input v-model="form.deadline" id="deadline" type="text" class="datepicker validate" />
+        <label for="deadline">截止日期</label>
+      </div>
+      <div class="col s2">
+        <button class="btn waves-effect waves-light" @click="handleSubmit">
+          新增
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
     </div>
 
-    <div class="col s12 sub-block floatup-div wow animate__bounceIn">
+    <div
+      class="col s12 sub-block floatup-div wow animate__bounceIn"
+      v-for="todo in todos"
+      :key="todo.id"
+    >
       <label>
         <input type="checkbox" class="large" />
-        <span class="title">[系統]測試資料</span>
-      </label>
-    </div>
-    <div class="col s12 sub-block floatup-div wow animate__bounceIn">
-      <label>
-        <input type="checkbox" class="large" />
-        <span class="title">[系統]測試資料</span>
-      </label>
-    </div>
-    <div class="col s12 sub-block floatup-div wow animate__bounceIn">
-      <label>
-        <input type="checkbox" class="large" />
-        <span class="title">[系統]測試資料</span>
+        <span class="title">[{{ todo.topic }}]{{ todo.title }}</span>
       </label>
     </div>
   </div>
@@ -54,7 +44,7 @@
 
 <script lang="ts">
 import M from "materialize-css";
-import { ref, defineComponent } from "vue";
+import { ref, defineComponent, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { onMounted, nextTick } from "vue";
@@ -68,6 +58,7 @@ export default defineComponent({
     const store = useStore();
 
     const todoTopics = ref();
+    let todoData = ref();
     const userData = ref(store.state.userData);
     const form = ref<FormTodo>({
       owner: userData.value.username,
@@ -90,7 +81,16 @@ export default defineComponent({
           return error.response;
         }
       };
-      const response = await getTodoTopics();
+      const getTodo = async () => {
+        try {
+          const response = await axios.get(`/api/todos/${userData.value.username}`);
+          return response;
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+          return error.response;
+        }
+      };
+      let response = await getTodoTopics();
       if (response?.status === 200) {
         store.commit("setTodoTopic", response.data.data);
       } else {
@@ -98,6 +98,15 @@ export default defineComponent({
         router.push("/message");
       }
       todoTopics.value = store.state.todoTopic;
+      response = await getTodo();
+      if (response?.status === 200) {
+        console.log(response.data.data);
+        store.commit("setTodo", response.data.data);
+      } else {
+        sessionStorage.setItem("msg", `${response?.status}: ${response?.data.msg}`);
+        router.push("/message");
+      }
+      todoData.value = store.state.todo;
       // init material.css
       nextTick(() => {
         const datepickerElements = document.querySelectorAll(".datepicker");
@@ -118,9 +127,13 @@ export default defineComponent({
       });
     });
 
+    let todos = computed(() => store.state.todo);
+
     const handleSubmit = async () => {
       try {
         await axios.post("/api/todos", form.value);
+        let response = await axios.get(`/api/todos/${userData.value.username}`);
+        store.commit("setTodo", response.data.data);
       } catch (error) {
         if (axios.isAxiosError(error)) {
           sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
@@ -132,7 +145,7 @@ export default defineComponent({
         }
       }
     };
-    return { form, handleSubmit, todoTopics };
+    return { form, handleSubmit, todoTopics, todoData, todos };
   },
 });
 </script>

@@ -5,17 +5,19 @@
       <form class="col s12" method="post" @submit.prevent="handleSubmit">
         <div class="col s2 input-field">
           <select v-model="form.topic">
-            <option value="" disabled selected>選擇主題</option>
-            <option value="1">測試</option>
+            <option class="validate" value="" disabled selected>選擇主題</option>
+            <option v-for="item in todoTopics" :key="item.topicName" :value="item.topicName">
+              {{ item.topicName }}
+            </option>
           </select>
           <label>選擇主題</label>
         </div>
-        <div class="col s6 input-field">
+        <div class="col s7 input-field">
           <input v-model="form.title" id="todo-title" type="text" class="validate" required />
           <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
           <label for="todo-title">標題</label>
         </div>
-        <div class="col s2 input-field">
+        <div class="col s3 input-field">
           <i class="material-icons prefix">browse_gallery</i>
           <input v-model="form.deadline" id="deadline" type="text" class="datepicker validate" />
           <label for="deadline">截止日期</label>
@@ -51,6 +53,7 @@
 </template>
 
 <script lang="ts">
+import M from "materialize-css";
 import { ref, defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
@@ -63,6 +66,8 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const store = useStore();
+
+    const todoTopics = ref();
     const userData = ref(store.state.userData);
     const form = ref<FormTodo>({
       owner: userData.value.username,
@@ -70,20 +75,36 @@ export default defineComponent({
       title: "",
       status: 0,
       deadline: null,
-      createdAt: new Date(),
       createName: userData.value.username,
-      updatedAt: new Date(),
       updateName: "",
     });
     // init select for materializecss
-    onMounted(() => {
+    onMounted(async () => {
+      // get TodoTopics
+      const getTodoTopics = async () => {
+        try {
+          const response = await axios.get("/api/todo_topics");
+          return response;
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+          return error.response;
+        }
+      };
+      const response = await getTodoTopics();
+      if (response?.status === 200) {
+        store.commit("setTodoTopic", response.data.data);
+      } else {
+        sessionStorage.setItem("msg", `${response?.status}: ${response?.data.msg}`);
+        router.push("/message");
+      }
+      todoTopics.value = store.state.todoTopic;
+      // init material.css
       nextTick(() => {
         const datepickerElements = document.querySelectorAll(".datepicker");
         const datepickerOptions = {
           format: "yyyy-mm-dd",
           container: document.body,
         };
-        // eslint-disable-next-line no-undef
         M.Datepicker.init(datepickerElements, datepickerOptions);
 
         const selectElements = document.querySelectorAll("select");
@@ -93,45 +114,25 @@ export default defineComponent({
             container: document.body,
           },
         };
-        // eslint-disable-next-line no-undef
         M.FormSelect.init(selectElements, selectOptions);
       });
     });
-    // const handleSubmit = async () => {
-    //   if (form.value.name.trim() == "") {
-    //     sessionStorage.setItem("msg", "遊戲名稱不得為空白");
-    //     router.push("/message");
-    //     return;
-    //   }
-    //   if (form.value.brand.trim() == "") {
-    //     sessionStorage.setItem("msg", "請選擇品牌名稱");
-    //     router.push("/message");
-    //     return;
-    //   }
-    //   const releaseDate = new Date(document.getElementById("releaseDate").value).toISOString();
-    //   const endDate = new Date(document.getElementById("endDate").value).toISOString();
-    //   if (endDate <= releaseDate) {
-    //     sessionStorage.setItem("msg", "輸入日期不正確");
-    //     router.push("/message");
-    //     return;
-    //   }
-    //   form.value.releaseDate = releaseDate;
-    //   form.value.endDate = endDate;
-    //   try {
-    //     let response = await axios.post("/api/galgame", form.value);
-    //     sessionStorage.setItem("msg", response?.data.msg);
-    //     router.push("/message");
-    //   } catch (error) {
-    //     if (axios.isAxiosError(error)) {
-    //       sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
-    //       router.push("/message");
-    //     } else {
-    //       console.log("未知錯誤: " + error);
-    //       router.push("/notFound");
-    //     }
-    //   }
-    // };
-    return { form };
+
+    const handleSubmit = async () => {
+      try {
+        await axios.post("/api/todos", form.value);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
+          router.push("/message");
+        } else {
+          console.log("未知錯誤: " + error);
+          sessionStorage.setItem("msg", `發生未知錯誤，請聯繫管理員`);
+          router.push("/message");
+        }
+      }
+    };
+    return { form, handleSubmit, todoTopics };
   },
 });
 </script>

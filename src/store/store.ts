@@ -14,6 +14,8 @@ interface State {
   galgameSingleData: {};
   // -------------------- //
   userData: UserData;
+  // -------------------- //
+  todoTopic: TodoTopic[];
 }
 
 interface UserData {
@@ -26,6 +28,12 @@ interface UserData {
   updated_at: Date;
   update_name: string;
   avatar: string;
+}
+
+interface TodoTopic {
+  topicName: string;
+  updatedAt: Date;
+  updateName: string;
 }
 
 const getDefaultState = (): State => ({
@@ -47,6 +55,14 @@ const getDefaultState = (): State => ({
     update_name: "",
     avatar: "",
   },
+  // -------------------- //
+  todoTopic: [
+    {
+      topicName: "",
+      updatedAt: new Date(),
+      updateName: "",
+    },
+  ],
 });
 
 export default createStore({
@@ -91,6 +107,10 @@ export default createStore({
         state.userData.update_name = userData.update_name;
         state.userData.avatar = userData.avatar;
       }
+    },
+    // -------------------- //
+    setTodoTopic(state, todoTopic) {
+      state.todoTopic = todoTopic;
     },
   },
   plugins: [createPersistedState({ paths: ["userData"] })],

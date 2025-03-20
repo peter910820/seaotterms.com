@@ -33,15 +33,17 @@
       class="col s12 sub-block floatup-div wow animate__bounceIn"
       v-for="todo in todos"
       :key="todo.id"
+      @click="switchStatus(todo.id, $event)"
     >
       <label>
         <input type="checkbox" class="large" />
         <span class="col s6 title">[{{ todo.topic }}]{{ todo.title }}</span>
 
         <span v-if="todo.status === 0" class="col s3 title">未開始</span>
-        <span v-else-if="todo.status === 1" class="col s1 title">進行中</span>
-        <span v-else-if="todo.status === 2" class="col s1 title">擱置中</span>
-        <span v-else class="col s1 title">?</span>
+        <span v-else-if="todo.status === 1" class="col s3 title">進行中</span>
+        <span v-else-if="todo.status === 2" class="col s3 title">擱置中</span>
+        <span v-else-if="todo.status === 3" class="col s3 title">完成</span>
+        <span v-else class="col s3 title">?</span>
 
         <span v-if="todo.deadline" class="col s3 title">{{
           todo.deadline.toISOString().split("T")[0]
@@ -166,7 +168,28 @@ export default defineComponent({
         }
       }
     };
-    return { form, handleSubmit, todoTopics, todoData, todos };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const switchStatus = async (id: any, event: Event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      if (confirm("確定調整?")) {
+        try {
+          await axios.post(`/api/switch_todo/${id}`);
+          let response = await axios.get(`/api/todos/${userData.value.username}`);
+          store.commit("setTodo", response.data.data);
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
+            router.push("/message");
+          } else {
+            console.log("未知錯誤: " + error);
+            sessionStorage.setItem("msg", `發生未知錯誤，請聯繫管理員`);
+            router.push("/message");
+          }
+        }
+      }
+    };
+    return { form, handleSubmit, todoTopics, todoData, todos, switchStatus };
   },
 });
 </script>

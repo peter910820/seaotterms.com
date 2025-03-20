@@ -1166,7 +1166,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/jquery@*", "@types/jquery@^3.5.32":
+"@types/jquery@^3.5.32":
   version "3.5.32"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.5.32.tgz#3eb0da20611b92c7c49ebed6163b52a4fdc57def"
   integrity sha512-b9Xbf4CkMqS02YH8zACqN1xzdxc3cO735Qe5AbSUFmyOiaWAbcpqh9Wna+Uk0vgACvoQHpWDg2rGdHkYPLmCiQ==
@@ -1195,14 +1195,6 @@
   dependencies:
     "@types/linkify-it" "^5"
     "@types/mdurl" "^2"
-
-"@types/materialize-css@^1.0.14":
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/@types/materialize-css/-/materialize-css-1.0.14.tgz#5d7a98193d27bd0eee1de9c6b4b63a1e73720127"
-  integrity sha512-Jt8ReN/R7zrz1TBby0KvyJzAIB9353c1jaFjZt8fIaY/xsalED/8OsFuog1PJ79OuXleRWyJ+MZ8dmjbArXepg==
-  dependencies:
-    "@types/jquery" "*"
-    cash-dom "*"
 
 "@types/mdurl@^2":
   version "2.0.0"
@@ -2316,11 +2308,6 @@ case-sensitive-paths-webpack-plugin@^2.3.0:
   version "2.4.0"
   resolved "https://registry.npmjs.org/case-sensitive-paths-webpack-plugin/-/case-sensitive-paths-webpack-plugin-2.4.0.tgz"
   integrity sha512-roIFONhcxog0JSSWbvVAh3OocukmSgpqOH6YpMkCvav/ySIV3JKg4Dc8vYtQjYi/UxpNE36r/9v+VqTQqgkYmw==
-
-cash-dom@*:
-  version "8.1.5"
-  resolved "https://registry.yarnpkg.com/cash-dom/-/cash-dom-8.1.5.tgz#7b2668ddbcce1c7893915d56fddb0abcda2e32c5"
-  integrity sha512-/BS05CfzyHR5xT2ksKj1sDLPaOv5rSmIwoGxNgdKwUtnIuiJ5neMxVEmZxvfyJiSjGbOMD0Lwe+9v+fszDqHew==
 
 chalk@^2.1.0, chalk@^2.4.2:
   version "2.4.2"
@@ -4356,11 +4343,6 @@ markdown-it@^14.1.0:
     mdurl "^2.0.0"
     punycode.js "^2.3.1"
     uc.micro "^2.1.0"
-
-materialize-css@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/materialize-css/-/materialize-css-1.0.0.tgz#8d5db1c4a81c6d65f3b2e2ca83a8e08daa24d1be"
-  integrity sha512-4/oecXl8y/1i8RDZvyvwAICyqwNoKU4or5uf8uoAd74k76KzZ0Llym4zhJ5lLNUskcqjO0AuMcvNyDkpz8Z6zw==
 
 mdn-data@2.0.14:
   version "2.0.14"

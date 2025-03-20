@@ -80,7 +80,8 @@
 </template>
 
 <script setup lang="ts">
-import M from "materialize-css";
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare var M: any;
 import { onMounted, nextTick, computed } from "vue";
 import { useStore } from "vuex";
 
@@ -92,7 +93,6 @@ onMounted(() => {
   nextTick(() => {
     const elems = document.querySelectorAll(".sidenav");
     let options = {};
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-undef
     const instances = M.Sidenav.init(elems, options);
 
     // change position for navbar overlay

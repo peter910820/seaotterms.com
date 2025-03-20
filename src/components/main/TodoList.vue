@@ -18,7 +18,7 @@
       </div>
       <div class="col s3 input-field">
         <i class="material-icons prefix">browse_gallery</i>
-        <input v-model="form.deadline" id="deadline" type="text" class="datepicker validate" />
+        <input id="deadline" type="text" class="datepicker validate" />
         <label for="deadline">截止日期</label>
       </div>
       <div class="col s2">
@@ -36,14 +36,22 @@
     >
       <label>
         <input type="checkbox" class="large" />
-        <span class="title">[{{ todo.topic }}]{{ todo.title }}</span>
+        <span class="col s6 title">[{{ todo.topic }}]{{ todo.title }}</span>
+
+        <span v-if="todo.status === 0" class="col s1 title">未開始</span>
+        <span v-else-if="todo.status === 1" class="col s1 title">進行中</span>
+        <span v-else-if="todo.status === 2" class="col s1 title">擱置中</span>
+        <span v-else class="col s1 title">?</span>
+
+        <span class="col s5 title">{{ todo.deadline }}</span>
       </label>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import M from "materialize-css";
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare var M: any;
 import { ref, defineComponent, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
@@ -130,6 +138,15 @@ export default defineComponent({
     let todos = computed(() => store.state.todo);
 
     const handleSubmit = async () => {
+      const deadlineTag = document.getElementById("deadline") as HTMLInputElement | null;
+      if (deadlineTag) {
+        const deadline = new Date(deadlineTag.value);
+        form.value.deadline = deadline;
+      } else {
+        console.log("未知錯誤: " + "找不到ID為deadline的HTML元素");
+        sessionStorage.setItem("msg", `發生未知錯誤，請聯繫管理員`);
+        router.push("/message");
+      }
       try {
         await axios.post("/api/todos", form.value);
         let response = await axios.get(`/api/todos/${userData.value.username}`);

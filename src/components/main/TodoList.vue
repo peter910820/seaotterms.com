@@ -38,12 +38,14 @@
         <input type="checkbox" class="large" />
         <span class="col s6 title">[{{ todo.topic }}]{{ todo.title }}</span>
 
-        <span v-if="todo.status === 0" class="col s1 title">未開始</span>
+        <span v-if="todo.status === 0" class="col s3 title">未開始</span>
         <span v-else-if="todo.status === 1" class="col s1 title">進行中</span>
         <span v-else-if="todo.status === 2" class="col s1 title">擱置中</span>
         <span v-else class="col s1 title">?</span>
 
-        <span class="col s5 title">{{ todo.deadline }}</span>
+        <span v-if="todo.deadline" class="col s3 title">{{
+          todo.deadline.toISOString().split("T")[0]
+        }}</span>
       </label>
     </div>
   </div>
@@ -147,18 +149,20 @@ export default defineComponent({
         sessionStorage.setItem("msg", `發生未知錯誤，請聯繫管理員`);
         router.push("/message");
       }
-      try {
-        await axios.post("/api/todos", form.value);
-        let response = await axios.get(`/api/todos/${userData.value.username}`);
-        store.commit("setTodo", response.data.data);
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
-          router.push("/message");
-        } else {
-          console.log("未知錯誤: " + error);
-          sessionStorage.setItem("msg", `發生未知錯誤，請聯繫管理員`);
-          router.push("/message");
+      if (confirm("確定新增?")) {
+        try {
+          await axios.post("/api/todos", form.value);
+          let response = await axios.get(`/api/todos/${userData.value.username}`);
+          store.commit("setTodo", response.data.data);
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
+            router.push("/message");
+          } else {
+            console.log("未知錯誤: " + error);
+            sessionStorage.setItem("msg", `發生未知錯誤，請聯繫管理員`);
+            router.push("/message");
+          }
         }
       }
     };

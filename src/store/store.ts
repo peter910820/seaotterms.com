@@ -3,7 +3,7 @@ localStorage.clear();
 import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 
-import type { FormTodo } from "@/types/FormTypes";
+import type { FormTodo, TodoTopic } from "@/types/FormTypes";
 
 interface State {
   articleContent: "";
@@ -33,12 +33,6 @@ interface UserData {
   avatar: string;
 }
 
-interface TodoTopic {
-  topicName: string;
-  updatedAt: Date;
-  updateName: string;
-}
-
 const getDefaultState = (): State => ({
   articleContent: "",
   tagArticle: "",
@@ -62,6 +56,7 @@ const getDefaultState = (): State => ({
   todoTopic: [
     {
       topicName: "",
+      topicOwner: "",
       updatedAt: new Date(),
       updateName: "",
     },
@@ -128,6 +123,11 @@ export default createStore({
     },
     setTodo(state, todo) {
       state.todo = todo;
+      state.todo.forEach((element) => {
+        if (element.deadline) {
+          element.deadline = new Date(element.deadline);
+        }
+      });
     },
   },
   plugins: [createPersistedState({ paths: ["userData"] })],

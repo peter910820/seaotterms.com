@@ -274,6 +274,11 @@ const mainRoutes: Array<RouteRecordRaw> = [
         name: "main-todolist",
         component: () => import("../components/main/TodoList.vue"),
       },
+      {
+        path: "todo_topic",
+        name: "main-todoTopic",
+        component: () => import("../components/main/CreateTodoTopic.vue"),
+      },
       // match all route
       {
         path: ":pathMatch(.*)*",

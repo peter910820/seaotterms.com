@@ -8,3 +8,10 @@ export interface FormTodo {
   createName: string;
   updateName: string;
 }
+
+export interface TodoTopic {
+  topicName: string;
+  topicOwner: string;
+  updatedAt: Date;
+  updateName: string;
+}

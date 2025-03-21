@@ -39,10 +39,16 @@
         <input type="checkbox" class="large" />
         <span class="col s6 title">[{{ todo.topic }}]{{ todo.title }}</span>
 
-        <span v-if="todo.status === 0" class="col s3 title">未開始</span>
-        <span v-else-if="todo.status === 1" class="col s3 title">進行中</span>
-        <span v-else-if="todo.status === 2" class="col s3 title">擱置中</span>
-        <span v-else-if="todo.status === 3" class="col s3 title">完成</span>
+        <span v-if="todo.status === 0" class="col s3 title"><font color="red">未開始</font></span>
+        <span v-else-if="todo.status === 1" class="col s3 title"
+          ><font color="blue">進行中</font></span
+        >
+        <span v-else-if="todo.status === 2" class="col s3 title"
+          ><font color="purple">擱置中</font></span
+        >
+        <span v-else-if="todo.status === 3" class="col s3 title"
+          ><font color="green">完成</font></span
+        >
         <span v-else class="col s3 title">?</span>
 
         <span v-if="todo.deadline" class="col s3 title">{{

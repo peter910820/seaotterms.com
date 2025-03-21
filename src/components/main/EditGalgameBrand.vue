@@ -70,11 +70,7 @@ export default defineComponent({
     const handleSubmit = async () => {
       try {
         form.value.brand = form.value.brand.trim();
-        if (
-          form.value.completed < 0 ||
-          form.value.total < 0 ||
-          form.value.completed > form.value.total
-        ) {
+        if (form.value.completed < 0 || form.value.total < 0 || form.value.completed > form.value.total) {
           sessionStorage.setItem("msg", "數值有誤");
           router.push("/message");
           return;
@@ -83,10 +79,7 @@ export default defineComponent({
           router.push("/message");
           return;
         }
-        let response = await axios.patch(
-          `/api/galgame-brand/${galgameBrandSingleData.value.brand}`,
-          form.value
-        );
+        let response = await axios.patch(`/api/galgame-brand/${galgameBrandSingleData.value.brand}`, form.value);
         sessionStorage.setItem("msg", response?.data.msg);
         router.push("/message");
       } catch (error) {

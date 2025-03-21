@@ -39,7 +39,7 @@
         <li>
           <router-link
             v-if="userData.username !== '' && userData.username !== undefined"
-            to="/user_maintain"
+            to="/user-maintain"
             >個人資料維護<i class="material-icons left">manage_accounts</i></router-link
           >
         </li>
@@ -72,7 +72,7 @@
     <li>
       <router-link
         v-if="userData.username !== '' && userData.username !== undefined"
-        to="/user_maintain"
+        to="/user-maintain"
         >個人資料維護</router-link
       >
     </li>

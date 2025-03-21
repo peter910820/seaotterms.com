@@ -2,10 +2,7 @@
   <div class="myProfile">
     <div class="h4">
       <div class="headShot">
-        <img
-          v-if="userData.avatar !== '' && userData.avatar !== undefined"
-          :src="userData.avatar"
-        />
+        <img v-if="userData.avatar !== '' && userData.avatar !== undefined" :src="userData.avatar" />
         <img v-else src="@/assets/headshot.png" />
       </div>
     </div>
@@ -15,11 +12,9 @@
     <div v-else class="myName"><font color="blue">使用者未登入</font></div>
     <div class="aboutMe typer"></div>
     <div class="littleItem h2">
-      <a
-        class="waves-effect waves-light btn-large"
-        href="https://github.com/peter910820/seaotterms.com"
-        >這是專案本身:pepega:</a
-      >
+      <a class="waves-effect waves-light btn-large" href="https://github.com/peter910820/seaotterms.com">
+        這是專案本身:pepega:
+      </a>
     </div>
     <div class="socialLink">
       <a href="https://github.com/peter910820" target="_blank" rel="noopener noreferrer">

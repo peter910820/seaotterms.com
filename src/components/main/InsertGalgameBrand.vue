@@ -60,11 +60,7 @@ export default defineComponent({
     const handleSubmit = async () => {
       try {
         form.value.brand = form.value.brand.trim();
-        if (
-          form.value.completed < 0 ||
-          form.value.total < 0 ||
-          form.value.completed > form.value.total
-        ) {
+        if (form.value.completed < 0 || form.value.total < 0 || form.value.completed > form.value.total) {
           sessionStorage.setItem("msg", "數值有誤");
           router.push("/message");
           return;

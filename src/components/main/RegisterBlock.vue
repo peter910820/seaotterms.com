@@ -23,13 +23,7 @@
         </div>
         <div class="input-field col s12">
           <i class="material-icons prefix">lock</i>
-          <input
-            id="checkPassword"
-            v-model="form.checkPassword"
-            type="password"
-            class="validate"
-            required
-          />
+          <input id="checkPassword" v-model="form.checkPassword" type="password" class="validate" required />
           <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
           <label for="checkPassword">check password</label>
         </div>

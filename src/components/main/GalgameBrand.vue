@@ -35,9 +35,7 @@
         <font color="red">{{ galgameBrand.dissolution ? "解散" : "" }}</font>
       </div>
       <div class="col s1">
-        <router-link :to="`/galgamebrand/edit/${galgameBrand.brand}`" class="button-simple modify">
-          修改
-        </router-link>
+        <router-link :to="`/galgamebrand/edit/${galgameBrand.brand}`" class="button-simple modify">修改</router-link>
       </div>
       <div class="col s1">
         <button class="button-simple modify" @click="openModal(galgameBrand.brand)">+</button>
@@ -55,11 +53,7 @@
           <div class="col s1">全年齡</div>
           <div class="col s1">修改</div>
         </div>
-        <div
-          class="col s12 galgameBrand floatup-div"
-          v-for="brandGames in selectedBrandGames"
-          :key="brandGames.name"
-        >
+        <div class="col s12 galgameBrand floatup-div" v-for="brandGames in selectedBrandGames" :key="brandGames.name">
           <div class="col s2 brand">{{ brandGames.name }}</div>
           <div class="col s4">{{ formatDate(brandGames.releaseDate) }}</div>
           <div class="col s4">{{ formatDate(brandGames.endDate) }}</div>
@@ -70,7 +64,7 @@
           </div>
           <div class="col s1" v-else>全年齡</div>
           <div class="col s1">
-            <router-link :to="`/`" class="button-simple modify"> 修改 </router-link>
+            <router-link :to="`/`" class="button-simple modify">修改</router-link>
           </div>
         </div>
       </div>

@@ -4,9 +4,12 @@
       <h1>{{ articleData.Title }}</h1>
     </div>
     <div class="articleInformation">
-      <i class="material-icons">account_circle</i>{{ articleData.Username }}
-      <i class="material-icons">add_circle</i>{{ articleData.CreatedAt }}
-      <i class="material-icons">edit</i>{{ articleData.UpdatedAt }}
+      <i class="material-icons">account_circle</i>
+      {{ articleData.Username }}
+      <i class="material-icons">add_circle</i>
+      {{ articleData.CreatedAt }}
+      <i class="material-icons">edit</i>
+      {{ articleData.UpdatedAt }}
     </div>
     <div class="articleTags">
       <div

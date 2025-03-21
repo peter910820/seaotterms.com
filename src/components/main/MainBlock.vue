@@ -13,18 +13,18 @@
       @click="link('article', article.ID)"
     >
       <div class="title">{{ article.Title }}</div>
-      <div class="username"><i class="material-icons">person</i>{{ article.Username }}</div>
+      <div class="username">
+        <i class="material-icons">person</i>
+        {{ article.Username }}
+      </div>
       <div class="information">
-        <i class="material-icons">edit</i>{{ article.CreatedAt }}
-        <i class="material-icons">update</i>{{ article.UpdatedAt }}
+        <i class="material-icons">edit</i>
+        {{ article.CreatedAt }}
+        <i class="material-icons">update</i>
+        {{ article.UpdatedAt }}
       </div>
       <div class="tag">
-        <div
-          class="button-tags"
-          v-for="(tag, index) in article.Tags"
-          :key="index"
-          @click="tagClick(tag, $event)"
-        >
+        <div class="button-tags" v-for="(tag, index) in article.Tags" :key="index" @click="tagClick(tag, $event)">
           {{ tag }}
         </div>
       </div>

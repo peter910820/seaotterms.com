@@ -17,25 +17,13 @@
         </div>
         <div class="input-field col s6">
           <i class="material-icons prefix">event</i>
-          <input
-            id="releaseDate"
-            v-model="form.releaseDate"
-            type="text"
-            class="datepicker validate"
-            required
-          />
+          <input id="releaseDate" v-model="form.releaseDate" type="text" class="datepicker validate" required />
           <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
           <label for="releaseDate">発売日</label>
         </div>
         <div class="input-field col s6">
           <i class="material-icons prefix">check_circle</i>
-          <input
-            id="endDate"
-            v-model="form.endDate"
-            type="text"
-            class="datepicker validate"
-            required
-          />
+          <input id="endDate" v-model="form.endDate" type="text" class="datepicker validate" required />
           <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
           <label for="endDate">遊玩結束時間</label>
         </div>
@@ -84,10 +72,7 @@ export default defineComponent({
     });
     const handleSubmit = async () => {
       try {
-        let response = await axios.patch(
-          `/api/galgame/develop/${galgameSingleData.value.name}`,
-          form.value
-        );
+        let response = await axios.patch(`/api/galgame/develop/${galgameSingleData.value.name}`, form.value);
         sessionStorage.setItem("msg", response?.data.msg);
         router.push("/message");
       } catch (error) {

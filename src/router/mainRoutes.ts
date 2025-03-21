@@ -265,8 +265,13 @@ const mainRoutes: Array<RouteRecordRaw> = [
         },
       },
       {
-        path: "user_maintain",
-        name: "main-user_maintain",
+        path: "update-todo",
+        name: "main-update-todo",
+        component: () => import("../components/main/system/UpdateTodo.vue"),
+      },
+      {
+        path: "user-maintain",
+        name: "main-user-maintain",
         component: () => import("../components/main/UserMaintain.vue"),
       },
       {
@@ -275,7 +280,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
         component: () => import("../components/main/TodoList.vue"),
       },
       {
-        path: "todo_topic",
+        path: "todo-topic",
         name: "main-todoTopic",
         component: () => import("../components/main/CreateTodoTopic.vue"),
       },

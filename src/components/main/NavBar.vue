@@ -12,6 +12,12 @@
           </router-link>
         </li>
         <li>
+          <router-link to="/update-todo">
+            系統更新待辦
+            <i class="material-icons left">open_in_browser</i>
+          </router-link>
+        </li>
+        <li>
           <router-link to="/create">
             建立
             <i class="material-icons left">edit</i>
@@ -54,6 +60,9 @@
   <ul class="sidenav" id="mobile-demo">
     <li>
       <router-link to="/">首頁</router-link>
+    </li>
+    <li>
+      <router-link to="/update-todo">系統更新待辦</router-link>
     </li>
     <li>
       <router-link to="/create">建立</router-link>

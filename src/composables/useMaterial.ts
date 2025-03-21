@@ -26,3 +26,18 @@ export function initMaterialDropdown() {
     M.FormSelect.init(selectElements, selectOptions);
   });
 }
+
+export function initMaterialSidenav() {
+  nextTick(() => {
+    const elems = document.querySelectorAll(".sidenav");
+    M.Sidenav.init(elems, {});
+
+    // change position for navbar overlay
+    const overlay = document.querySelector(".sidenav-overlay");
+    const sidenav = document.querySelector(".sidenav");
+
+    if (overlay && sidenav) {
+      sidenav.parentNode?.insertBefore(overlay, sidenav);
+    }
+  });
+}

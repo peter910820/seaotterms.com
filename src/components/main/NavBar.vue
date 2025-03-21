@@ -89,29 +89,17 @@
 </template>
 
 <script setup lang="ts">
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-declare var M: any;
-import { onMounted, nextTick, computed } from "vue";
+import { onMounted, computed } from "vue";
 import { useStore } from "vuex";
+
+import { initMaterialSidenav } from "@/composables/useMaterial";
 
 const store = useStore();
 
 const userData = computed(() => store.state.userData);
 
 onMounted(() => {
-  nextTick(() => {
-    const elems = document.querySelectorAll(".sidenav");
-    let options = {};
-    const instances = M.Sidenav.init(elems, options);
-
-    // change position for navbar overlay
-    const overlay = document.querySelector(".sidenav-overlay");
-    const sidenav = document.querySelector(".sidenav");
-
-    if (overlay && sidenav) {
-      sidenav.parentNode?.insertBefore(overlay, sidenav);
-    }
-  });
+  initMaterialSidenav();
 });
 </script>
 
@@ -122,7 +110,6 @@ onMounted(() => {
 .brand-logo {
   margin-left: 10px;
 }
-
 a {
   color: #444444 !important;
 }

@@ -41,7 +41,7 @@ export default defineComponent({
     onMounted(async () => {
       const getTodo = async () => {
         try {
-          const response = await axios.get("http://127.0.0.1:3000/api/todos/root");
+          const response = await axios.get("/api/todos/root");
           return response;
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
@@ -51,7 +51,6 @@ export default defineComponent({
 
       const response = await getTodo();
       if (response?.status === 200) {
-        console.log(response.data.data);
         store.commit("setTodo", response.data.data);
       } else {
         sessionStorage.setItem("msg", `${response?.status}: ${response?.data.msg}`);

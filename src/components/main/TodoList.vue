@@ -109,7 +109,6 @@ export default defineComponent({
       todoTopics.value = store.state.todoTopic;
       response = await getTodo();
       if (response?.status === 200) {
-        console.log(response.data.data);
         store.commit("setTodo", response.data.data);
       } else {
         sessionStorage.setItem("msg", `${response?.status}: ${response?.data.msg}`);

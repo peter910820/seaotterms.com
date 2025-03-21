@@ -54,8 +54,10 @@
 import { ref, defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import { onMounted, nextTick } from "vue";
+import { onMounted } from "vue";
 import axios from "axios";
+
+import { initMaterialDatepicker, initMaterialDropdown } from "@/composables/useMaterial";
 
 export default defineComponent({
   setup() {
@@ -70,20 +72,13 @@ export default defineComponent({
       allAges: false,
       endDate: "",
     });
-    // init datepicker & select for materializecss
-    onMounted(() => {
-      nextTick(() => {
-        var elems = document.querySelectorAll(".datepicker");
-        let options = { format: "yyyy-mm-dd" };
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-undef
-        var instances = M.Datepicker.init(elems, options);
 
-        var elems2 = document.querySelectorAll("select");
-        let options2 = {};
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-undef
-        var instances2 = M.FormSelect.init(elems2, options2);
-      });
+    onMounted(() => {
+      // init select for materializecss
+      initMaterialDatepicker();
+      initMaterialDropdown();
     });
+
     const handleSubmit = async () => {
       if (form.value.name.trim() == "") {
         sessionStorage.setItem("msg", "遊戲名稱不得為空白");

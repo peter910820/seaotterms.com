@@ -54,14 +54,13 @@
 </template>
 
 <script lang="ts">
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-declare var M: any;
 import { ref, defineComponent, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import { onMounted, nextTick } from "vue";
+import { onMounted } from "vue";
 import axios from "axios";
 
+import { initMaterialDatepicker, initMaterialDropdown } from "@/composables/useMaterial";
 import type { FormTodo } from "@/types/FormTypes";
 
 export default defineComponent({
@@ -81,7 +80,7 @@ export default defineComponent({
       createName: userData.value.username,
       updateName: "",
     });
-    // init select for materializecss
+
     onMounted(async () => {
       // get TodoTopics
       const getTodoTopics = async () => {
@@ -119,24 +118,9 @@ export default defineComponent({
         router.push("/message");
       }
       todoData.value = store.state.todo;
-      // init material.css
-      nextTick(() => {
-        const datepickerElements = document.querySelectorAll(".datepicker");
-        const datepickerOptions = {
-          format: "yyyy-mm-dd",
-          container: document.body,
-        };
-        M.Datepicker.init(datepickerElements, datepickerOptions);
-
-        const selectElements = document.querySelectorAll("select");
-        const selectOptions = {
-          dropdownOptions: {
-            constrainWidth: false,
-            container: document.body,
-          },
-        };
-        M.FormSelect.init(selectElements, selectOptions);
-      });
+      // init select for materializecss
+      initMaterialDatepicker();
+      initMaterialDropdown();
     });
 
     let todos = computed(() => store.state.todo);

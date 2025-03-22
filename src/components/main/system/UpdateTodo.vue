@@ -18,7 +18,7 @@
         <font color="purple">擱置中</font>
       </div>
       <div v-else-if="todo.status === 3" :class="['col', todo.deadline ? 's3' : 's3', 'todo-status']">
-        <font color="green">完成</font>
+        <font color="green">已完成</font>
       </div>
       <div v-else class="col s3 todo-status">?</div>
     </div>

@@ -59,7 +59,7 @@ export default defineComponent({
 
 .mainStyle {
   min-height: 100vh;
-  min-width: 600px;
+  min-width: 768px;
   font-family: "Cubic_11_1.100_R";
 
   background-color: #f2ebea;

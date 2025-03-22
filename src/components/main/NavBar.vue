@@ -45,7 +45,10 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/todolist">TodoList</router-link>
+          <router-link to="/todolist">
+            TodoList
+            <i class="material-icons left">checklist</i>
+          </router-link>
         </li>
         <li>
           <router-link v-if="userData.username !== '' && userData.username !== undefined" to="/user-maintain">

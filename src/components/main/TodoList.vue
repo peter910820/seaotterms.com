@@ -1,7 +1,7 @@
 <template>
-  <div class="mainBlock">
+  <div class="main-block">
     <h1>代辦清單</h1>
-    <div class="col s12 add-block floatup-div wow animate__bounceIn">
+    <div id="test" class="col s12 add-block floatup-div wow animate__bounceIn">
       <div class="col s2 input-field">
         <select v-model="form.topic">
           <option class="validate" value="" disabled selected>選擇主題</option>
@@ -29,24 +29,58 @@
       </div>
     </div>
 
-    <div
-      class="col s12 sub-block floatup-div wow animate__bounceIn"
-      v-for="todo in todos"
-      :key="todo.id"
-      @click="switchStatus(todo.id, $event)"
-    >
-      <label>
-        <input type="checkbox" class="large" />
-        <span class="col s6 title">[{{ todo.topic }}]{{ todo.title }}</span>
+    <div class="col s12 sub-block floatup-div wow animate__bounceIn" v-for="todo in todos" :key="todo.id">
+      <div :class="['col', todo.deadline ? 's6' : 's9', 'todo-title']">[{{ todo.topic }}]{{ todo.title }}</div>
 
-        <span v-if="todo.status === 0" class="col s3 title"><font color="red">未開始</font></span>
-        <span v-else-if="todo.status === 1" class="col s3 title"><font color="blue">進行中</font></span>
-        <span v-else-if="todo.status === 2" class="col s3 title"><font color="purple">擱置中</font></span>
-        <span v-else-if="todo.status === 3" class="col s3 title"><font color="green">完成</font></span>
-        <span v-else class="col s3 title">?</span>
+      <div v-if="todo.deadline" class="col s3 todo-date">
+        {{ todo.deadline.toISOString().split("T")[0] }}
+      </div>
 
-        <span v-if="todo.deadline" class="col s3 title">{{ todo.deadline.toISOString().split("T")[0] }}</span>
-      </label>
+      <div id="dropdown" class="col s3 todo-status">
+        <!-- Dropdown Trigger -->
+        <a v-if="todo.status === 0" class="dropdown-trigger btn" href="#" data-target="dropdown1">
+          <font color="red">未開始</font>
+        </a>
+        <a v-if="todo.status === 1" class="dropdown-trigger btn" href="#" data-target="dropdown1">
+          <font color="blue">進行中</font>
+        </a>
+        <a v-if="todo.status === 2" class="dropdown-trigger btn" href="#" data-target="dropdown1">
+          <font color="purple">擱置中</font>
+        </a>
+        <a v-if="todo.status === 3" class="dropdown-trigger btn" href="#" data-target="dropdown1">
+          <font color="green">完成</font>
+        </a>
+
+        <!-- Dropdown Structure -->
+        <ul id="dropdown1" class="dropdown-content">
+          <li @click="changeStatus(todo.id, $event)">
+            <div><font color="red">未開始</font></div>
+          </li>
+          <li @click="changeStatus(todo.id, $event)">
+            <div><font color="blue">進行中</font></div>
+          </li>
+          <li @click="changeStatus(todo.id, $event)">
+            <div><font color="purple">擱置中</font></div>
+          </li>
+          <li @click="changeStatus(todo.id, $event)">
+            <div><font color="green">完成</font></div>
+          </li>
+        </ul>
+      </div>
+
+      <div v-if="todo.status === 0" :class="['col', todo.deadline ? 's3' : 's3', 'todo-status']">
+        <font color="red">未開始</font>
+      </div>
+      <div v-else-if="todo.status === 1" :class="['col', todo.deadline ? 's3' : 's3', 'todo-status']">
+        <font color="blue">進行中</font>
+      </div>
+      <div v-else-if="todo.status === 2" :class="['col', todo.deadline ? 's3' : 's3', 'todo-status']">
+        <font color="purple">擱置中</font>
+      </div>
+      <div v-else-if="todo.status === 3" :class="['col', todo.deadline ? 's3' : 's3', 'todo-status']">
+        <font color="green">完成</font>
+      </div>
+      <div v-else class="col s3 todo-status">?</div>
     </div>
   </div>
 </template>
@@ -58,7 +92,7 @@ import { useStore } from "vuex";
 import { onMounted } from "vue";
 import axios from "axios";
 
-import { initMaterialDatepicker, initMaterialDropdown } from "@/composables/useMaterial";
+import { initMaterialDatepicker, initMaterialFormSelect, initMaterialDropdown } from "@/composables/useMaterial";
 import type { FormTodo } from "@/types/FormTypes";
 
 export default defineComponent({
@@ -115,9 +149,10 @@ export default defineComponent({
         router.push("/message");
       }
       todoData.value = store.state.todo;
-      // init select for materializecss
+      // init materializecss
       initMaterialDatepicker();
       initMaterialDropdown();
+      initMaterialFormSelect();
     });
 
     let todos = computed(() => store.state.todo);
@@ -170,48 +205,60 @@ export default defineComponent({
         }
       }
     };
-    return { form, handleSubmit, todoTopics, todoData, todos, switchStatus };
+    const changeStatus = async (id: any, event: Event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      if (confirm("確定調整?")) {
+        return;
+      }
+    };
+    return { form, handleSubmit, todoTopics, todoData, todos, switchStatus, changeStatus };
   },
 });
 </script>
 
 <style scoped>
+.main-block {
+  padding: 25px;
+}
 .add-block {
-  display: flex;
+  font-size: 25px !important;
   max-height: 100px;
   height: 150px;
-  padding-top: 15px;
-  padding-left: 10px;
+  padding-top: 30px;
   margin-top: 10px;
   cursor: default;
   border: 2px solid black;
   border-radius: 20px;
-  > .title {
-    font-size: 30px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
 }
 .sub-block {
-  display: flex;
+  font-size: 25px !important;
   max-height: 100px;
   height: 150px;
   padding-top: 30px;
-  padding-left: 10px;
   margin-top: 10px;
   cursor: default;
   border: 2px solid white;
   border-radius: 20px;
-  > .title {
-    font-size: 30px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
 }
-.mainBlock {
-  padding: 25px;
+
+.todo-title {
+  text-align: left;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+  overflow: hidden !important;
+}
+.todo-date {
+  text-align: center;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+  overflow: hidden !important;
+  color: olive;
+}
+.todo-status {
+  text-align: right;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
 }
 .title {
   font-size: 25px !important;
@@ -220,13 +267,27 @@ export default defineComponent({
   overflow: hidden !important;
   color: black;
 }
-label {
-  display: flex;
-  width: 100%;
-  height: 100%;
-}
-div {
-  margin-top: 10px;
+@media (max-width: 768px) {
+  .add-block {
+    font-size: 20px !important;
+    max-height: 100px;
+    height: 150px;
+    padding-top: 30px;
+    margin-top: 10px;
+    cursor: default;
+    border: 2px solid black;
+    border-radius: 20px;
+  }
+  .sub-block {
+    font-size: 20px !important;
+    max-height: 100px;
+    height: 150px;
+    padding-top: 30px;
+    margin-top: 10px;
+    cursor: default;
+    border: 2px solid white;
+    border-radius: 20px;
+  }
 }
 /* font-settings */
 @font-face {

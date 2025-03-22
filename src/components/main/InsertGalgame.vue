@@ -57,7 +57,7 @@ import { useStore } from "vuex";
 import { onMounted } from "vue";
 import axios from "axios";
 
-import { initMaterialDatepicker, initMaterialDropdown } from "@/composables/useMaterial";
+import { initMaterialDatepicker, initMaterialFormSelect } from "@/composables/useMaterial";
 
 export default defineComponent({
   setup() {
@@ -76,7 +76,7 @@ export default defineComponent({
     onMounted(() => {
       // init select for materializecss
       initMaterialDatepicker();
-      initMaterialDropdown();
+      initMaterialFormSelect();
     });
 
     const handleSubmit = async () => {

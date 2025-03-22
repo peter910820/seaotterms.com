@@ -14,7 +14,7 @@ export function initMaterialDatepicker() {
   });
 }
 
-export function initMaterialDropdown() {
+export function initMaterialFormSelect() {
   nextTick(() => {
     const selectElements = document.querySelectorAll("select");
     const selectOptions = {
@@ -39,5 +39,18 @@ export function initMaterialSidenav() {
     if (overlay && sidenav) {
       sidenav.parentNode?.insertBefore(overlay, sidenav);
     }
+  });
+}
+
+export function initMaterialDropdown() {
+  nextTick(() => {
+    const elems = document.querySelectorAll(".dropdown-trigger");
+    const selectOptions = {
+      dropdownOptions: {
+        constrainWidth: false,
+        container: document.body,
+      },
+    };
+    M.Dropdown.init(elems, selectOptions);
   });
 }

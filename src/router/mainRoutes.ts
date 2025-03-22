@@ -160,7 +160,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
       {
         path: "message",
         name: "main-message",
-        component: () => import("../components/main/MessageBlcok.vue"),
+        component: () => import("../components/main/support/MessageBlcok.vue"),
       },
       // dynamic routes for articles
       {
@@ -223,7 +223,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
       {
         path: "user-maintain",
         name: "main-userMaintain",
-        component: () => import("../components/main/UserMaintain.vue"),
+        component: () => import("../components/main/system/UserMaintain.vue"),
       },
       {
         path: "todolist",
@@ -239,7 +239,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
       {
         path: ":pathMatch(.*)*",
         name: "main-notFound",
-        component: () => import("../components/main/ErrorBlock.vue"),
+        component: () => import("../components/main/support/ErrorBlock.vue"),
       },
     ],
   },

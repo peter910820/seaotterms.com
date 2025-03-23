@@ -36,7 +36,7 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const store = useStore();
-    const todos = computed(() => store.state.todo);
+    const todos = computed(() => store.state.systemTodo);
 
     onMounted(async () => {
       const getTodo = async () => {
@@ -51,7 +51,7 @@ export default defineComponent({
 
       const response = await getTodo();
       if (response?.status === 200) {
-        store.commit("setTodo", response.data.data);
+        store.commit("setSystemTodo", response.data.data);
       } else {
         sessionStorage.setItem("msg", `${response?.status}: ${response?.data.msg}`);
         router.push("/message");

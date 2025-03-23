@@ -19,6 +19,7 @@ interface State {
   // -------------------- //
   todoTopic: TodoTopic[];
   todo: FormTodo[];
+  systemTodo: FormTodo[];
 }
 
 interface UserData {
@@ -62,6 +63,17 @@ const getDefaultState = (): State => ({
     },
   ],
   todo: [
+    {
+      owner: "",
+      topic: "",
+      title: "",
+      status: 0,
+      deadline: null,
+      createName: "",
+      updateName: "",
+    },
+  ],
+  systemTodo: [
     {
       owner: "",
       topic: "",
@@ -124,6 +136,14 @@ export default createStore({
     setTodo(state, todo) {
       state.todo = todo;
       state.todo.forEach((element) => {
+        if (element.deadline) {
+          element.deadline = new Date(element.deadline);
+        }
+      });
+    },
+    setSystemTodo(state, systemTodo) {
+      state.systemTodo = systemTodo;
+      state.systemTodo.forEach((element) => {
         if (element.deadline) {
           element.deadline = new Date(element.deadline);
         }

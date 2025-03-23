@@ -80,8 +80,8 @@ export default defineComponent({
 
 <style scoped>
 .col {
-  max-height: 500px;
-  height: 500px;
+  max-height: 550px;
+  height: 550px;
   padding-top: 20px;
   margin-top: 10px;
   cursor: default;

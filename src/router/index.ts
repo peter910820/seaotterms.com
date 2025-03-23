@@ -14,7 +14,7 @@ const privatePages = [
   "/create",
   "/galgamebrand/insert",
   "/galgame/insert",
-  "/user_maintain",
+  "/user-maintain",
   "/todolist",
   "/todo-topic",
 ];

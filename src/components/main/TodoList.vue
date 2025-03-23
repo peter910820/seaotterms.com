@@ -105,7 +105,7 @@ export default defineComponent({
       // get TodoTopics
       const getTodoTopics = async () => {
         try {
-          const response = await axios.get("/api/todo-topics", { params: { username: userData.value.username } });
+          const response = await axios.get(`/api/todo-topics/${userData.value.username}`);
           return response;
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {

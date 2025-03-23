@@ -6,7 +6,12 @@
       <div class="col s2 input-field">
         <select v-model="form.topic">
           <option class="validate" value="" disabled selected>選擇主題</option>
-          <option v-for="todoTopic in todoTopics" :key="todoTopic.topicName" :value="todoTopic.topicName">
+          <option v-if="form.owner !== 'root'" class="validate" value="系統/root" selected>系統建議</option>
+          <option
+            v-for="todoTopic in todoTopics"
+            :key="todoTopic.topicName"
+            :value="`${todoTopic.topicName}/${form.owner}`"
+          >
             {{ todoTopic.topicName }}
           </option>
         </select>
@@ -159,10 +164,16 @@ export default defineComponent({
             router.push("/message");
             return;
           }
+          // judge if target is 系統建議
+          if (form.value.topic === "系統建議/root") {
+            form.value.owner = "root";
+          }
           await axios.post("/api/todos", form.value);
           let response = await axios.get(`/api/todos/${userData.value.username}`);
           store.commit("setTodo", response.data.data);
+          form.value.owner = userData.value.username;
         } catch (error) {
+          form.value.owner = userData.value.username;
           if (axios.isAxiosError(error)) {
             sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
             router.push("/message");

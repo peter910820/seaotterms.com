@@ -62,7 +62,6 @@ export default defineComponent({
       avatar: userData.value.avatar,
     });
     const handleSubmit = async () => {
-      console.log(form);
       try {
         let response = await axios.patch(`/api/users/${form.value.id}`, form.value);
         sessionStorage.setItem("msg", response?.data.msg);

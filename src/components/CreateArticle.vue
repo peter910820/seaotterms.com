@@ -72,7 +72,6 @@ export default defineComponent({
     const handleCreateSubmit = async () => {
       try {
         form.value.tags = middleTags.value.split(",");
-        console.log(form.value.tags);
         await axios.post("/api/create-article", form.value);
         sessionStorage.setItem("msg", "資料創建成功");
         router.push("/message");

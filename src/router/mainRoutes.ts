@@ -137,13 +137,13 @@ const mainRoutes: Array<RouteRecordRaw> = [
       {
         path: "",
         name: "main-home",
-        component: () => import("@/components/main/MainBlock.vue"),
+        component: () => import("@/components/MainBlock.vue"),
         beforeEnter: async (to, from, next) => getDataBeforeEnter(to, from, next),
       },
       {
         path: "login",
         name: "main-login",
-        component: () => import("@/components/main/LoginBlock.vue"),
+        component: () => import("@/components/LoginBlock.vue"),
         beforeEnter: (to, from, next) => {
           if (Cookies.get("session_id") !== undefined) {
             Cookies.remove("session_id");
@@ -155,91 +155,91 @@ const mainRoutes: Array<RouteRecordRaw> = [
       {
         path: "create",
         name: "main-create",
-        component: () => import("@/components/main/CreateArticle.vue"),
+        component: () => import("@/components/CreateArticle.vue"),
       },
       {
         path: "message",
         name: "main-message",
-        component: () => import("@/components/main/support/MessageBlcok.vue"),
+        component: () => import("@/components/support/MessageBlcok.vue"),
       },
       // dynamic routes for articles
       {
         path: "articles/:articleID",
         name: "main-articles",
-        component: () => import("@/components/main/ArticleBlock.vue"),
+        component: () => import("@/components/ArticleBlock.vue"),
         beforeEnter: async (to, from, next) => getDataBeforeEnter(to, from, next),
       },
       {
         path: "tags",
         name: "main-tags",
-        component: () => import("@/components/main/TagsBlock.vue"),
+        component: () => import("@/components/TagsBlock.vue"),
         beforeEnter: async (to, from, next) => getDataBeforeEnter(to, from, next),
       },
       {
         path: "tags/:tagName",
         name: "main-tagArticle",
-        component: () => import("@/components/main/TagBlock.vue"),
+        component: () => import("@/components/TagBlock.vue"),
         beforeEnter: async (to, from, next) => getDataBeforeEnter(to, from, next),
       },
       {
         path: "register",
         name: "main-register",
-        component: () => import("@/components/main/RegisterBlock.vue"),
+        component: () => import("@/components/RegisterBlock.vue"),
       },
       {
         path: "galgame/insert",
         name: "main-insertGalgame",
-        component: () => import("@/components/main/InsertGalgame.vue"),
+        component: () => import("@/components/InsertGalgame.vue"),
         beforeEnter: async (to, from, next) => getDataBeforeEnter(to, from, next),
       },
       {
         path: "galgame/edit/:name",
         name: "main-editGalgame",
-        component: () => import("@/components/main/EditGalgame.vue"),
+        component: () => import("@/components/EditGalgame.vue"),
         beforeEnter: async (to, from, next) => getDataBeforeEnter(to, from, next),
       },
       {
         path: "galgamebrand",
         name: "main-galgameBrand",
-        component: () => import("@/components/main/GalgameBrand.vue"),
+        component: () => import("@/components/GalgameBrand.vue"),
         beforeEnter: async (to, from, next) => getDataBeforeEnter(to, from, next),
       },
       {
         path: "galgamebrand/insert",
         name: "main-insertGalgameBrand",
-        component: () => import("@/components/main/InsertGalgameBrand.vue"),
+        component: () => import("@/components/InsertGalgameBrand.vue"),
       },
       {
         path: "galgamebrand/edit/:brand",
         name: "main-editGalgameBrand",
-        component: () => import("@/components/main/EditGalgameBrand.vue"),
+        component: () => import("@/components/EditGalgameBrand.vue"),
         beforeEnter: async (to, from, next) => getDataBeforeEnter(to, from, next),
       },
       {
         path: "update-todo",
         name: "main-updateTodo",
-        component: () => import("@/components/main/system/UpdateTodo.vue"),
+        component: () => import("@/components/system/UpdateTodo.vue"),
       },
       {
         path: "user-maintain",
         name: "main-userMaintain",
-        component: () => import("@/components/main/system/UserMaintain.vue"),
+        component: () => import("@/components/system/UserMaintain.vue"),
       },
       {
         path: "todolist",
         name: "main-todolist",
-        component: () => import("@/components/main/TodoList.vue"),
+        component: () => import("@/components/TodoList.vue"),
       },
       {
         path: "todo-topic",
         name: "main-todoTopic",
-        component: () => import("@/components/main/CreateTodoTopic.vue"),
+        component: () => import("@/components/CreateTodoTopic.vue"),
       },
       // match all route
       {
         path: ":pathMatch(.*)*",
         name: "main-notFound",
-        component: () => import("@/components/main/support/ErrorBlock.vue"),
+        component: () => import("@/components/support/ErrorBlock.vue"),
       },
     ],
   },

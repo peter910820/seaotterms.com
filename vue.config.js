@@ -11,7 +11,7 @@ module.exports = defineConfig({
         new TerserPlugin({
           terserOptions: {
             compress: {
-              drop_console: false, // 移除 console.log(不移除)
+              drop_console: true, // 移除 console.log(不移除)
               drop_debugger: true, // 移除 debugger
             },
             output: {

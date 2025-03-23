@@ -41,6 +41,9 @@
 import { defineComponent, ref, onMounted, computed } from "vue";
 import { useStore } from "vuex";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare const Typed: any;
+
 export default defineComponent({
   setup() {
     const store = useStore();

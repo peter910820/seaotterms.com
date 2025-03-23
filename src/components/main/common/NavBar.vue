@@ -18,9 +18,38 @@
           </router-link>
         </li>
         <li>
+          <router-link to="/galgamebrand">
+            Galgame紀錄
+            <i class="material-icons left">casino</i>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/todo-topic">
+            建立Todo類別
+            <i class="material-icons left">checklist</i>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/todolist">
+            TodoList
+            <i class="material-icons left">checklist</i>
+          </router-link>
+        </li>
+        <li>
           <router-link to="/create">
             建立
             <i class="material-icons left">edit</i>
+          </router-link>
+        </li>
+        <li>
+          <!-- <router-link to="/register"
+            >註冊<i class="material-icons left">how_to_reg</i></router-link
+          > -->
+        </li>
+        <li>
+          <router-link v-if="userData.username !== '' && userData.username !== undefined" to="/user-maintain">
+            個人資料維護
+            <i class="material-icons left">manage_accounts</i>
           </router-link>
         </li>
         <li>
@@ -31,29 +60,6 @@
           <router-link v-else to="/login">
             登出
             <i class="material-icons left">logout</i>
-          </router-link>
-        </li>
-        <li>
-          <!-- <router-link to="/register"
-            >註冊<i class="material-icons left">how_to_reg</i></router-link
-          > -->
-        </li>
-        <li>
-          <router-link to="/galgamebrand">
-            Galgame紀錄
-            <i class="material-icons left">casino</i>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/todolist">
-            TodoList
-            <i class="material-icons left">checklist</i>
-          </router-link>
-        </li>
-        <li>
-          <router-link v-if="userData.username !== '' && userData.username !== undefined" to="/user-maintain">
-            個人資料維護
-            <i class="material-icons left">manage_accounts</i>
           </router-link>
         </li>
       </ul>
@@ -68,25 +74,28 @@
       <router-link to="/update-todo">系統更新待辦</router-link>
     </li>
     <li>
-      <router-link to="/create">建立</router-link>
-    </li>
-    <li>
-      <router-link v-if="userData.username === '' || userData.username === undefined" to="/login">登入</router-link>
-      <router-link v-else to="/login">登出</router-link>
-    </li>
-    <!-- <li>
-      <router-link to="/register">註冊</router-link>
-    </li> -->
-    <li>
       <router-link to="/galgamebrand">Galgame紀錄</router-link>
+    </li>
+    <li>
+      <router-link to="/todo-topic">建立Todo類別</router-link>
     </li>
     <li>
       <router-link to="/todolist">TodoList</router-link>
     </li>
     <li>
+      <router-link to="/create">建立</router-link>
+    </li>
+    <!-- <li>
+      <router-link to="/register">註冊</router-link>
+    </li> -->
+    <li>
       <router-link v-if="userData.username !== '' && userData.username !== undefined" to="/user-maintain">
         個人資料維護
       </router-link>
+    </li>
+    <li>
+      <router-link v-if="userData.username === '' || userData.username === undefined" to="/login">登入</router-link>
+      <router-link v-else to="/login">登出</router-link>
     </li>
   </ul>
 </template>

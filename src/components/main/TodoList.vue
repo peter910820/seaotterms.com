@@ -51,6 +51,7 @@
         <span :class="['button-status', todo.status == 3 ? 'background-c' : '']" @click="changeStatus(todo.id, 3)">
           C
         </span>
+        <span class="button-status background-d" @click="deleteTodo(todo.id)">D</span>
       </div>
       <!-- todo-status -->
       <div v-if="todo.status === 0" class="col s2 todo-status">
@@ -179,7 +180,14 @@ export default defineComponent({
         store.commit("setTodo", response.data.data);
       }
     };
-    return { form, handleSubmit, todoTopics, todos, changeStatus };
+    const deleteTodo = async (id: number) => {
+      if (confirm("確定刪除?")) {
+        await axios.delete(`/api/todos/${id}`);
+        let response = await axios.get(`/api/todos/${userData.value.username}`);
+        store.commit("setTodo", response.data.data);
+      }
+    };
+    return { form, handleSubmit, todoTopics, todos, changeStatus, deleteTodo };
   },
 });
 </script>
@@ -205,7 +213,7 @@ export default defineComponent({
   font-size: 25px !important;
   max-height: 100px;
   height: 150px;
-  padding-top: 30px;
+  padding-top: 10px;
   margin-top: 10px;
   cursor: default;
   border: 2px solid white;
@@ -221,7 +229,7 @@ export default defineComponent({
 .todo-button {
   margin-top: 0px !important;
   padding: 0px;
-  text-align: center;
+  text-align: left;
 }
 .todo-deadline {
   text-align: center;
@@ -251,26 +259,19 @@ export default defineComponent({
 .background-c {
   background: linear-gradient(to bottom right, green, #35fc4f);
 }
+.background-d {
+  background: linear-gradient(to bottom right, black, #222121);
+}
 @media (max-width: 768px) {
   .add-block {
     font-size: 20px !important;
     max-height: 100px;
     height: 150px;
-    padding-top: 30px;
-    margin-top: 10px;
-    cursor: default;
-    border: 2px solid black;
-    border-radius: 20px;
   }
   .sub-block {
     font-size: 20px !important;
     max-height: 100px;
     height: 150px;
-    padding-top: 30px;
-    margin-top: 10px;
-    cursor: default;
-    border: 2px solid white;
-    border-radius: 20px;
   }
   .hint {
     font-size: 15px;

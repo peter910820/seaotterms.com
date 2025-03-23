@@ -8,7 +8,7 @@
           身分:
           <span v-if="form.management">管理員</span>
           <span v-else>一般用戶</span>
-          <input type="button" class="button-management" />
+          <input type="button" class="button-management" value="變更使用者權限" />
         </div>
         <div class="input-field">
           <i class="material-icons prefix">sports_esports</i>
@@ -86,17 +86,15 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.col {
+.mainBlock {
+  padding: 25px;
+}
+.sub-block {
   max-height: 550px;
   height: 550px;
   padding-top: 20px;
   margin-top: 10px;
   cursor: default;
-}
-.mainBlock {
-  padding: 25px;
-}
-.sub-block {
   border: 2px solid white;
   border-radius: 20px;
   > .title {

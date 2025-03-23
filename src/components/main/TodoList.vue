@@ -1,6 +1,6 @@
 <template>
   <div class="main-block">
-    <h1>代辦清單</h1>
+    <h1>待辦清單</h1>
     <span class="hint">*按鈕切換狀態>> N: 未開始 P: 進行中 S: 擱置中 C: 已完成 D: 刪除</span>
     <div class="col s12 add-block floatup-div wow animate__bounceIn">
       <div class="col s2 input-field">

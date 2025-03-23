@@ -8,12 +8,19 @@
           身分:
           <span v-if="form.management">管理員</span>
           <span v-else>一般用戶</span>
+          <input type="button" class="button-management" />
         </div>
         <div class="input-field">
           <i class="material-icons prefix">sports_esports</i>
-          <input id="avatar" v-model="form.avatar" type="text" class="validate" required />
+          <input
+            id="avatar"
+            v-model="form.avatar"
+            type="text"
+            :class="['validate', form.avatar.length > 0 ? 'valid' : 'invalid']"
+            required
+          />
           <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
-          <label for="avatar">個人圖片URL</label>
+          <label for="avatar" :class="[form.avatar.length > 0 ? 'active' : '']">個人圖片URL</label>
         </div>
         <div>
           <span>圖片預覽:</span>
@@ -32,7 +39,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { ref, defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";

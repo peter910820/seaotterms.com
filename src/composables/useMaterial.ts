@@ -30,7 +30,7 @@ export function initMaterialFormSelect() {
 export function initMaterialSidenav() {
   nextTick(() => {
     const elems = document.querySelectorAll(".sidenav");
-    M.Sidenav.init(elems, {});
+    M.Sidenav.init(elems, { draggable: true });
 
     // change position for navbar overlay
     const overlay = document.querySelector(".sidenav-overlay");

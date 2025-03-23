@@ -165,7 +165,7 @@ export default defineComponent({
             return;
           }
           // judge if target is 系統建議
-          if (form.value.topic === "系統建議/root") {
+          if (form.value.topic === "系統/root") {
             form.value.owner = "root";
           }
           await axios.post("/api/todos", form.value);

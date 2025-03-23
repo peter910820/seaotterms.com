@@ -37,7 +37,7 @@ export default defineComponent({
     const router = useRouter();
     const handleCreateSubmit = async () => {
       try {
-        await axios.post("/api/todo_topics", form.value);
+        await axios.post("/api/todo-topics", form.value);
         sessionStorage.setItem("msg", "資料創建成功");
         router.push("/message");
       } catch (error) {

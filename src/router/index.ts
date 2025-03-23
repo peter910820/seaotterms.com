@@ -16,7 +16,7 @@ const privatePages = [
   "/galgame/insert",
   "/user_maintain",
   "/todolist",
-  "/todo_topic",
+  "/todo-topic",
 ];
 const privateRegex = /^\/galgamebrand\/edit\/[^/]+\/?$/;
 const privateRegex2 = /^\/galgame\/edit\/[^/]+\/?$/;

@@ -2,7 +2,7 @@
   <div class="main-block">
     <h1>待辦清單</h1>
     <span class="hint">*按鈕切換狀態>> N: 未開始 P: 進行中 S: 擱置中 C: 已完成 D: 刪除</span>
-    <div class="col s12 add-block floatup-div wow animate__zoomInRight">
+    <div class="col s12 add-block floatup-div wow animate__slideInUp">
       <div class="col s2 input-field">
         <select v-model="form.topic">
           <option class="validate" value="" disabled selected>選擇主題</option>
@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <div class="col s12 sub-block floatup-div wow animate__zoomInRight" v-for="todo in todos" :key="todo.id">
+    <div class="col s12 sub-block floatup-div wow animate__slideInUp" v-for="todo in todos" :key="todo.id">
       <!-- todo-title -->
       <div :class="['col', todo.deadline ? 's5' : 's7', 'todo-title']">[{{ todo.topic }}]{{ todo.title }}</div>
       <!-- todo-deadline -->

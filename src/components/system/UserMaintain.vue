@@ -2,7 +2,7 @@
   <div class="main-block">
     <form method="post" @submit.prevent="handleSubmit">
       <h1>使用者帳號維護</h1>
-      <div class="col s12 sub-block floatup-div wow animate__zoomInRight">
+      <div class="col s12 sub-block floatup-div wow animate__flipInX">
         <div class="col s6 title">使用者名稱: {{ form.username }}</div>
         <div class="col s6 title">
           身分:

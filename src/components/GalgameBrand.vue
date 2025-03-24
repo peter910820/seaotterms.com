@@ -18,7 +18,7 @@
       <div class="col s1">展開</div>
     </div>
     <div
-      class="col s12 galgameBrand floatup-div wow animate__zoomInRight"
+      class="col s12 galgameBrand floatup-div wow animate__slideInUp"
       v-for="galgameBrand in galgameBrandData"
       :key="galgameBrand.brand"
     >

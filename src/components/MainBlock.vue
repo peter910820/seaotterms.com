@@ -5,7 +5,7 @@
     </div>
     <h1>首頁/文章</h1>
     <div
-      class="col s12 sub-block articles floatup-div wow animate__zoomInRight"
+      class="col s12 sub-block articles floatup-div wow animate__slideInUp"
       v-for="article in articleContent"
       :key="article.ID"
       @click="link('article', article.ID)"

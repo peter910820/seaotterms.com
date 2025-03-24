@@ -4,7 +4,7 @@
       <h1>{{ tagName }}</h1>
     </div>
     <div class="col s6" v-for="Tag in tagData" :key="Tag.ID">
-      <div class="floatup-div wow animate__zoomInRight" @click="link(Tag.ID)">
+      <div class="floatup-div wow animate__slideInUp" @click="link(Tag.ID)">
         {{ Tag.Title }}
       </div>
     </div>

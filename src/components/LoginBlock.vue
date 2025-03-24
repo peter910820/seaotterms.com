@@ -1,7 +1,7 @@
 <template>
   <div class="main-block">
     <h1>登入</h1>
-    <div class="col s12 sub-block floatup-div wow animate__bounceIn">
+    <div class="col s12 sub-block floatup-div wow animate__zoomInRight">
       <form method="post" @submit.prevent="handleSubmit">
         <div class="input-field col s12">
           <i class="material-icons prefix">account_circle</i>

@@ -1,7 +1,7 @@
 <template>
   <div class="main-block">
     <h1>系統更新待辦</h1>
-    <div class="col s12 sub-block floatup-div wow animate__bounceIn" v-for="todo in todos" :key="todo.id">
+    <div class="col s12 sub-block floatup-div wow animate__zoomInRight" v-for="todo in todos" :key="todo.id">
       <div :class="['col', todo.deadline ? 's6' : 's9', 'todo-title']">[{{ todo.topic }}]{{ todo.title }}</div>
 
       <div v-if="todo.deadline" class="col s3 todo-date">

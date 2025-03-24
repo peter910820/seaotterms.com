@@ -1,13 +1,11 @@
 <template>
   <div class="main-block">
-    <div class="col s12 banner wow animate__flipInX">
+    <div class="col s12 sub-block banner wow animate__flipInX">
       <div><div></div></div>
     </div>
-    <div class="col s12 center">
-      <h1>首頁/文章</h1>
-    </div>
+    <h1>首頁/文章</h1>
     <div
-      class="col s12 articles floatup-div wow animate__bounceIn"
+      class="col s12 sub-block articles floatup-div wow animate__zoomInRight"
       v-for="article in articleContent"
       :key="article.ID"
       @click="link('article', article.ID)"
@@ -79,20 +77,18 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.col {
+.sub-block {
   max-height: 180px;
   height: 180px;
   padding-top: 20px;
   margin-top: 10px;
-}
-.center {
-  text-align: center;
 }
 .banner {
   min-height: 250px;
   max-height: 250px;
   border: 2px solid white;
   border-radius: 100px;
+  margin-bottom: 20px;
   text-align: center;
   background-image: url("@/assets/background.png");
   background-size: cover;
@@ -122,27 +118,27 @@ export default defineComponent({
 .articles {
   border: 2px solid white;
   border-radius: 20px;
-  > .title {
-    font-size: 30px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
-  > .information {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
-  > .tag {
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    > div {
-      margin-left: 5px;
-    }
+}
+.title {
+  font-size: 30px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.information {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.tag {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  > div {
+    margin-left: 5px;
   }
 }
 /* font-settings */

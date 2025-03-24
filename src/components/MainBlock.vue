@@ -1,5 +1,5 @@
 <template>
-  <div class="mainBlock">
+  <div class="main-block">
     <div class="col s12 banner wow animate__flipInX">
       <div><div></div></div>
     </div>
@@ -84,9 +84,6 @@ export default defineComponent({
   height: 180px;
   padding-top: 20px;
   margin-top: 10px;
-}
-.mainBlock {
-  padding: 25px;
 }
 .center {
   text-align: center;

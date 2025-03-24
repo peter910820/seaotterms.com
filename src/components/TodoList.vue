@@ -204,9 +204,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.main-block {
-  padding: 25px;
-}
 .add-block {
   font-size: 25px !important;
   max-height: 100px;

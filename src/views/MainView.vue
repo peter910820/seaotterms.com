@@ -34,13 +34,16 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style>
 .row {
   height: 100%;
   margin-bottom: 0px;
 }
 .center {
   text-align: center;
+}
+.main-block {
+  padding: 25px;
 }
 .sticky-navbar {
   position: sticky;

@@ -1,5 +1,5 @@
 <template>
-  <div class="mainBlock">
+  <div class="main-block">
     <div class="col s12 center galgameBrandTitle">
       <div class="col s12">
         Galgameブランド紀錄
@@ -139,9 +139,6 @@ export default defineComponent({
   text-overflow: ellipsis;
   overflow: hidden;
   cursor: default;
-}
-.mainBlock {
-  padding: 25px;
 }
 .galgameBrandTitle {
   text-align: center;

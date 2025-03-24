@@ -1,8 +1,8 @@
 <template>
-  <div class="row wow animate__flipInX">
-    <form class="col s12" method="post" @submit.prevent="handleLoginSubmit">
-      <h1>登入</h1>
-      <div class="row">
+  <div class="main-block">
+    <h1>登入</h1>
+    <div class="col s12 sub-block floatup-div wow animate__bounceIn">
+      <form method="post" @submit.prevent="handleSubmit">
         <div class="input-field col s12">
           <i class="material-icons prefix">account_circle</i>
           <input id="icon_prefix" v-model="form.username" type="text" class="validate" required />
@@ -15,12 +15,14 @@
           <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
           <label for="icon_lock">password</label>
         </div>
-        <button class="btn waves-effect waves-light" type="submit" name="action">
-          Submit
-          <i class="material-icons right">send</i>
-        </button>
-      </div>
-    </form>
+        <div class="col s12">
+          <button class="btn waves-effect waves-light" type="submit" name="action">
+            Submit
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -36,7 +38,7 @@ const form = ref({
   username: "",
   password: "",
 });
-const handleLoginSubmit = async () => {
+const handleSubmit = async () => {
   try {
     const response = await axios.post("/api/loginHandler", form.value);
     sessionStorage.setItem("msg", response.data.msg);
@@ -56,7 +58,7 @@ const handleLoginSubmit = async () => {
 </script>
 
 <style scoped>
-.row {
-  padding: 50px;
+.main-block {
+  padding: 25px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="mainBlock">
+  <div class="main-block">
     <form method="post" @submit.prevent="handleSubmit">
       <h1>使用者帳號維護</h1>
       <div class="col s12 sub-block floatup-div wow animate__bounceIn">
@@ -85,7 +85,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.mainBlock {
+.main-block {
   padding: 25px;
 }
 .sub-block {

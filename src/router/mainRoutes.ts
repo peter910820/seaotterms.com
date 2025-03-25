@@ -49,7 +49,7 @@ const getArticleInformation = async (articleID?: string): Promise<AxiosResponse 
     apiUrl = `/api/articles/${articleID}`;
   }
   try {
-    const response = await axios.post(apiUrl);
+    const response = await axios.get(apiUrl);
     return response;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -63,7 +63,7 @@ const getTagInformation = async (mode: number, tagName?: string): Promise<AxiosR
     apiUrl = `/api/tags/${tagName}`;
   }
   try {
-    const response = await axios.post(apiUrl);
+    const response = await axios.get(apiUrl);
     return response;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {

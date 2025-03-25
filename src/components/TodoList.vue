@@ -185,7 +185,22 @@ export default defineComponent({
       }
     };
     const changeStatus = async (id: number, status: number) => {
-      if (confirm("確定調整?")) {
+      let statusText = "";
+      switch (status) {
+        case 0:
+          statusText = "未開始";
+          break;
+        case 1:
+          statusText = "進行中";
+          break;
+        case 2:
+          statusText = "擱置中";
+          break;
+        case 3:
+          statusText = "已完成";
+          break;
+      }
+      if (confirm(`確定調整狀態為${statusText}?`)) {
         await axios.patch(`/api/todos/${id}`, { status: status, updateName: userData.value.username });
         let response = await axios.get(`/api/todos/${userData.value.username}`);
         store.commit("setTodo", response.data.data);

@@ -10,14 +10,9 @@ import axios from "axios";
 import mainRoutes from "./mainRoutes";
 
 // the page need to check the login
-const privatePages = [
-  "/create",
-  "/galgamebrand/insert",
-  "/galgame/insert",
-  "/user-maintain",
-  "/todolist",
-  "/todo-topic",
-];
+const privatePages = ["/create", "/user-maintain", "/todolist", "/todo-topic"];
+// the page need to check the user
+const privatePages2 = ["/galgamebrand/insert", "/galgame/insert"];
 const privateRegex = /^\/galgamebrand\/edit\/[^/]+\/?$/;
 const privateRegex2 = /^\/galgame\/edit\/[^/]+\/?$/;
 
@@ -34,6 +29,24 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
   if (privatePages.includes(to.path) || privateRegex.test(to.path) || privateRegex2.test(to.path)) {
     try {
       const response = await axios.post("/api/verify");
+      store.commit("setUserData", response?.data.userData);
+      // login now
+      next();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        store.commit("setUserData", {});
+        console.log(`${error.response?.status}: ${error.response?.data.msg}`);
+        sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
+        alert("使用者沒有權限");
+        next("/login");
+      } else {
+        console.error(error);
+        next("/message");
+      }
+    }
+  } else if (privatePages2.includes(to.path)) {
+    try {
+      const response = await axios.post("/api/authentication");
       store.commit("setUserData", response?.data.userData);
       // login now
       next();

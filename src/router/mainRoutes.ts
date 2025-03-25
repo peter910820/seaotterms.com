@@ -120,8 +120,13 @@ const getDataBeforeEnter = async (
     store.commit(mutationsName, response.data.data);
     next();
   } else if (response) {
-    sessionStorage.setItem("msg", `${response?.status}: ${response?.data.msg}`);
-    next("/message");
+    if (response.status === 401) {
+      alert("使用者尚未登入, 請前往登入");
+      next("/login");
+    } else {
+      sessionStorage.setItem("msg", `${response?.status}: ${response?.data.msg}`);
+      next("/message");
+    }
   } else {
     sessionStorage.setItem("msg", "發生例外錯誤，請聯繫管理員");
     next("/message");

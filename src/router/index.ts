@@ -13,8 +13,6 @@ import mainRoutes from "./mainRoutes";
 const privatePages = ["/create", "/user-maintain", "/todolist", "/todo-topic"];
 // the page need to check the user
 const privatePages2 = ["/galgamebrand/insert", "/galgame/insert"];
-const privateRegex = /^\/galgamebrand\/edit\/[^/]+\/?$/;
-const privateRegex2 = /^\/galgame\/edit\/[^/]+\/?$/;
 
 // routes
 const routes: Array<RouteRecordRaw> = [...mainRoutes];
@@ -26,7 +24,7 @@ const router = createRouter({
 });
 // Navigation Guards(global)
 router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
-  if (privatePages.includes(to.path) || privateRegex.test(to.path) || privateRegex2.test(to.path)) {
+  if (privatePages.includes(to.path)) {
     try {
       const response = await axios.post("/api/verify");
       store.commit("setUserData", response?.data.userData);

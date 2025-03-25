@@ -56,7 +56,7 @@ const handleRegisterSubmit = async () => {
     return;
   }
   try {
-    await axios.post("/api/registerHandler", form.value);
+    await axios.post("/api/users", form.value);
     sessionStorage.setItem("msg", "帳號註冊成功");
     router.push("/message");
   } catch (error) {

@@ -56,11 +56,12 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
         if (error.response?.data.userData === undefined) {
           store.commit("setUserData", {});
           alert("使用者尚未登入, 請前往登入");
+          next("/login");
         } else {
           store.commit("setUserData", error.response?.data.userData);
           alert("使用者沒有權限");
+          next("/galgamebrand");
         }
-        next("/galgamebrand");
       } else {
         console.error(error);
         next("/message");

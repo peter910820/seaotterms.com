@@ -63,7 +63,8 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
           next("/galgamebrand");
         }
       } else {
-        console.error(error);
+        console.log("未知錯誤: " + error);
+        sessionStorage.setItem("msg", `發生未知錯誤，請聯繫管理員`);
         next("/message");
       }
     }

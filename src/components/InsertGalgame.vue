@@ -107,8 +107,11 @@ export default defineComponent({
         router.push("/message");
       } catch (error) {
         if (axios.isAxiosError(error)) {
+          console.log(`${error.response?.status}: ${error.response?.data.msg}`);
           sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
-          router.push("/message");
+          store.commit("setUserData", {});
+          alert("階段性登入已過期，請重新登入");
+          router.push("/login");
         } else {
           console.log("未知錯誤: " + error);
           sessionStorage.setItem("msg", `發生未知錯誤，請聯繫管理員`);

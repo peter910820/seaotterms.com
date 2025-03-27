@@ -1,5 +1,5 @@
 <template>
-  <div class="mainStyle">
+  <div class="main-style">
     <div class="sticky-navbar">
       <NavBar />
     </div>
@@ -43,7 +43,14 @@ export default defineComponent({
   text-align: center;
 }
 .main-block {
-  padding: 25px;
+  padding: 40px;
+}
+.sub-block {
+  padding-top: 20px;
+  margin-top: 10px;
+  cursor: default;
+  border: 2px solid white;
+  border-radius: 20px;
 }
 .sticky-navbar {
   position: sticky;
@@ -60,7 +67,7 @@ export default defineComponent({
   src: url("@/assets/fonts/Cubic_11_1.100_R.ttf") format("truetype");
 }
 
-.mainStyle {
+.main-style {
   min-height: 100vh;
   min-width: 768px;
   font-family: "Cubic_11_1.100_R";

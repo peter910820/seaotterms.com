@@ -1,5 +1,5 @@
 <template>
-  <div class="main-block">
+  <div class="row main-block">
     <h1>待辦清單</h1>
     <span class="hint">*按鈕切換狀態>> N: 未開始 P: 進行中 S: 擱置中 C: 已完成 D: 刪除</span>
     <div class="col s12 add-block floatup-div wow animate__slideInUp">
@@ -236,11 +236,6 @@ export default defineComponent({
   font-size: 25px !important;
   max-height: 100px;
   height: 150px;
-  padding-top: 10px;
-  margin-top: 10px;
-  cursor: default;
-  border: 2px solid white;
-  border-radius: 20px;
 }
 
 .todo-title {

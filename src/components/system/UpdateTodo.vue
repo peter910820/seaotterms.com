@@ -1,5 +1,5 @@
 <template>
-  <div class="main-block">
+  <div class="row main-block">
     <h1>系統更新待辦</h1>
     <div class="col s12 sub-block floatup-div wow animate__slideInUp" v-for="todo in todos" :key="todo.id">
       <div :class="['col', todo.deadline ? 's6' : 's9', 'todo-title']">[{{ todo.topic }}]{{ todo.title }}</div>
@@ -71,11 +71,6 @@ export default defineComponent({
   font-size: 25px !important;
   max-height: 100px;
   height: 150px;
-  padding-top: 30px;
-  margin-top: 10px;
-  cursor: default;
-  border: 2px solid white;
-  border-radius: 20px;
 }
 @media (max-width: 768px) {
   .sub-block {

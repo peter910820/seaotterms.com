@@ -1,5 +1,5 @@
 <template>
-  <div class="main-block">
+  <div class="row main-block">
     <div class="col s12 sub-block banner wow animate__flipInX">
       <div><div></div></div>
     </div>
@@ -80,8 +80,7 @@ export default defineComponent({
 .sub-block {
   max-height: 180px;
   height: 180px;
-  padding-top: 20px;
-  margin-top: 10px;
+  cursor: pointer;
 }
 .banner {
   min-height: 250px;

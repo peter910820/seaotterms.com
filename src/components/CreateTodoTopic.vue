@@ -1,8 +1,8 @@
 <template>
-  <div class="row wow animate__flipInX">
-    <form class="col s12" method="post" @submit.prevent="handleCreateSubmit">
-      <h1>建立Todo主題</h1>
-      <div class="row">
+  <div class="row main-block">
+    <h1>建立Todo主題</h1>
+    <div class="col s12 wow animate__flipInX">
+      <form method="post" @submit.prevent="handleCreateSubmit">
         <div class="input-field col s12">
           <i class="material-icons prefix">title</i>
           <input id="title" v-model="form.topicName" type="text" class="validate" required />
@@ -15,8 +15,8 @@
             <i class="material-icons right">send</i>
           </button>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -62,9 +62,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.row {
-  padding: 50px;
-}
 .hint {
   color: red;
 }

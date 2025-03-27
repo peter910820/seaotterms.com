@@ -1,11 +1,13 @@
 <template>
-  <div class="col s12 tagBlock">
-    <div class="col s12">
-      <h1>{{ tagName }}</h1>
-    </div>
-    <div class="col s6" v-for="Tag in tagData" :key="Tag.ID">
-      <div class="floatup-div wow animate__slideInUp" @click="link(Tag.ID)">
-        {{ Tag.Title }}
+  <div class="row main-block">
+    <div class="col s12 tagBlock">
+      <div class="col s12">
+        <h1>{{ tagName }}</h1>
+      </div>
+      <div class="col s6" v-for="Tag in tagData" :key="Tag.ID">
+        <div class="floatup-div wow animate__slideInUp" @click="link(Tag.ID)">
+          {{ Tag.Title }}
+        </div>
       </div>
     </div>
   </div>
@@ -38,9 +40,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-h1 {
-  text-align: center;
-}
 .tagBlock {
   min-height: 200px;
   margin-top: 10px;

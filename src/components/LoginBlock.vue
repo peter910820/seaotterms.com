@@ -1,5 +1,5 @@
 <template>
-  <div class="main-block">
+  <div class="row main-block">
     <h1>登入</h1>
     <div class="col s12 sub-block floatup-div wow animate__flipInX">
       <form method="post" @submit.prevent="handleSubmit">
@@ -61,10 +61,5 @@ const handleSubmit = async () => {
 .sub-block {
   max-height: 550px;
   height: 550px;
-  padding-top: 20px;
-  margin-top: 10px;
-  cursor: default;
-  border: 2px solid white;
-  border-radius: 20px;
 }
 </style>

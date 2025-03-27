@@ -1,5 +1,5 @@
 <template>
-  <div class="main-block">
+  <div class="row main-block">
     <div class="col s12 center galgameBrandTitle">
       <div class="col s12">
         Galgameブランド紀錄

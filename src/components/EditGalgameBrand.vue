@@ -1,5 +1,5 @@
 <template>
-  <div class="main-block wow animate__flipInX">
+  <div class="row main-block">
     <h1>Galgameブランド修改</h1>
     <div class="col s12 sub-block wow animate__flipInX">
       <form class="col s12" method="patch" @submit.prevent="handleSubmit">
@@ -111,11 +111,6 @@ export default defineComponent({
   font-size: 25px !important;
   max-height: 600px;
   height: 600px;
-  padding-top: 10px;
-  margin-top: 10px;
-  cursor: default;
-  border: 2px solid white;
-  border-radius: 20px;
 }
 .update-div {
   min-height: 100px;

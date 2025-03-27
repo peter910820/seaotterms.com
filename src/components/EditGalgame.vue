@@ -1,8 +1,8 @@
 <template>
-  <div class="row wow animate__flipInX">
+  <div class="row main-block">
     <h1>遊玩完畢Galgame修改(Develop)</h1>
-    <form class="col s12" method="patch" @submit.prevent="handleSubmit">
-      <div class="row">
+    <form method="patch" @submit.prevent="handleSubmit">
+      <div class="col s12 wow animate__flipInX">
         <div class="col s6 update-div">
           <h2 class="label">上次更新使用者: {{ form.username }}</h2>
         </div>
@@ -99,9 +99,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.row {
-  padding: 50px;
-}
 .update-div {
   min-height: 100px;
   max-height: 100px;

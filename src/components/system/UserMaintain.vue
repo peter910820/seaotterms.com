@@ -1,8 +1,8 @@
 <template>
-  <div class="main-block">
-    <form method="post" @submit.prevent="handleSubmit">
-      <h1>使用者帳號維護</h1>
-      <div class="col s12 sub-block floatup-div wow animate__flipInX">
+  <div class="row main-block">
+    <h1>使用者帳號維護</h1>
+    <div class="col s12 sub-block floatup-div wow animate__flipInX">
+      <form method="post" @submit.prevent="handleSubmit">
         <div class="col s6 title">使用者名稱: {{ form.username }}</div>
         <div class="col s6 title">
           身分:
@@ -34,8 +34,8 @@
             <i class="material-icons right">send</i>
           </button>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -85,17 +85,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.main-block {
-  padding: 25px;
-}
 .sub-block {
   max-height: 550px;
   height: 550px;
-  padding-top: 20px;
-  margin-top: 10px;
-  cursor: default;
-  border: 2px solid white;
-  border-radius: 20px;
   > div {
     margin-top: 20px;
   }

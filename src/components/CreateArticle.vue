@@ -1,41 +1,39 @@
 <template>
-  <div class="main-block">
+  <div class="row main-block">
+    <h1>建立</h1>
     <div class="col s12 sub-block wow animate__flipInX">
-      <form class="col s12" method="post" @submit.prevent="handleCreateSubmit">
-        <h1>建立</h1>
-        <div class="row">
-          <div class="input-field col s12">
-            <i class="material-icons prefix">title</i>
-            <input id="title" v-model="form.title" type="text" class="validate" required />
-            <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
-            <label for="title">title</label>
-          </div>
-          <div class="input-field col s6">
-            <i class="material-icons prefix">account_circle</i>
-            <input id="username" v-model="form.username" type="text" disabled />
-            <!-- <label for="username">userName</label> -->
-          </div>
-          <div class="input-field col s6">
-            <i class="material-icons prefix">sell</i>
-            <input id="tag" v-model="middleTags" type="text" class="validate" required />
-            <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
-            <label for="tag">tag</label>
-          </div>
-          <div class="input-field col s6">
-            <i class="material-icons prefix">mode_edit</i>
-            <textarea id="textarea1" v-model="form.content" class="materialize-textarea"></textarea>
-            <label for="textarea1">Content</label>
-          </div>
-          <div class="markdown-preview col s6" v-html="renderedMarkdown"></div>
-          <div class="col s12">
-            <p class="hint">本功能使用markdown支援(右邊會有markdown即時預覽)</p>
-          </div>
-          <div class="col s12">
-            <button class="btn waves-effect waves-light" type="submit" name="action">
-              Submit
-              <i class="material-icons right">send</i>
-            </button>
-          </div>
+      <form method="post" @submit.prevent="handleCreateSubmit">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">title</i>
+          <input id="title" v-model="form.title" type="text" class="validate" required />
+          <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
+          <label for="title">title</label>
+        </div>
+        <div class="input-field col s6">
+          <i class="material-icons prefix">account_circle</i>
+          <input id="username" v-model="form.username" type="text" disabled />
+          <!-- <label for="username">userName</label> -->
+        </div>
+        <div class="input-field col s6">
+          <i class="material-icons prefix">sell</i>
+          <input id="tag" v-model="middleTags" type="text" class="validate" required />
+          <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
+          <label for="tag">tag</label>
+        </div>
+        <div class="input-field col s6">
+          <i class="material-icons prefix">mode_edit</i>
+          <textarea id="textarea1" v-model="form.content" class="materialize-textarea"></textarea>
+          <label for="textarea1">Content</label>
+        </div>
+        <div class="markdown-preview col s6" v-html="renderedMarkdown"></div>
+        <div class="col s12">
+          <p class="hint">本功能使用markdown支援(右邊會有markdown即時預覽)</p>
+        </div>
+        <div class="col s12">
+          <button class="btn waves-effect waves-light" type="submit" name="action">
+            Submit
+            <i class="material-icons right">send</i>
+          </button>
         </div>
       </form>
     </div>
@@ -125,6 +123,10 @@ export default defineComponent({
 }
 .hint {
   color: red;
+}
+.sub-block {
+  max-height: 600px;
+  height: 600px;
 }
 /* .markdown-preview {
   margin-bottom: 10px;

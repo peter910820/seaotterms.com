@@ -20,7 +20,7 @@
           <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
           <label for="tag">tag</label>
         </div>
-        <div class="input-field col s6">
+        <div class="input-field text-insert col s6">
           <i class="material-icons prefix">mode_edit</i>
           <textarea id="textarea1" v-model="form.content" class="materialize-textarea"></textarea>
           <label for="textarea1">Content</label>
@@ -128,10 +128,12 @@ export default defineComponent({
   max-height: 600px;
   height: 600px;
 }
-/* .markdown-preview {
-  margin-bottom: 10px;
-  border: 2px outset gray;
-  border-radius: 5px;
-  padding-top: 10px;
-} */
+.text-insert {
+  max-height: 200px;
+  overflow: auto;
+}
+.markdown-preview {
+  max-height: 200px;
+  overflow: auto;
+}
 </style>

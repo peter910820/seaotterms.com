@@ -49,8 +49,8 @@ export default defineComponent({
   padding-top: 20px;
   margin-top: 10px;
   cursor: default;
-  border: 2px solid white !important;
-  border-radius: 20px !important;
+  border: 2px solid white;
+  border-radius: 20px;
 }
 .sticky-navbar {
   position: sticky;

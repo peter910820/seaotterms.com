@@ -1,7 +1,7 @@
 <template>
   <div class="row main-block">
     <h1>建立Todo主題</h1>
-    <div class="col s12 wow animate__flipInX">
+    <div class="col s12 sub-block wow animate__flipInX">
       <form method="post" @submit.prevent="handleCreateSubmit">
         <div class="input-field col s12">
           <i class="material-icons prefix">title</i>
@@ -62,8 +62,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.hint {
-  color: red;
+.sub-block {
+  min-height: 200px;
 }
 /* .markdown-preview {
     margin-bottom: 10px;

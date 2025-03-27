@@ -58,9 +58,9 @@ const getArticleInformation = async (articleID?: string): Promise<AxiosResponse 
 };
 
 const getTagInformation = async (mode: number, tagName?: string): Promise<AxiosResponse | undefined> => {
-  let apiUrl = "http://127.0.0.1:3000/api/tags";
+  let apiUrl = "/api/tags";
   if (mode === 1) {
-    apiUrl = `http://127.0.0.1:3000/api/tags/${tagName}`;
+    apiUrl = `/api/tags/${tagName}`;
   }
   try {
     const response = await axios.get(apiUrl);

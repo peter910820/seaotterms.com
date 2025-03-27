@@ -64,9 +64,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.main-block {
-  padding: 25px;
-}
 .sub-block {
   font-size: 25px !important;
   max-height: 100px;
@@ -77,11 +74,6 @@ export default defineComponent({
     font-size: 20px !important;
     max-height: 100px;
     height: 150px;
-    padding-top: 30px;
-    margin-top: 10px;
-    cursor: default;
-    border: 2px solid white;
-    border-radius: 20px;
   }
 }
 .todo-title {

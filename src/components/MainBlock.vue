@@ -77,7 +77,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.dropdown-content {
+.select-wrapper * {
+  transition: none !important;
   transform: none !important;
 }
 .sub-block {

@@ -77,6 +77,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.dropdown-content {
+  transform: none !important;
+}
 .sub-block {
   max-height: 180px;
   height: 180px;

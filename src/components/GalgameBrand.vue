@@ -56,22 +56,22 @@
       <div class="modal-content" @click.stop>
         <h4>{{ selectedBrand }} 通關遊戲資料</h4>
         <div class="col s12 galgameBrandHeader">
-          <div class="col s2">ゲーム</div>
-          <div class="col s4">発売日</div>
-          <div class="col s4">遊玩結束時間</div>
+          <div class="col s6">ゲーム</div>
+          <div class="col s2">発売日</div>
+          <div class="col s2">遊玩結束時間</div>
           <div class="col s1">全年齡</div>
           <div class="col s1">修改</div>
         </div>
         <div class="col s12 galgameBrand floatup-div" v-for="brandGames in selectedBrandGames" :key="brandGames.name">
-          <div class="col s2 brand">{{ brandGames.name }}</div>
-          <div class="col s4">{{ formatDate(brandGames.releaseDate) }}</div>
-          <div class="col s4">{{ formatDate(brandGames.endDate) }}</div>
+          <div class="col s6 brand">{{ brandGames.name }}</div>
+          <div class="col s2">{{ formatDate(brandGames.releaseDate) }}</div>
+          <div class="col s2">{{ formatDate(brandGames.endDate) }}</div>
           <div class="col s1" v-if="brandGames.allAges === false">
             <b>
               <font color="pink">18+</font>
             </b>
           </div>
-          <div class="col s1" v-else>全年齡</div>
+          <div class="col s1" v-else><font color="purple">全年齡</font></div>
           <div class="col s1">
             <router-link :to="`/`" class="button-simple modify">修改</router-link>
           </div>
@@ -166,7 +166,7 @@ export default defineComponent({
   }
 }
 .galgameBrandHeader {
-  text-align: center;
+  text-align: right;
   font-size: x-large;
   font-weight: bold;
   max-height: 80px;

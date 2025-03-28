@@ -2,7 +2,7 @@
   <div class="row main-block">
     <h1>Galgameブランド修改</h1>
     <div class="col s12 sub-block wow animate__flipInX">
-      <form class="col s12" method="patch" @submit.prevent="handleSubmit">
+      <form method="patch" @submit.prevent="handleSubmit">
         <div class="row">
           <div class="col s6 update-div">
             <h2 class="label">上次更新使用者: {{ form.username }}</h2>
@@ -110,7 +110,7 @@ export default defineComponent({
 .sub-block {
   font-size: 25px !important;
   max-height: 600px;
-  height: 600px;
+  height: auto;
 }
 .update-div {
   min-height: 100px;

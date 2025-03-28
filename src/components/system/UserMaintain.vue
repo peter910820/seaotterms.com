@@ -2,39 +2,41 @@
   <div class="row main-block">
     <h1>使用者帳號維護</h1>
     <div class="col s12 sub-block floatup-div wow animate__flipInX">
-      <form method="post" @submit.prevent="handleSubmit">
-        <div class="col s6 title">使用者名稱: {{ form.username }}</div>
-        <div class="col s6 title">
-          身分:
-          <span v-if="form.management">管理員</span>
-          <span v-else>一般用戶</span>
-          <input type="button" class="button-management" value="變更使用者權限" />
-        </div>
-        <div class="col s12 input-field">
-          <i class="material-icons prefix">sports_esports</i>
-          <input
-            id="avatar"
-            v-model="form.avatar"
-            type="text"
-            :class="['validate', form.avatar.length > 0 ? 'valid' : 'invalid']"
-            required
-          />
-          <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
-          <label for="avatar" :class="[form.avatar.length > 0 ? 'active' : '']">個人圖片URL</label>
-        </div>
-        <div class="col s12">
-          <span>圖片預覽:</span>
-          <div class="headShot">
-            <img :src="form.avatar" />
+      <div class="row">
+        <form method="post" @submit.prevent="handleSubmit">
+          <div class="col s6 title">使用者名稱: {{ form.username }}</div>
+          <div class="col s6 title">
+            身分:
+            <span v-if="form.management">管理員</span>
+            <span v-else>一般用戶</span>
+            <input type="button" class="button-management" value="變更使用者權限" />
           </div>
-        </div>
-        <div class="col s12">
-          <button class="btn waves-effect waves-light" type="submit" name="action">
-            Submit
-            <i class="material-icons right">send</i>
-          </button>
-        </div>
-      </form>
+          <div class="col s12 input-field">
+            <i class="material-icons prefix">sports_esports</i>
+            <input
+              id="avatar"
+              v-model="form.avatar"
+              type="text"
+              :class="['validate', form.avatar.length > 0 ? 'valid' : 'invalid']"
+              required
+            />
+            <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
+            <label for="avatar" :class="[form.avatar.length > 0 ? 'active' : '']">個人圖片URL</label>
+          </div>
+          <div class="col s12">
+            <span>圖片預覽:</span>
+            <div class="headShot">
+              <img :src="form.avatar" />
+            </div>
+          </div>
+          <div class="col s12">
+            <button class="btn waves-effect waves-light" type="submit" name="action">
+              Submit
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -86,8 +88,8 @@ export default defineComponent({
 
 <style scoped>
 .sub-block {
-  max-height: 550px;
-  height: 550px;
+  min-height: 550px;
+  height: auto;
   > div {
     margin-top: 20px;
   }

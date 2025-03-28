@@ -101,6 +101,6 @@ export default defineComponent({
 .sub-block {
   font-size: 25px !important;
   max-height: 600px;
-  height: 600px;
+  height: auto;
 }
 </style>

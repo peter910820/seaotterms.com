@@ -2,20 +2,22 @@
   <div class="row main-block">
     <h1>建立Todo主題</h1>
     <div class="col s12 sub-block wow animate__flipInX">
-      <form method="post" @submit.prevent="handleCreateSubmit">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">title</i>
-          <input id="title" v-model="form.topicName" type="text" class="validate" required />
-          <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
-          <label for="title">title</label>
-        </div>
-        <div class="col s12">
-          <button class="btn waves-effect waves-light" type="submit" name="action">
-            Submit
-            <i class="material-icons right">send</i>
-          </button>
-        </div>
-      </form>
+      <div class="row">
+        <form method="post" @submit.prevent="handleCreateSubmit">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">title</i>
+            <input id="title" v-model="form.topicName" type="text" class="validate" required />
+            <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
+            <label for="title">title</label>
+          </div>
+          <div class="col s12">
+            <button class="btn waves-effect waves-light" type="submit" name="action">
+              Submit
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -64,6 +66,7 @@ export default defineComponent({
 <style scoped>
 .sub-block {
   min-height: 200px;
+  height: auto;
 }
 /* .markdown-preview {
     margin-bottom: 10px;

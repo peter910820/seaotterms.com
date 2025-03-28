@@ -2,37 +2,39 @@
   <div class="row main-block">
     <h1>註冊</h1>
     <div class="col s12 sub-block floatup-div wow animate__flipInX">
-      <form method="post" @submit.prevent="handleRegisterSubmit">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">account_circle</i>
-          <input id="username" v-model="form.username" type="text" class="validate" required />
-          <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
-          <label for="username">userName</label>
-        </div>
-        <div class="input-field col s12">
-          <i class="material-icons prefix">mail</i>
-          <input id="email" v-model="form.email" type="email" class="validate" required />
-          <span class="helper-text" data-error="格式錯誤" data-success=""></span>
-          <label for="email">email</label>
-        </div>
-        <div class="input-field col s12">
-          <i class="material-icons prefix">lock</i>
-          <input id="password" v-model="form.password" type="password" class="validate" required />
-          <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
-          <label for="password">password</label>
-        </div>
-        <div class="input-field col s12">
-          <i class="material-icons prefix">lock</i>
-          <input id="checkPassword" v-model="form.checkPassword" type="password" class="validate" required />
-          <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
-          <label for="checkPassword">check password</label>
-        </div>
-        <div class="passwordCheck">{{ err }}</div>
-        <button class="btn waves-effect waves-light" type="submit" name="action">
-          Submit
-          <i class="material-icons right">send</i>
-        </button>
-      </form>
+      <div class="row">
+        <form method="post" @submit.prevent="handleRegisterSubmit">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="username" v-model="form.username" type="text" class="validate" required />
+            <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
+            <label for="username">userName</label>
+          </div>
+          <div class="input-field col s12">
+            <i class="material-icons prefix">mail</i>
+            <input id="email" v-model="form.email" type="email" class="validate" required />
+            <span class="helper-text" data-error="格式錯誤" data-success=""></span>
+            <label for="email">email</label>
+          </div>
+          <div class="input-field col s12">
+            <i class="material-icons prefix">lock</i>
+            <input id="password" v-model="form.password" type="password" class="validate" required />
+            <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
+            <label for="password">password</label>
+          </div>
+          <div class="input-field col s12">
+            <i class="material-icons prefix">lock</i>
+            <input id="checkPassword" v-model="form.checkPassword" type="password" class="validate" required />
+            <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
+            <label for="checkPassword">check password</label>
+          </div>
+          <div class="passwordCheck">{{ err }}</div>
+          <button class="btn waves-effect waves-light" type="submit" name="action">
+            Submit
+            <i class="material-icons right">send</i>
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -75,7 +77,7 @@ const handleRegisterSubmit = async () => {
 <style scoped>
 .sub-block {
   max-height: 550px;
-  height: 550px;
+  height: auto;
 }
 .passwordCheck {
   color: red;

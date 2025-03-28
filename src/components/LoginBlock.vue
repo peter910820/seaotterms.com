@@ -3,23 +3,25 @@
     <h1>登入</h1>
     <div class="col s12 sub-block floatup-div wow animate__flipInX">
       <form method="post" @submit.prevent="handleSubmit">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">account_circle</i>
-          <input id="icon_prefix" v-model="form.username" type="text" class="validate" required />
-          <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
-          <label for="icon_prefix">userName</label>
-        </div>
-        <div class="input-field col s12">
-          <i class="material-icons prefix">lock</i>
-          <input id="icon_lock" v-model="form.password" type="password" class="validate" required />
-          <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
-          <label for="icon_lock">password</label>
-        </div>
-        <div class="col s12">
-          <button class="btn waves-effect waves-light" type="submit" name="action">
-            Submit
-            <i class="material-icons right">send</i>
-          </button>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="icon_prefix" v-model="form.username" type="text" class="validate" required />
+            <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
+            <label for="icon_prefix">userName</label>
+          </div>
+          <div class="input-field col s12">
+            <i class="material-icons prefix">lock</i>
+            <input id="icon_lock" v-model="form.password" type="password" class="validate" required />
+            <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
+            <label for="icon_lock">password</label>
+          </div>
+          <div class="col s12">
+            <button class="btn waves-effect waves-light" type="submit" name="action">
+              Submit
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
         </div>
       </form>
     </div>
@@ -60,6 +62,6 @@ const handleSubmit = async () => {
 <style scoped>
 .sub-block {
   max-height: 550px;
-  height: 550px;
+  height: auto;
 }
 </style>

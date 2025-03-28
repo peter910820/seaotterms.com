@@ -61,6 +61,27 @@ export default defineComponent({
   position: sticky;
   top: 70px;
 }
+.browser-default {
+  background-color: #f2ebea;
+  font-size: 15px;
+  font-family: "Cubic_11_1.100_R";
+}
+
+/* hide materializecss select in mobile */
+.mobile-hidden {
+  display: block !important;
+}
+.mobile-display {
+  display: none !important;
+}
+@media (max-width: 768px) {
+  .mobile-display {
+    display: block !important;
+  }
+  .mobile-hidden {
+    display: none !important;
+  }
+}
 /* font-settings */
 @font-face {
   font-family: "Cubic_11_1.100_R";

@@ -3,7 +3,21 @@
     <h1>待辦清單</h1>
     <span class="hint">*按鈕切換狀態>> N: 未開始 P: 進行中 S: 擱置中 C: 已完成 D: 刪除</span>
     <div class="col s12 add-block floatup-div wow animate__slideInUp">
-      <div class="col s2 input-field">
+      <div class="col s2 input-field mobile-hidden">
+        <select v-model="form.topic">
+          <option class="validate" value="" disabled selected>選擇主題</option>
+          <option v-if="form.owner !== 'root'" class="validate" value="系統/root" selected>系統建議</option>
+          <option
+            v-for="todoTopic in todoTopics"
+            :key="todoTopic.topicName"
+            :value="`${todoTopic.topicName}/${form.owner}`"
+          >
+            {{ todoTopic.topicName }}
+          </option>
+        </select>
+        <label>選擇主題</label>
+      </div>
+      <div class="col s2 input-field mobile-display">
         <select v-model="form.topic" class="browser-default">
           <option class="validate" value="" disabled selected>選擇主題</option>
           <option v-if="form.owner !== 'root'" class="validate" value="系統/root" selected>系統建議</option>
@@ -218,9 +232,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.browser-default {
-  background-color: #f2ebea;
-}
 .add-block {
   font-size: 25px !important;
   max-height: 100px;

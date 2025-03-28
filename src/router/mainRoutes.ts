@@ -8,7 +8,47 @@ import store from "../store/store";
 import MainView from "../views/MainView.vue";
 // type
 import { RouteLocationNormalized, NavigationGuardNext } from "vue-router";
+
 // ----------------------------------------------------------------------------
+const checkLogin = async (next: NavigationGuardNext) => {
+  try {
+    const response = await axios.get("/api/auth");
+    store.commit("setUserData", response?.data.userData);
+    next();
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      store.commit("setUserData", {});
+      alert("使用者尚未登入, 請前往登入");
+      next("/login");
+    } else {
+      sessionStorage.setItem("msg", String(error));
+      next("/message");
+    }
+  }
+};
+
+// check if you are the website owner
+const checkOwner = async (next: NavigationGuardNext) => {
+  try {
+    const response = await axios.get("/api/auth/root");
+    store.commit("setUserData", response?.data.userData);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response?.data.userData === undefined) {
+        store.commit("setUserData", {});
+        alert("使用者尚未登入, 請前往登入");
+        next("/login");
+      } else {
+        store.commit("setUserData", error.response?.data.userData);
+        alert("使用者沒有權限");
+        next("/galgamebrand");
+      }
+    } else {
+      sessionStorage.setItem("msg", String(error));
+      next("/message");
+    }
+  }
+};
 // ----------------------------------------------------------------------------
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -72,16 +112,21 @@ const getTagInformation = async (mode: number, tagName?: string): Promise<AxiosR
 };
 
 // ----------------------------------------------------------------------------
-// ----------------------------------------------------------------------------
 
-const getDataBeforeEnter = async (
-  to: RouteLocationNormalized,
-  from: RouteLocationNormalized,
-  next: NavigationGuardNext
-) => {
+const entryPoint = async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
   let response: AxiosResponse | undefined;
   let mutationsName: string;
   switch (to.name) {
+    case "main-create":
+    case "main-userMaintain":
+    case "main-todoTopic":
+    case "main-todolist":
+      await checkLogin(next);
+      return;
+    case "main-insertGalgameBrand":
+      await checkOwner(next);
+      next();
+      return;
     case "main-home":
       response = await getArticleInformation();
       mutationsName = "setArticleContent";
@@ -99,15 +144,21 @@ const getDataBeforeEnter = async (
       mutationsName = "setTagArticle";
       break;
     case "main-insertGalgame":
+      await checkOwner(next);
+      response = await getGalgameBrand(0);
+      mutationsName = "setGalgameBrandData";
+      break;
     case "main-galgameBrand":
       response = await getGalgameBrand(0);
       mutationsName = "setGalgameBrandData";
       break;
     case "main-editGalgame":
+      await checkOwner(next);
       response = await getGalgame(to.path.split("/").pop());
       mutationsName = "setgalgameSingleData";
       break;
     case "main-editGalgameBrand":
+      await checkOwner(next);
       response = await getGalgameBrand(1, to.params.brand as string);
       mutationsName = "setgalgameBrandSingleData";
       break;
@@ -143,7 +194,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
         path: "",
         name: "main-home",
         component: () => import("@/components/MainBlock.vue"),
-        beforeEnter: async (to, from, next) => getDataBeforeEnter(to, from, next),
+        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
       },
       {
         path: "login",
@@ -161,6 +212,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
         path: "create",
         name: "main-create",
         component: () => import("@/components/CreateArticle.vue"),
+        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
       },
       {
         path: "message",
@@ -172,19 +224,19 @@ const mainRoutes: Array<RouteRecordRaw> = [
         path: "articles/:articleID",
         name: "main-articles",
         component: () => import("@/components/ArticleBlock.vue"),
-        beforeEnter: async (to, from, next) => getDataBeforeEnter(to, from, next),
+        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
       },
       {
         path: "tags",
         name: "main-tags",
         component: () => import("@/components/TagsBlock.vue"),
-        beforeEnter: async (to, from, next) => getDataBeforeEnter(to, from, next),
+        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
       },
       {
         path: "tags/:tagName",
         name: "main-tagArticle",
         component: () => import("@/components/TagBlock.vue"),
-        beforeEnter: async (to, from, next) => getDataBeforeEnter(to, from, next),
+        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
       },
       {
         path: "register",
@@ -195,30 +247,31 @@ const mainRoutes: Array<RouteRecordRaw> = [
         path: "galgame/insert",
         name: "main-insertGalgame",
         component: () => import("@/components/InsertGalgame.vue"),
-        beforeEnter: async (to, from, next) => getDataBeforeEnter(to, from, next),
+        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
       },
       {
         path: "galgame/edit/:name",
         name: "main-editGalgame",
         component: () => import("@/components/EditGalgame.vue"),
-        beforeEnter: async (to, from, next) => getDataBeforeEnter(to, from, next),
+        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
       },
       {
         path: "galgamebrand",
         name: "main-galgameBrand",
         component: () => import("@/components/GalgameBrand.vue"),
-        beforeEnter: async (to, from, next) => getDataBeforeEnter(to, from, next),
+        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
       },
       {
         path: "galgamebrand/insert",
         name: "main-insertGalgameBrand",
         component: () => import("@/components/InsertGalgameBrand.vue"),
+        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
       },
       {
         path: "galgamebrand/edit/:brand",
         name: "main-editGalgameBrand",
         component: () => import("@/components/EditGalgameBrand.vue"),
-        beforeEnter: async (to, from, next) => getDataBeforeEnter(to, from, next),
+        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
       },
       {
         path: "update-todo",
@@ -229,16 +282,19 @@ const mainRoutes: Array<RouteRecordRaw> = [
         path: "user-maintain",
         name: "main-userMaintain",
         component: () => import("@/components/system/UserMaintain.vue"),
+        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
       },
       {
         path: "todolist",
         name: "main-todolist",
         component: () => import("@/components/TodoList.vue"),
+        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
       },
       {
         path: "todo-topic",
         name: "main-todoTopic",
         component: () => import("@/components/CreateTodoTopic.vue"),
+        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
       },
       // match all route
       {

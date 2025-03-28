@@ -77,10 +77,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.select-wrapper * {
-  transition: none !important;
-  transform: none !important;
-}
 .sub-block {
   max-height: 180px;
   height: 180px;

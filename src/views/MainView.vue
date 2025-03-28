@@ -39,16 +39,13 @@ export default defineComponent({
   height: 100%;
   margin-bottom: 0px;
 }
-.center {
-  text-align: center;
-}
 .main-block {
   padding: 40px;
 }
 .sub-block {
   padding-top: 20px;
   margin-top: 10px;
-  cursor: default;
+  cursor: default !important;
   border: 2px solid white;
   border-radius: 20px;
 }

@@ -123,7 +123,7 @@ const entryPoint = async (to: RouteLocationNormalized, from: RouteLocationNormal
     case "main-todolist":
       await checkLogin(next);
       return;
-    case "main-insertGalgameBrand":
+    case "main-createGalgameBrand":
       await checkOwner(next);
       next();
       return;
@@ -143,7 +143,7 @@ const entryPoint = async (to: RouteLocationNormalized, from: RouteLocationNormal
       response = await getTagInformation(1, to.params.tagName as string);
       mutationsName = "setTagArticle";
       break;
-    case "main-insertGalgame":
+    case "main-createGalgame":
       await checkOwner(next);
       response = await getGalgameBrand(0);
       mutationsName = "setGalgameBrandData";
@@ -199,7 +199,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
       {
         path: "login",
         name: "main-login",
-        component: () => import("@/components/LoginBlock.vue"),
+        component: () => import("@/components/system/LoginBlock.vue"),
         beforeEnter: (to, from, next) => {
           if (Cookies.get("session_id") !== undefined) {
             Cookies.remove("session_id");
@@ -244,9 +244,9 @@ const mainRoutes: Array<RouteRecordRaw> = [
         component: () => import("@/components/RegisterBlock.vue"),
       },
       {
-        path: "galgame/insert",
-        name: "main-insertGalgame",
-        component: () => import("@/components/InsertGalgame.vue"),
+        path: "galgame/create",
+        name: "main-createGalgame",
+        component: () => import("@/components/CreateGalgame.vue"),
         beforeEnter: async (to, from, next) => entryPoint(to, from, next),
       },
       {
@@ -262,9 +262,9 @@ const mainRoutes: Array<RouteRecordRaw> = [
         beforeEnter: async (to, from, next) => entryPoint(to, from, next),
       },
       {
-        path: "galgamebrand/insert",
-        name: "main-insertGalgameBrand",
-        component: () => import("@/components/InsertGalgameBrand.vue"),
+        path: "galgamebrand/create",
+        name: "main-createGalgameBrand",
+        component: () => import("@/components/CreateGalgameBrand.vue"),
         beforeEnter: async (to, from, next) => entryPoint(to, from, next),
       },
       {

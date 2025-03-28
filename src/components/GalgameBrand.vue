@@ -1,11 +1,11 @@
 <template>
   <div class="row main-block">
-    <div class="col s12 center galgameBrandTitle">
+    <div class="col s12 center-align galgameBrandTitle">
       <div class="col s12">
         Galgameブランド紀錄
-        <router-link to="/galgamebrand/insert" class="button-simple">點我新增品牌</router-link>
+        <router-link to="/galgamebrand/create" class="button-simple">點我新增品牌</router-link>
 
-        <router-link to="/galgame/insert" class="button-simple">點我新增遊戲</router-link>
+        <router-link to="/galgame/create" class="button-simple">點我新增遊戲</router-link>
       </div>
     </div>
     <div class="col s12 galgameBrandHeader">

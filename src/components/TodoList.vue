@@ -41,7 +41,7 @@
         <label for="deadline">截止日期</label>
       </div>
       <div class="col s2 submit">
-        <button class="btn waves-effect waves-light" @click="handleSubmit">
+        <button class="button-submit" type="button" @click="handleSubmit">
           新增
           <i class="material-icons right">send</i>
         </button>

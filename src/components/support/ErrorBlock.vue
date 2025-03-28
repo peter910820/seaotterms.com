@@ -5,7 +5,7 @@
       <span>404 not found</span>
       <br />
       <router-link to="/">
-        <button class="btn waves-effect waves-light" type="submit" name="action">
+        <button class="button-submit" type="button">
           回到首頁
           <i class="material-icons right">home</i>
         </button>

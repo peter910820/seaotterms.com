@@ -17,6 +17,15 @@
       <div class="col s1">修改</div>
       <div class="col s1">展開</div>
     </div>
+    <div class="col s12 galgameBrandHeader">
+      <div class="col s3"></div>
+      <div class="col s2">{{ total }}</div>
+      <div class="col s2"></div>
+      <div class="col s2"></div>
+      <div class="col s1"></div>
+      <div class="col s1"></div>
+      <div class="col s1"></div>
+    </div>
     <div
       class="col s12 galgameBrand floatup-div wow animate__slideInUp"
       v-for="galgameBrand in galgameBrandData"
@@ -92,6 +101,7 @@ export default defineComponent({
         endDate: string;
       }>
     >([]);
+    let total = ref(0);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const openModal = async (brand: any) => {
@@ -116,7 +126,9 @@ export default defineComponent({
     };
 
     const formatDate = (date: string) => dayjs(date).format("YYYY-MM-DD");
-
+    galgameBrandData.value.forEach((element: { completed: number }) => {
+      total.value += element.completed;
+    });
     return {
       galgameBrandData,
       openModal,
@@ -125,6 +137,7 @@ export default defineComponent({
       closeModal,
       selectedBrandGames,
       formatDate,
+      total,
     };
   },
 });

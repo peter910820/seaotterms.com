@@ -138,7 +138,7 @@ export default defineComponent({
 <style scoped>
 .sub-block {
   font-size: 25px !important;
-  max-height: 600px;
+  min-height: 600px;
   height: auto;
 }
 </style>

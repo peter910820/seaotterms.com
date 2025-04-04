@@ -19,28 +19,38 @@ const getGalgameBrand = async (mode: number, path?: string): Promise<AxiosRespon
   }
 };
 
-const setGalgameData = async (
+const getDataEntryPoint = async (
   to: RouteLocationNormalized,
   from: RouteLocationNormalized,
   next: NavigationGuardNext
 ) => {
-  const response = await getGalgameBrand(0);
+  let response;
+  switch (to.name) {
+    case "main-galgameBrand":
+      response = await getGalgameBrand(0);
+      break;
+  }
   if (response && response.status === 200) {
-    const galagmeBrandStore = useGalgameBrandStore();
-    galagmeBrandStore.set(response.data.data);
+    setStore(response, to);
     next();
   } else if (response) {
-    if (response.status === 401) {
-      alert("使用者尚未登入, 請前往登入");
-      next("/login");
-    } else {
-      sessionStorage.setItem("msg", `${response?.status}: ${response?.data.msg}`);
-      next("/message");
-    }
+    sessionStorage.setItem("msg", `${response?.status}: ${response?.data.msg}`);
+    next("/message");
   } else {
     sessionStorage.setItem("msg", "發生例外錯誤，請聯繫管理員");
     next("/message");
   }
 };
 
-export { setGalgameData };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const setStore = async (response: AxiosResponse<any, any>, to: RouteLocationNormalized) => {
+  let store;
+  switch (to.name) {
+    case "main-galgameBrand":
+      store = useGalgameBrandStore();
+      store.set(response.data.data);
+      break;
+  }
+};
+
+export { getDataEntryPoint };

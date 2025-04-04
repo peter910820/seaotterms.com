@@ -9,7 +9,7 @@ import MainView from "../views/MainView.vue";
 // type
 import { RouteLocationNormalized, NavigationGuardNext } from "vue-router";
 
-import { setGalgameData } from "@/router/guard";
+import { getDataEntryPoint } from "@/router/guard";
 
 // ----------------------------------------------------------------------------
 const checkLogin = async (next: NavigationGuardNext) => {
@@ -260,7 +260,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
         path: "galgamebrand",
         name: "main-galgameBrand",
         component: () => import("@/components/GalgameBrand.vue"),
-        beforeEnter: async (to, from, next) => setGalgameData(to, from, next),
+        beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
       },
       {
         path: "galgamebrand/create",

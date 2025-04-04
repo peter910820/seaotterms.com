@@ -9,6 +9,8 @@ import MainView from "../views/MainView.vue";
 // type
 import { RouteLocationNormalized, NavigationGuardNext } from "vue-router";
 
+import { setGalgameData } from "@/router/guard";
+
 // ----------------------------------------------------------------------------
 const checkLogin = async (next: NavigationGuardNext) => {
   try {
@@ -112,7 +114,6 @@ const getTagInformation = async (mode: number, tagName?: string): Promise<AxiosR
 };
 
 // ----------------------------------------------------------------------------
-
 const entryPoint = async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
   let response: AxiosResponse | undefined;
   let mutationsName: string;
@@ -259,7 +260,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
         path: "galgamebrand",
         name: "main-galgameBrand",
         component: () => import("@/components/GalgameBrand.vue"),
-        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
+        beforeEnter: async (to, from, next) => setGalgameData(to, from, next),
       },
       {
         path: "galgamebrand/create",

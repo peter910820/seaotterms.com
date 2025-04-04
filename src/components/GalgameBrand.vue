@@ -28,26 +28,28 @@
     </div>
     <div
       class="col s12 galgameBrand floatup-div wow animate__slideInUp"
-      v-for="galgameBrand in galgameBrandData"
-      :key="galgameBrand.brand"
+      v-for="galgameBrandData in galgameBrand"
+      :key="galgameBrandData.brand"
     >
-      <div class="col s3 brand">{{ galgameBrand.brand }}</div>
-      <div class="col s2">{{ galgameBrand.completed }}</div>
-      <div class="col s2">{{ galgameBrand.total }}</div>
-      <div class="col s2" v-if="galgameBrand.annotation === '制霸'">
+      <div class="col s3 brand">{{ galgameBrandData.brand }}</div>
+      <div class="col s2">{{ galgameBrandData.completed }}</div>
+      <div class="col s2">{{ galgameBrandData.total }}</div>
+      <div class="col s2" v-if="galgameBrandData.annotation === '制霸'">
         <b>
-          <font color="blue">{{ galgameBrand.annotation }}</font>
+          <font color="blue">{{ galgameBrandData.annotation }}</font>
         </b>
       </div>
-      <div class="col s2" v-else>{{ galgameBrand.annotation }}</div>
+      <div class="col s2" v-else>{{ galgameBrandData.annotation }}</div>
       <div class="col s1">
-        <font color="red">{{ galgameBrand.dissolution ? "解散" : "" }}</font>
+        <font color="red">{{ galgameBrandData.dissolution ? "解散" : "" }}</font>
       </div>
       <div class="col s1">
-        <router-link :to="`/galgamebrand/edit/${galgameBrand.brand}`" class="button-simple modify">修改</router-link>
+        <router-link :to="`/galgamebrand/edit/${galgameBrandData.brand}`" class="button-simple modify">
+          修改
+        </router-link>
       </div>
       <div class="col s1">
-        <button class="button-simple modify" @click="openModal(galgameBrand.brand)">+</button>
+        <button class="button-simple modify" @click="openModal(galgameBrandData.brand)">+</button>
       </div>
     </div>
 
@@ -83,14 +85,15 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import { useStore } from "vuex";
+import { useGalgameBrandStore } from "@/store/galgame";
+import { storeToRefs } from "pinia";
 import axios from "axios";
 import dayjs from "dayjs";
 
 export default defineComponent({
   setup() {
-    const store = useStore();
-    const galgameBrandData = ref(store.state.galgameBrandData);
+    const galagmeBrandStore = useGalgameBrandStore();
+    const { galgameBrand } = storeToRefs(galagmeBrandStore);
     const modalVisible = ref(false);
     const selectedBrand = ref("");
     const selectedBrandGames = ref<
@@ -102,7 +105,6 @@ export default defineComponent({
       }>
     >([]);
     let total = ref(0);
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const openModal = async (brand: any) => {
       selectedBrand.value = brand;
@@ -126,11 +128,11 @@ export default defineComponent({
     };
 
     const formatDate = (date: string) => dayjs(date).format("YYYY-MM-DD");
-    galgameBrandData.value.forEach((element: { completed: number }) => {
+    galgameBrand.value.forEach((element: { completed: number }) => {
       total.value += element.completed;
     });
     return {
-      galgameBrandData,
+      galgameBrand,
       openModal,
       selectedBrand,
       modalVisible,

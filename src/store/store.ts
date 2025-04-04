@@ -9,7 +9,6 @@ interface State {
   articleContent: "";
   tagArticle: "";
   // -------------------- //
-  galgameBrandData: "";
   // eslint-disable-next-line @typescript-eslint/ban-types
   galgameBrandSingleData: {};
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -38,7 +37,6 @@ const getDefaultState = (): State => ({
   articleContent: "",
   tagArticle: "",
   // -------------------- //
-  galgameBrandData: "",
   galgameBrandSingleData: {},
   galgameSingleData: {},
   // -------------------- //
@@ -96,9 +94,6 @@ export default createStore({
       state.tagArticle = tagArticle;
     },
     // -------------------- //
-    setGalgameBrandData(state, galgameBrandData) {
-      state.galgameBrandData = galgameBrandData;
-    },
     setgalgameBrandSingleData(state, galgameBrandSingleData) {
       state.galgameBrandSingleData = galgameBrandSingleData;
     },

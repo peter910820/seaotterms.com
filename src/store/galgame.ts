@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
-import { GalgameBrandType } from "@/types/galgameTypes";
+import { GalgameBrandType, GalgameType } from "@/types/galgameTypes";
 
 export const useGalgameBrandStore = defineStore("galgameBrand", () => {
   const galgameBrand = ref<GalgameBrandType[]>([]);
@@ -11,6 +11,18 @@ export const useGalgameBrandStore = defineStore("galgameBrand", () => {
 
   return {
     galgameBrand,
+    set,
+  };
+});
+
+export const useGalgameStore = defineStore("galgame", () => {
+  const galgame = ref<GalgameType[]>([]);
+  const set = (data: GalgameType[]) => {
+    galgame.value = data;
+  };
+
+  return {
+    galgame,
     set,
   };
 });

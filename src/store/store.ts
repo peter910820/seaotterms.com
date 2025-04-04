@@ -8,6 +8,7 @@ import type { FormTodo, TodoTopic } from "@/types/FormTypes";
 interface State {
   articleContent: "";
   tagArticle: "";
+  galgameBrandData: "";
   // -------------------- //
   // eslint-disable-next-line @typescript-eslint/ban-types
   galgameBrandSingleData: {};
@@ -36,6 +37,7 @@ interface UserData {
 const getDefaultState = (): State => ({
   articleContent: "",
   tagArticle: "",
+  galgameBrandData: "",
   // -------------------- //
   galgameBrandSingleData: {},
   galgameSingleData: {},
@@ -99,6 +101,9 @@ export default createStore({
     },
     setgalgameSingleData(state, galgameSingleData) {
       state.galgameSingleData = galgameSingleData;
+    },
+    setGalgameBrandData(state, galgameBrandData) {
+      state.galgameBrandData = galgameBrandData;
     },
     // -------------------- //
     setUserData(state, userData) {

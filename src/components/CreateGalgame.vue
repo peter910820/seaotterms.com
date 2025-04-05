@@ -13,7 +13,7 @@
           <i class="material-icons prefix">apartment</i>
           <select v-model="form.brand">
             <option class="validate" value="" disabled selected>請選擇ブランド</option>
-            <option v-for="item in galgameBrandData" :key="item.brand" :value="item.brand">
+            <option v-for="item in galgameBrand" :key="item.brand" :value="item.brand">
               {{ item.brand }}
             </option>
           </select>
@@ -61,6 +61,8 @@
 
 <script>
 import { ref, defineComponent } from "vue";
+import { useGalgameBrandStore } from "@/store/galgame";
+import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { onMounted } from "vue";
@@ -72,7 +74,8 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const router = useRouter();
-    const galgameBrandData = ref(store.state.galgameBrandData);
+    const galagmeBrandStore = useGalgameBrandStore();
+    const { galgameBrand } = storeToRefs(galagmeBrandStore);
     const form = ref({
       username: store.state.userData.username,
       name: "",
@@ -128,7 +131,7 @@ export default defineComponent({
     };
     return {
       form,
-      galgameBrandData,
+      galgameBrand,
       handleSubmit,
     };
   },

@@ -248,7 +248,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
         path: "galgame/create",
         name: "main-createGalgame",
         component: () => import("@/components/CreateGalgame.vue"),
-        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
+        beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
       },
       {
         path: "galgame/edit/:name",

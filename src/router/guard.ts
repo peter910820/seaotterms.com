@@ -1,4 +1,6 @@
 import axios, { AxiosResponse } from "axios";
+// vuex store
+import store from "../store/store";
 // pinia store
 import { useGalgameBrandStore } from "@/store/galgame";
 // type
@@ -19,6 +21,29 @@ const getGalgameBrand = async (mode: number, path?: string): Promise<AxiosRespon
   }
 };
 
+// check if you are the website owner
+const checkOwner = async (next: NavigationGuardNext) => {
+  try {
+    const response = await axios.get("/api/auth/root");
+    store.commit("setUserData", response?.data.userData);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response?.data.userData === undefined) {
+        store.commit("setUserData", {});
+        alert("使用者尚未登入, 請前往登入");
+        next("/login");
+      } else {
+        store.commit("setUserData", error.response?.data.userData);
+        alert("使用者沒有權限");
+        next("/galgamebrand");
+      }
+    } else {
+      sessionStorage.setItem("msg", String(error));
+      next("/message");
+    }
+  }
+};
+
 const getDataEntryPoint = async (
   to: RouteLocationNormalized,
   from: RouteLocationNormalized,
@@ -27,6 +52,10 @@ const getDataEntryPoint = async (
   let response;
   switch (to.name) {
     case "main-galgameBrand":
+      response = await getGalgameBrand(0);
+      break;
+    case "main-createGalgame":
+      await checkOwner(next);
       response = await getGalgameBrand(0);
       break;
   }
@@ -47,6 +76,7 @@ const setStore = async (response: AxiosResponse<any, any>, to: RouteLocationNorm
   let store;
   switch (to.name) {
     case "main-galgameBrand":
+    case "main-createGalgame":
       store = useGalgameBrandStore();
       store.set(response.data.data);
       break;

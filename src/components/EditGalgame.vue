@@ -49,30 +49,31 @@
 <script lang="ts">
 import { ref, defineComponent } from "vue";
 import { useRouter } from "vue-router";
+import { useGalgameStore } from "@/store/galgame";
+import { storeToRefs } from "pinia";
 import { useStore } from "vuex";
 import axios from "axios";
 
 export default defineComponent({
   setup() {
     console.log("這是開發用的頁面，請確定你真的知道自己在幹嘛再執行動作");
+    const galagmeStore = useGalgameStore();
+    const { galgame } = storeToRefs(galagmeStore);
     const router = useRouter();
     const store = useStore();
-    const galgameSingleData = ref(store.state.galgameSingleData);
     const form = ref({
-      name: galgameSingleData.value.name,
-      brand: galgameSingleData.value.brand,
-      releaseDate: galgameSingleData.value.releaseDate,
-      allAges: galgameSingleData.value.allAges,
-      endDate: galgameSingleData.value.endDate,
-      updateTime: galgameSingleData.value.updateTime,
-      username:
-        galgameSingleData.value.updateName?.trim() === ""
-          ? galgameSingleData.value.inputName
-          : galgameSingleData.value.updateName,
+      name: galgame.value[0].name,
+      brand: galgame.value[0].brand,
+      releaseDate: galgame.value[0].releaseDate,
+      allAges: galgame.value[0].allAges,
+      endDate: galgame.value[0].endDate,
+      updateTime: galgame.value[0].updateTime,
+      username: galgame.value[0].updateName?.trim() === "" ? galgame.value[0].inputName : galgame.value[0].updateName,
     });
+
     const handleSubmit = async () => {
       try {
-        let response = await axios.patch(`/api/galgame/develop/${galgameSingleData.value.name}`, form.value);
+        let response = await axios.patch(`/api/galgame/develop/${galgame.value[0].name}`, form.value);
         sessionStorage.setItem("msg", response?.data.msg);
         router.push("/message");
       } catch (error) {

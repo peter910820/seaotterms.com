@@ -10,11 +10,6 @@ interface State {
   tagArticle: "";
   galgameBrandData: "";
   // -------------------- //
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  galgameBrandSingleData: {};
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  galgameSingleData: {};
-  // -------------------- //
   userData: UserData;
   // -------------------- //
   todoTopic: TodoTopic[];
@@ -39,8 +34,6 @@ const getDefaultState = (): State => ({
   tagArticle: "",
   galgameBrandData: "",
   // -------------------- //
-  galgameBrandSingleData: {},
-  galgameSingleData: {},
   // -------------------- //
   userData: {
     id: 0,
@@ -96,12 +89,6 @@ export default createStore({
       state.tagArticle = tagArticle;
     },
     // -------------------- //
-    setgalgameBrandSingleData(state, galgameBrandSingleData) {
-      state.galgameBrandSingleData = galgameBrandSingleData;
-    },
-    setgalgameSingleData(state, galgameSingleData) {
-      state.galgameSingleData = galgameSingleData;
-    },
     setGalgameBrandData(state, galgameBrandData) {
       state.galgameBrandData = galgameBrandData;
     },

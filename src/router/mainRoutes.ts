@@ -153,11 +153,11 @@ const entryPoint = async (to: RouteLocationNormalized, from: RouteLocationNormal
       response = await getGalgameBrand(0);
       mutationsName = "setGalgameBrandData";
       break;
-    case "main-editGalgame":
-      await checkOwner(next);
-      response = await getGalgame(to.path.split("/").pop());
-      mutationsName = "setgalgameSingleData";
-      break;
+    // case "main-editGalgame":
+    //   await checkOwner(next);
+    //   response = await getGalgame(to.path.split("/").pop());
+    //   mutationsName = "setgalgameSingleData";
+    //   break;
     case "main-editGalgameBrand":
       await checkOwner(next);
       response = await getGalgameBrand(1, to.params.brand as string);
@@ -254,7 +254,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
         path: "galgame/edit/:name",
         name: "main-editGalgame",
         component: () => import("@/components/EditGalgame.vue"),
-        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
+        beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
       },
       {
         path: "galgamebrand",
@@ -272,7 +272,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
         path: "galgamebrand/edit/:brand",
         name: "main-editGalgameBrand",
         component: () => import("@/components/EditGalgameBrand.vue"),
-        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
+        beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
       },
       {
         path: "update-todo",

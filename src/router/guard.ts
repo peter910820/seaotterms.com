@@ -2,10 +2,21 @@ import axios, { AxiosResponse } from "axios";
 // vuex store
 import store from "../store/store";
 // pinia store
-import { useGalgameBrandStore } from "@/store/galgame";
+import { useGalgameBrandStore, useGalgameStore } from "@/store/galgame";
 // type
 import { RouteLocationNormalized, NavigationGuardNext } from "vue-router";
 
+// support function
+const getGalgame = async (path?: string): Promise<AxiosResponse | undefined> => {
+  const apiUrl = `/api/galgame/s/${path}`;
+  try {
+    const response = await axios.get(apiUrl);
+    return response;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    return error.response;
+  }
+};
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getGalgameBrand = async (mode: number, path?: string): Promise<AxiosResponse | undefined> => {
   let apiUrl = "/api/galgame-brand";
@@ -58,6 +69,14 @@ const getDataEntryPoint = async (
       await checkOwner(next);
       response = await getGalgameBrand(0);
       break;
+    case "main-editGalgame":
+      await checkOwner(next);
+      response = await getGalgame(to.path.split("/").pop());
+      break;
+    case "main-editGalgameBrand":
+      await checkOwner(next);
+      response = await getGalgameBrand(1, to.params.brand as string);
+      break;
   }
   if (response && response.status === 200) {
     setStore(response, to);
@@ -77,7 +96,12 @@ const setStore = async (response: AxiosResponse<any, any>, to: RouteLocationNorm
   switch (to.name) {
     case "main-galgameBrand":
     case "main-createGalgame":
+    case "main-editGalgameBrand":
       store = useGalgameBrandStore();
+      store.set(response.data.data);
+      break;
+    case "main-editGalgame":
+      store = useGalgameStore();
       store.set(response.data.data);
       break;
   }

@@ -49,6 +49,8 @@
 <script>
 import { ref, defineComponent } from "vue";
 import { useRouter } from "vue-router";
+import { useGalgameBrandStore } from "@/store/galgame";
+import { storeToRefs } from "pinia";
 import { useStore } from "vuex";
 import axios from "axios";
 
@@ -56,15 +58,16 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const store = useStore();
-    const galgameBrandSingleData = ref(store.state.galgameBrandSingleData);
+    const galagmeBrandStore = useGalgameBrandStore();
+    const { galgameBrand } = storeToRefs(galagmeBrandStore);
 
     const form = ref({
-      brand: galgameBrandSingleData.value.brand,
-      completed: galgameBrandSingleData.value.completed,
-      total: galgameBrandSingleData.value.total,
-      dissolution: galgameBrandSingleData.value.dissolution,
-      username: galgameBrandSingleData.value.updateName,
-      updateTime: galgameBrandSingleData.value.updateTime,
+      brand: galgameBrand.value[0].brand,
+      completed: galgameBrand.value[0].completed,
+      total: galgameBrand.value[0].total,
+      dissolution: galgameBrand.value[0].dissolution,
+      username: galgameBrand.value[0].updateName,
+      updateTime: galgameBrand.value[0].updateTime,
     });
 
     const handleSubmit = async () => {
@@ -79,7 +82,7 @@ export default defineComponent({
           router.push("/message");
           return;
         }
-        let response = await axios.patch(`/api/galgame-brand/${galgameBrandSingleData.value.brand}`, form.value);
+        let response = await axios.patch(`/api/galgame-brand/${galgameBrand.value[0].brand}`, form.value);
         sessionStorage.setItem("msg", response?.data.msg);
         router.push("/message");
       } catch (error) {

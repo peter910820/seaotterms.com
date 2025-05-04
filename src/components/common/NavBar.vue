@@ -24,12 +24,6 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/todo-topic">
-            建立Todo類別
-            <i class="material-icons left">checklist</i>
-          </router-link>
-        </li>
-        <li>
           <router-link to="/todolist">
             TodoList
             <i class="material-icons left">checklist</i>
@@ -75,9 +69,6 @@
     </li>
     <li>
       <router-link to="/galgamebrand">Galgame紀錄</router-link>
-    </li>
-    <li>
-      <router-link to="/todo-topic">建立Todo類別</router-link>
     </li>
     <li>
       <router-link to="/todolist">TodoList</router-link>

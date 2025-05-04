@@ -54,18 +54,6 @@ const checkOwner = async (next: NavigationGuardNext) => {
 // ----------------------------------------------------------------------------
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getGalgame = async (path?: string): Promise<AxiosResponse | undefined> => {
-  const apiUrl = `/api/galgame/s/${path}`;
-  try {
-    const response = await axios.get(apiUrl);
-    return response;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    return error.response;
-  }
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getGalgameBrand = async (mode: number, path?: string): Promise<AxiosResponse | undefined> => {
   let apiUrl = "/api/galgame-brand";
   if (mode === 1) {
@@ -296,6 +284,11 @@ const mainRoutes: Array<RouteRecordRaw> = [
         name: "main-todoTopic",
         component: () => import("@/components/CreateTodoTopic.vue"),
         beforeEnter: async (to, from, next) => entryPoint(to, from, next),
+      },
+      {
+        path: "galgame/article-operation",
+        name: "main-galgameArticleOperation",
+        component: () => import("@/components/galgame/GalgameArticleOperation.vue"),
       },
       // match all route
       {

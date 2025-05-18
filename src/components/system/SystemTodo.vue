@@ -28,15 +28,17 @@
 <script lang="ts">
 import { defineComponent, computed } from "vue";
 import { useRouter } from "vue-router";
-import { useStore } from "vuex";
+import { useSystemTodoStore } from "@/store/todo";
+import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
 import axios from "axios";
 
 export default defineComponent({
   setup() {
     const router = useRouter();
-    const store = useStore();
-    const todos = computed(() => store.state.systemTodo);
+    const systemTodoStore = useSystemTodoStore();
+    const { systemTodo } = storeToRefs(systemTodoStore);
+    const todos = computed(() => systemTodo.value);
 
     onMounted(async () => {
       const getTodo = async () => {
@@ -51,7 +53,7 @@ export default defineComponent({
 
       const response = await getTodo();
       if (response?.status === 200) {
-        store.commit("setSystemTodo", response.data.data);
+        systemTodoStore.set(response.data.data);
       } else {
         sessionStorage.setItem("msg", `${response?.status}: ${response?.data.msg}`);
         router.push("/message");

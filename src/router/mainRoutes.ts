@@ -263,9 +263,10 @@ const mainRoutes: Array<RouteRecordRaw> = [
         beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
       },
       {
-        path: "update-todo",
-        name: "main-updateTodo",
-        component: () => import("@/components/system/UpdateTodo.vue"),
+        path: "system-todo",
+        name: "main-systemTodo",
+        component: () => import("@/components/system/SystemTodo.vue"),
+        beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
       },
       {
         path: "user-maintain",

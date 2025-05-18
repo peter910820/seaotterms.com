@@ -12,7 +12,7 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/update-todo">
+          <router-link to="/system-todo">
             系統更新待辦
             <i class="material-icons left">open_in_browser</i>
           </router-link>
@@ -65,7 +65,7 @@
       <router-link to="/">首頁</router-link>
     </li>
     <li>
-      <router-link to="/update-todo">系統更新待辦</router-link>
+      <router-link to="/system-todo">系統更新待辦</router-link>
     </li>
     <li>
       <router-link to="/galgamebrand">Galgame紀錄</router-link>

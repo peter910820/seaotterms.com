@@ -2,7 +2,8 @@ import axios, { AxiosResponse } from "axios";
 // vuex store
 import store from "../store/store";
 // pinia store
-import { useGalgameBrandStore, useGalgameStore } from "@/store/galgame";
+import { useGalgameStore, useGalgameBrandStore } from "@/store/galgame";
+import { useTodoStore } from "@/store/todo";
 // type
 import { RouteLocationNormalized, NavigationGuardNext } from "vue-router";
 
@@ -25,6 +26,16 @@ const getGalgameBrand = async (mode: number, path?: string): Promise<AxiosRespon
   }
   try {
     const response = await axios.get(apiUrl);
+    return response;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    return error.response;
+  }
+};
+
+const getTodo = async (name: string) => {
+  try {
+    const response = await axios.get(`/api/todos/${name}`);
     return response;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -77,6 +88,9 @@ const getDataEntryPoint = async (
       await checkOwner(next);
       response = await getGalgameBrand(1, to.params.brand as string);
       break;
+    case "main-systemTodo":
+      response = await getTodo("root");
+      break;
   }
   if (response && response.status === 200) {
     setStore(response, to);
@@ -102,6 +116,10 @@ const setStore = async (response: AxiosResponse<any, any>, to: RouteLocationNorm
       break;
     case "main-editGalgame":
       store = useGalgameStore();
+      store.set(response.data.data);
+      break;
+    case "main-systemTodo":
+      store = useTodoStore();
       store.set(response.data.data);
       break;
   }

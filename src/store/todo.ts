@@ -26,3 +26,15 @@ export const useTodoTopicStore = defineStore("todoTopic", () => {
     set,
   };
 });
+
+export const useSystemTodoStore = defineStore("systemTodo", () => {
+  const systemTodo = ref<TodoType[]>([]);
+  const set = (data: TodoType[]) => {
+    systemTodo.value = data;
+  };
+
+  return {
+    systemTodo,
+    set,
+  };
+});

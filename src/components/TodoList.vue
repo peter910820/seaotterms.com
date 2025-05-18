@@ -93,6 +93,8 @@
 import { ref, defineComponent, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { useTodoStore, useTodoTopicStore } from "@/store/todo";
+import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
 import axios from "axios";
 
@@ -104,6 +106,10 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const store = useStore();
+    const todoTopicStore = useTodoTopicStore();
+    const { todoTopic } = storeToRefs(todoTopicStore);
+    const todoStore = useTodoStore();
+    const { todo } = storeToRefs(todoStore);
 
     const todoTopics = ref();
     const userData = ref(store.state.userData);
@@ -117,7 +123,7 @@ export default defineComponent({
       updateName: "",
     });
 
-    const todos = computed(() => store.state.todo);
+    const todos = computed(() => todo.value);
 
     onMounted(async () => {
       // get TodoTopics
@@ -139,17 +145,21 @@ export default defineComponent({
           return error.response;
         }
       };
+
+      // get todo topic
       let response = await getTodoTopics();
       if (response?.status === 200) {
-        store.commit("setTodoTopic", response.data.data);
+        todoTopicStore.set(response.data.data);
       } else {
         sessionStorage.setItem("msg", `${response?.status}: ${response?.data.msg}`);
         router.push("/message");
       }
-      todoTopics.value = store.state.todoTopic;
+      todoTopics.value = todoTopic.value;
+
+      // get todo
       response = await getTodo();
       if (response?.status === 200) {
-        store.commit("setTodo", response.data.data);
+        todoStore.set(response.data.data);
       } else {
         sessionStorage.setItem("msg", `${response?.status}: ${response?.data.msg}`);
         router.push("/message");
@@ -183,7 +193,7 @@ export default defineComponent({
           }
           await axios.post("/api/todos", form.value);
           let response = await axios.get(`/api/todos/${userData.value.username}`);
-          store.commit("setTodo", response.data.data);
+          todoStore.set(response.data.data);
           form.value.owner = userData.value.username;
         } catch (error) {
           form.value.owner = userData.value.username;
@@ -216,14 +226,14 @@ export default defineComponent({
       if (confirm(`確定調整狀態為${statusText}?`)) {
         await axios.patch(`/api/todos/${id}`, { status: status, updateName: userData.value.username });
         let response = await axios.get(`/api/todos/${userData.value.username}`);
-        store.commit("setTodo", response.data.data);
+        todoStore.set(response.data.data);
       }
     };
     const deleteTodo = async (id: number) => {
       if (confirm("確定刪除?")) {
         await axios.delete(`/api/todos/${id}`);
         let response = await axios.get(`/api/todos/${userData.value.username}`);
-        store.commit("setTodo", response.data.data);
+        todoStore.set(response.data.data);
       }
     };
     return { form, handleSubmit, todoTopics, todos, changeStatus, deleteTodo };

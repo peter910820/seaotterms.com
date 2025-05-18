@@ -4,6 +4,7 @@ interface TodoType {
   topic: string;
   title: string;
   status: number;
+  deadline: Date | null;
   createdAt: Date;
   createName: string;
   updatedAt: Date | null;

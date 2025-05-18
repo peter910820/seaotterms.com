@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from "axios";
 import store from "../store/store";
 // pinia store
 import { useGalgameStore, useGalgameBrandStore } from "@/store/galgame";
-import { useTodoStore } from "@/store/todo";
+import { useSystemTodoStore } from "@/store/todo";
 // type
 import { RouteLocationNormalized, NavigationGuardNext } from "vue-router";
 
@@ -119,7 +119,7 @@ const setStore = async (response: AxiosResponse<any, any>, to: RouteLocationNorm
       store.set(response.data.data);
       break;
     case "main-systemTodo":
-      store = useTodoStore();
+      store = useSystemTodoStore();
       store.set(response.data.data);
       break;
   }

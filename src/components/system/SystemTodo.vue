@@ -27,38 +27,14 @@
 
 <script lang="ts">
 import { defineComponent, computed } from "vue";
-import { useRouter } from "vue-router";
 import { useSystemTodoStore } from "@/store/todo";
 import { storeToRefs } from "pinia";
-import { onMounted } from "vue";
-import axios from "axios";
 
 export default defineComponent({
   setup() {
-    const router = useRouter();
     const systemTodoStore = useSystemTodoStore();
     const { systemTodo } = storeToRefs(systemTodoStore);
     const todos = computed(() => systemTodo.value);
-
-    onMounted(async () => {
-      const getTodo = async () => {
-        try {
-          const response = await axios.get("/api/todos/root");
-          return response;
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
-          return error.response;
-        }
-      };
-
-      const response = await getTodo();
-      if (response?.status === 200) {
-        systemTodoStore.set(response.data.data);
-      } else {
-        sessionStorage.setItem("msg", `${response?.status}: ${response?.data.msg}`);
-        router.push("/message");
-      }
-    });
 
     return { todos };
   },

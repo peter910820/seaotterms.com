@@ -22,6 +22,3 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-
-> [TODO]  
-> - [ ] make a unified error page(include 404 not found)

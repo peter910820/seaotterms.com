@@ -6,7 +6,6 @@ import createPersistedState from "vuex-persistedstate";
 interface State {
   articleContent: "";
   tagArticle: "";
-  galgameBrandData: "";
   // -------------------- //
   userData: UserData;
 }
@@ -26,7 +25,6 @@ interface UserData {
 const getDefaultState = (): State => ({
   articleContent: "",
   tagArticle: "",
-  galgameBrandData: "",
   // -------------------- //
   // -------------------- //
   userData: {
@@ -50,10 +48,6 @@ export default createStore({
     },
     setTagArticle(state, tagArticle) {
       state.tagArticle = tagArticle;
-    },
-    // -------------------- //
-    setGalgameBrandData(state, galgameBrandData) {
-      state.galgameBrandData = galgameBrandData;
     },
     // -------------------- //
     setUserData(state, userData) {

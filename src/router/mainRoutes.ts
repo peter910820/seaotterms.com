@@ -132,15 +132,15 @@ const entryPoint = async (to: RouteLocationNormalized, from: RouteLocationNormal
       response = await getTagInformation(1, to.params.tagName as string);
       mutationsName = "setTagArticle";
       break;
-    case "main-createGalgame":
-      await checkOwner(next);
-      response = await getGalgameBrand(0);
-      mutationsName = "setGalgameBrandData";
-      break;
-    case "main-galgameBrand":
-      response = await getGalgameBrand(0);
-      mutationsName = "setGalgameBrandData";
-      break;
+    // case "main-createGalgame":
+    //   await checkOwner(next);
+    //   response = await getGalgameBrand(0);
+    //   mutationsName = "setGalgameBrandData";
+    //   break;
+    // case "main-galgameBrand":
+    //   response = await getGalgameBrand(0);
+    //   mutationsName = "setGalgameBrandData";
+    //   break;
     // case "main-editGalgame":
     //   await checkOwner(next);
     //   response = await getGalgame(to.path.split("/").pop());

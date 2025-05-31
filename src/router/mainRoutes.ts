@@ -291,6 +291,11 @@ const mainRoutes: Array<RouteRecordRaw> = [
         name: "main-galgameArticleOperation",
         component: () => import("@/components/galgame/GalgameArticleOperation.vue"),
       },
+      {
+        path: "system-todo/create",
+        name: "main-createSystemTodo",
+        component: () => import("@/components/system-todo/CreateSystemTodo.vue"),
+      },
       // match all route
       {
         path: ":pathMatch(.*)*",

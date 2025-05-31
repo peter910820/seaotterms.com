@@ -15,3 +15,12 @@ export interface TodoTopic {
   updatedAt: Date;
   updateName: string;
 }
+
+export interface SystemTodoForm {
+  systemName: string;
+  title: string;
+  detail: string;
+  status: number;
+  deadline: Date | null;
+  urgency: number;
+}

@@ -235,32 +235,37 @@ const mainRoutes: Array<RouteRecordRaw> = [
       {
         path: "galgame/create",
         name: "main-createGalgame",
-        component: () => import("@/components/CreateGalgame.vue"),
+        component: () => import("@/components/galgame/CreateGalgame.vue"),
         beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
       },
       {
         path: "galgame/edit/:name",
         name: "main-editGalgame",
-        component: () => import("@/components/EditGalgame.vue"),
+        component: () => import("@/components/galgame/EditGalgame.vue"),
         beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
       },
       {
         path: "galgamebrand",
         name: "main-galgameBrand",
-        component: () => import("@/components/GalgameBrand.vue"),
+        component: () => import("@/components/galgame/GalgameBrand.vue"),
         beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
       },
       {
         path: "galgamebrand/create",
         name: "main-createGalgameBrand",
-        component: () => import("@/components/CreateGalgameBrand.vue"),
+        component: () => import("@/components/galgame/CreateGalgameBrand.vue"),
         beforeEnter: async (to, from, next) => entryPoint(to, from, next),
       },
       {
         path: "galgamebrand/edit/:brand",
         name: "main-editGalgameBrand",
-        component: () => import("@/components/EditGalgameBrand.vue"),
+        component: () => import("@/components/galgame/EditGalgameBrand.vue"),
         beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
+      },
+      {
+        path: "galgame/article-operation",
+        name: "main-galgameArticleOperation",
+        component: () => import("@/components/galgame/GalgameArticleOperation.vue"),
       },
       {
         path: "user-maintain",
@@ -268,22 +273,18 @@ const mainRoutes: Array<RouteRecordRaw> = [
         component: () => import("@/components/system/UserMaintain.vue"),
         beforeEnter: async (to, from, next) => entryPoint(to, from, next),
       },
+      // todo
       {
         path: "todolist",
         name: "main-todolist",
-        component: () => import("@/components/TodoList.vue"),
+        component: () => import("@/components/todo/TodoList.vue"),
         beforeEnter: async (to, from, next) => entryPoint(to, from, next),
       },
       {
         path: "todo-topic",
         name: "main-todoTopic",
-        component: () => import("@/components/CreateTodoTopic.vue"),
+        component: () => import("@/components/todo/CreateTodoTopic.vue"),
         beforeEnter: async (to, from, next) => entryPoint(to, from, next),
-      },
-      {
-        path: "galgame/article-operation",
-        name: "main-galgameArticleOperation",
-        component: () => import("@/components/galgame/GalgameArticleOperation.vue"),
       },
       // system-todo
       {

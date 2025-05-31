@@ -263,12 +263,6 @@ const mainRoutes: Array<RouteRecordRaw> = [
         beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
       },
       {
-        path: "system-todo",
-        name: "main-systemTodo",
-        component: () => import("@/components/system/SystemTodo.vue"),
-        beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
-      },
-      {
         path: "user-maintain",
         name: "main-userMaintain",
         component: () => import("@/components/system/UserMaintain.vue"),
@@ -290,6 +284,13 @@ const mainRoutes: Array<RouteRecordRaw> = [
         path: "galgame/article-operation",
         name: "main-galgameArticleOperation",
         component: () => import("@/components/galgame/GalgameArticleOperation.vue"),
+      },
+      // system-todo
+      {
+        path: "system-todo",
+        name: "main-systemTodo",
+        component: () => import("@/components/system-todo/SystemTodo.vue"),
+        beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
       },
       {
         path: "system-todo/create",

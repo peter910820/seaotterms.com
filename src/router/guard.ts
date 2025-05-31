@@ -108,6 +108,10 @@ const getDataEntryPoint = async (
     case "main-systemTodo":
       response = await getTodo("root");
       break;
+    case "main-createSystemTodo":
+      await checkLogin(next);
+      next();
+      return;
     case "main-createSystemTodoTopic":
       await checkOwner(next);
       next();

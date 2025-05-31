@@ -39,6 +39,10 @@ export default defineComponent({
 
     const handleSubmit = async () => {
       try {
+        if (form.value.topicName.trim() === "") {
+          sessionStorage.setItem("msg", "標題不得為空");
+          router.push("/message");
+        }
         await axios.post("/api/todo-topics", form.value);
         sessionStorage.setItem("msg", "資料創建成功");
         router.push("/message");

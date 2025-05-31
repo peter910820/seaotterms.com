@@ -21,6 +21,7 @@ export interface SystemTodoForm {
   title: string;
   detail: string;
   status: number;
-  deadline: Date | null;
+  deadline: string | null; // 為了後續處理所以這邊定義是string
   urgency: number;
+  createdName: string;
 }

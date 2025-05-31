@@ -9,7 +9,7 @@
             <option
               v-for="todoTopic in systemTodoTopics"
               :key="todoTopic.topicName"
-              :value="`${todoTopic.topicName}/${form.owner}`"
+              :value="`${todoTopic.topicName}/system`"
             >
               {{ todoTopic.topicName }}
             </option>
@@ -22,7 +22,7 @@
             <option
               v-for="todoTopic in systemTodoTopics"
               :key="todoTopic.topicName"
-              :value="`${todoTopic.topicName}/${form.owner}`"
+              :value="`${todoTopic.topicName}/system`"
             >
               {{ todoTopic.topicName }}
             </option>
@@ -88,7 +88,7 @@ export default defineComponent({
       deadline: new Date(),
       urgency: 0,
     });
-    const systemTodoTopics = ref<TodoTopicType | null>(null);
+    const systemTodoTopics = ref<TodoTopicType[]>();
 
     onMounted(async () => {
       // get TodoTopics

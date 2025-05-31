@@ -66,6 +66,23 @@ const checkOwner = async (next: NavigationGuardNext) => {
   }
 };
 
+// judge if the user is logged in
+const checkLogin = async (next: NavigationGuardNext) => {
+  try {
+    const response = await axios.get("/api/auth");
+    store.commit("setUserData", response?.data.userData);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      store.commit("setUserData", {});
+      alert("使用者尚未登入, 請前往登入");
+      next("/login");
+    } else {
+      sessionStorage.setItem("msg", String(error));
+      next("/message");
+    }
+  }
+};
+
 const getDataEntryPoint = async (
   to: RouteLocationNormalized,
   from: RouteLocationNormalized,
@@ -91,6 +108,14 @@ const getDataEntryPoint = async (
     case "main-systemTodo":
       response = await getTodo("root");
       break;
+    case "main-createSystemTodoTopic":
+      await checkOwner(next);
+      next();
+      return;
+    default:
+      sessionStorage.setItem("msg", "發生路由守衛錯誤，請聯繫管理員");
+      next("/message");
+      return;
   }
   if (response && response.status === 200) {
     setStore(response, to);

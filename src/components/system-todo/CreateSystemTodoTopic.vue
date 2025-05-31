@@ -1,6 +1,6 @@
 <template>
   <div class="row main-block">
-    <h1>建立Todo主題</h1>
+    <h1>建立系統站台</h1>
     <div class="col s12 sub-block wow animate__flipInX">
       <div class="row">
         <div class="input-field col s12">
@@ -11,7 +11,7 @@
         </div>
         <div class="col s12">
           <button @click="handleSubmit" class="button-submit" type="button">
-            建立主題
+            建立系統站台
             <i class="material-icons right">send</i>
           </button>
         </div>
@@ -26,15 +26,17 @@ import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import axios from "axios";
 
+import type { TodoTopic } from "@/types/FormTypes";
+
 export default defineComponent({
   setup() {
     const router = useRouter();
     const store = useStore();
-    const form = ref({
+    const form = ref<TodoTopic>({
       topicName: "",
-      topicOwner: store.state.userData.username,
+      topicOwner: "system",
       updatedAt: new Date(),
-      updateName: "root",
+      updateName: store.state.userData.username,
     });
 
     const handleSubmit = async () => {
@@ -66,10 +68,4 @@ export default defineComponent({
   min-height: 200px;
   height: auto;
 }
-/* .markdown-preview {
-    margin-bottom: 10px;
-    border: 2px outset gray;
-    border-radius: 5px;
-    padding-top: 10px;
-  } */
 </style>

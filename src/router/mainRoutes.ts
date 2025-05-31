@@ -297,6 +297,12 @@ const mainRoutes: Array<RouteRecordRaw> = [
         name: "main-createSystemTodo",
         component: () => import("@/components/system-todo/CreateSystemTodo.vue"),
       },
+      {
+        path: "system-todo-topic/create",
+        name: "main-createSystemTodoTopic",
+        component: () => import("@/components/system-todo/CreateSystemTodoTopic.vue"),
+        beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
+      },
       // match all route
       {
         path: ":pathMatch(.*)*",

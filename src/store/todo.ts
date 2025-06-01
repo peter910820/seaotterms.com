@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
-import { TodoType, TodoTopicType } from "@/types/todoTypes";
+import { TodoType, TodoTopicType, SystemTodoType } from "@/types/todoTypes";
 
 export const useTodoStore = defineStore("todo", () => {
   const todo = ref<TodoType[]>([]);
@@ -28,8 +28,8 @@ export const useTodoTopicStore = defineStore("todoTopic", () => {
 });
 
 export const useSystemTodoStore = defineStore("systemTodo", () => {
-  const systemTodo = ref<TodoType[]>([]);
-  const set = (data: TodoType[]) => {
+  const systemTodo = ref<SystemTodoType[]>([]);
+  const set = (data: SystemTodoType[]) => {
     systemTodo.value = data;
   };
 

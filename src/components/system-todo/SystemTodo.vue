@@ -2,7 +2,7 @@
   <div class="row main-block">
     <h1>系統更新待辦</h1>
     <div class="col s12 sub-block floatup-div wow animate__slideInUp" v-for="todo in todos" :key="todo.id">
-      <div :class="['col', todo.deadline ? 's6' : 's9', 'todo-title']">[{{ todo.topic }}]{{ todo.title }}</div>
+      <!-- <div :class="['col', todo.deadline ? 's6' : 's9', 'todo-title']">[{{ todo.topic }}]{{ todo.title }}</div>
 
       <div v-if="todo.deadline" class="col s3 todo-date">
         {{ todo.deadline.toISOString().split("T")[0] }}
@@ -20,7 +20,7 @@
       <div v-else-if="todo.status === 3" :class="['col', todo.deadline ? 's3' : 's3', 'todo-status']">
         <font color="green">已完成</font>
       </div>
-      <div v-else class="col s3 todo-status">?</div>
+      <div v-else class="col s3 todo-status">?</div> -->
     </div>
   </div>
 </template>

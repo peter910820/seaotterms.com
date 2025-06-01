@@ -25,3 +25,14 @@ export interface SystemTodoForm {
   urgency: number;
   createdName: string;
 }
+
+export interface SystemTodoEditForm {
+  id: number;
+  systemName: string;
+  title: string;
+  detail: string;
+  status: number;
+  deadline: string | null; // 為了後續處理所以這邊定義是string
+  urgency: number;
+  updatedName: string;
+}

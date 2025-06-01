@@ -300,6 +300,12 @@ const mainRoutes: Array<RouteRecordRaw> = [
         beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
       },
       {
+        path: "system-todo/edit/:id",
+        name: "main-editSystemTodo",
+        component: () => import("@/components/system-todo/EditSystemTodo.vue"),
+        beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
+      },
+      {
         path: "system-todo-topic/create",
         name: "main-createSystemTodoTopic",
         component: () => import("@/components/system-todo/CreateSystemTodoTopic.vue"),

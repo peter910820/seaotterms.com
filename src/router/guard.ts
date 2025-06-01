@@ -8,6 +8,17 @@ import { useSystemTodoStore } from "@/store/todo";
 import { RouteLocationNormalized, NavigationGuardNext } from "vue-router";
 
 // support function
+const getSystemTodo = async (id: string): Promise<AxiosResponse | undefined> => {
+  const apiUrl = `/api/system-todos?id=${id}`;
+  try {
+    const response = await axios.get(apiUrl);
+    return response;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    return error.response;
+  }
+};
+
 const getGalgame = async (path?: string): Promise<AxiosResponse | undefined> => {
   const apiUrl = `/api/galgame/s/${path}`;
   try {
@@ -116,6 +127,10 @@ const getDataEntryPoint = async (
       await checkOwner(next);
       next();
       return;
+    case "main-editSystemTodo":
+      await checkOwner(next);
+      response = await getSystemTodo(to.params.id as string);
+      break;
     default:
       sessionStorage.setItem("msg", "發生路由守衛錯誤，請聯繫管理員");
       next("/message");
@@ -148,6 +163,10 @@ const setStore = async (response: AxiosResponse<any, any>, to: RouteLocationNorm
       store.set(response.data.data);
       break;
     case "main-systemTodo":
+      store = useSystemTodoStore();
+      store.set(response.data.data);
+      break;
+    case "main-editSystemTodo":
       store = useSystemTodoStore();
       store.set(response.data.data);
       break;

@@ -1,6 +1,6 @@
 <template>
   <div class="row main-block">
-    <h1>建立系統代辦</h1>
+    <h1>更新系統代辦</h1>
     <div class="col s12 sub-block wow animate__flipInX">
       <div class="row">
         <div class="col s4 input-field mobile-hidden">
@@ -54,7 +54,7 @@
         </div>
         <div class="col s2 submit">
           <button class="button-submit" type="button" @click="handleSubmit">
-            建立
+            更新
             <i class="material-icons right">send</i>
           </button>
         </div>
@@ -68,25 +68,30 @@ import { ref, onMounted, defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
 import { useStore } from "vuex";
+import { storeToRefs } from "pinia";
+import { useSystemTodoStore } from "@/store/todo";
 
 import { initMaterialDatepicker, initMaterialFormSelect, initMaterialDropdown } from "@/composables/useMaterial";
 
 import type { TodoTopicType } from "@/types/todoTypes";
-import type { SystemTodoForm } from "@/types/FormTypes";
+import type { SystemTodoEditForm } from "@/types/FormTypes";
 
 export default defineComponent({
   setup() {
     const router = useRouter();
     const store = useStore();
+    const systemTodoStore = useSystemTodoStore();
+    const { systemTodo } = storeToRefs(systemTodoStore);
     const userData = ref(store.state.userData);
-    const form = ref<SystemTodoForm>({
-      systemName: "",
-      title: "",
-      detail: "",
-      status: 0,
-      deadline: "",
-      urgency: 0,
-      createdName: userData.value.username,
+    const form = ref<SystemTodoEditForm>({
+      id: systemTodo.value[0].id,
+      systemName: systemTodo.value[0].systemName,
+      title: systemTodo.value[0].title,
+      detail: systemTodo.value[0].detail,
+      status: systemTodo.value[0].status,
+      deadline: systemTodo.value[0].deadline ? new Date(systemTodo.value[0].deadline).toISOString().slice(0, 10) : null,
+      urgency: systemTodo.value[0].urgency,
+      updatedName: userData.value.username,
     });
     const systemTodoTopics = ref<TodoTopicType[]>();
 
@@ -139,14 +144,14 @@ export default defineComponent({
       } else {
         form.value.deadline = null;
       }
-      if (form.value.title.trim() === "" || form.value.systemName === "") {
-        sessionStorage.setItem("msg", `請確保標題以及站台有正確填寫`);
+      if (form.value.title.trim() === "") {
+        sessionStorage.setItem("msg", `請確保標題有正確填寫`);
         router.push("/message");
         return;
       }
 
       try {
-        const response = await axios.post("/api/system-todos", form.value);
+        const response = await axios.patch(`/api/system-todos/${form.value.id}`, form.value);
         sessionStorage.setItem("msg", response?.data.msg);
         router.push("/message");
       } catch (error) {
@@ -172,7 +177,7 @@ export default defineComponent({
 <style scoped>
 .sub-block {
   font-size: 25px !important;
-  min-height: 300px;
+  min-height: 400px;
 }
 
 /* font-settings */

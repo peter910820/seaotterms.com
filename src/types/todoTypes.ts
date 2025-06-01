@@ -18,4 +18,18 @@ interface TodoTopicType {
   updateName: string | null;
 }
 
-export { TodoType, TodoTopicType };
+interface SystemTodoType {
+  id: number;
+  systemName: string;
+  title: string;
+  detail: string; // it may be an empty string
+  status: number;
+  deadline: Date | null;
+  urgency: number;
+  createdAt: Date;
+  createdName: string;
+  updatedAt: Date | null;
+  updatedName: string | null;
+}
+
+export { TodoType, TodoTopicType, SystemTodoType };

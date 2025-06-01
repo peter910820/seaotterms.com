@@ -68,6 +68,7 @@
         >
           C
         </span>
+        <span class="button-status background-e" @click="goToEditPage(systemTodoSingle.id)">修</span>
         <span class="button-status background-d" @click="deleteTodo(systemTodoSingle.id)">D</span>
       </div>
     </div>
@@ -156,6 +157,11 @@ export default defineComponent({
         systemTodoStore.set(response.data.data);
       }
     };
+    const goToEditPage = async (id: number) => {
+      window.location.href = `/system-todo/edit/${id}`;
+      return;
+    };
+
     const deleteTodo = async (id: number) => {
       if (confirm("確定刪除?")) {
         await axios.delete(`/api/system-todos/${id}`);
@@ -166,7 +172,17 @@ export default defineComponent({
       }
     };
 
-    return { systemTodos, openModal, closeModal, modalVisible, systemTodoSingle, changeStatus, deleteTodo, userData };
+    return {
+      systemTodos,
+      openModal,
+      closeModal,
+      modalVisible,
+      systemTodoSingle,
+      changeStatus,
+      deleteTodo,
+      userData,
+      goToEditPage,
+    };
   },
 });
 </script>
@@ -237,6 +253,9 @@ export default defineComponent({
 }
 .background-c {
   background: linear-gradient(to bottom right, green, #35fc4f);
+}
+.background-e {
+  background: linear-gradient(to bottom right, skyblue, #79e5e9);
 }
 .background-d {
   background: linear-gradient(to bottom right, black, #222121);

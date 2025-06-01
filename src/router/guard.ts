@@ -8,8 +8,8 @@ import { useSystemTodoStore } from "@/store/todo";
 import { RouteLocationNormalized, NavigationGuardNext } from "vue-router";
 
 // support function
-const getSystemTodo = async (id: string): Promise<AxiosResponse | undefined> => {
-  const apiUrl = `/api/system-todos?id=${id}`;
+const getSystemTodo = async (id?: string): Promise<AxiosResponse | undefined> => {
+  const apiUrl = id ? `/api/system-todos?id=${id}` : "/api/system-todos";
   try {
     const response = await axios.get(apiUrl);
     return response;
@@ -117,7 +117,7 @@ const getDataEntryPoint = async (
       response = await getGalgameBrand(1, to.params.brand as string);
       break;
     case "main-systemTodo":
-      response = await getTodo("root");
+      response = await getSystemTodo();
       break;
     case "main-createSystemTodo":
       await checkLogin(next);
@@ -163,9 +163,6 @@ const setStore = async (response: AxiosResponse<any, any>, to: RouteLocationNorm
       store.set(response.data.data);
       break;
     case "main-systemTodo":
-      store = useSystemTodoStore();
-      store.set(response.data.data);
-      break;
     case "main-editSystemTodo":
       store = useSystemTodoStore();
       store.set(response.data.data);

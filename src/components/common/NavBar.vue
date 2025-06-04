@@ -93,13 +93,14 @@
 
 <script setup lang="ts">
 import { onMounted, computed } from "vue";
-import { useStore } from "vuex";
-
+import { storeToRefs } from "pinia";
+// pinia store
+import { useUserStore } from "@/store/user";
 import { initMaterialSidenav } from "@/composables/useMaterial";
 
-const store = useStore();
-
-const userData = computed(() => store.state.userData);
+const userStore = useUserStore();
+const { user } = storeToRefs(userStore);
+const userData = computed(() => user.value);
 
 onMounted(() => {
   initMaterialSidenav();

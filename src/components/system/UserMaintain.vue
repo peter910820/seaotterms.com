@@ -42,31 +42,33 @@
 <script lang="ts">
 import { ref, defineComponent } from "vue";
 import { useRouter } from "vue-router";
-import { useStore } from "vuex";
 import axios from "axios";
+// pinia store
+import { useUserStore } from "@/store/user";
+import { storeToRefs } from "pinia";
 
 export default defineComponent({
   setup() {
     const router = useRouter();
-    const store = useStore();
-    const userData = ref(store.state.userData);
+    const userStore = useUserStore();
+    const { user } = storeToRefs(userStore);
     const form = ref({
-      id: userData.value.id,
-      username: userData.value.username,
-      email: userData.value.email,
-      exp: userData.value.exp,
-      management: userData.value.management,
-      created_at: userData.value.created_at,
-      updated_at: userData.value.updated_at,
-      update_name: userData.value.update_name,
-      avatar: userData.value.avatar,
+      id: user.value.id,
+      username: user.value.username,
+      email: user.value.email,
+      exp: user.value.exp,
+      management: user.value.management,
+      created_at: user.value.created_at,
+      updated_at: user.value.updated_at,
+      update_name: user.value.update_name,
+      avatar: user.value.avatar,
     });
     const handleSubmit = async () => {
       try {
         let response = await axios.patch(`/api/users/${form.value.id}`, form.value);
         sessionStorage.setItem("msg", response?.data.msg);
         response = await axios.get("/api/auth");
-        store.commit("setUserData", response?.data.userData);
+        userStore.set(response?.data.userData);
         router.push("/message");
       } catch (error) {
         if (axios.isAxiosError(error)) {

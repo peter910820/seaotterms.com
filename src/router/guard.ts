@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from "axios";
-// vuex store
-import store from "../store/store";
 // pinia store
+import { useUserStore } from "@/store/user";
 import { useGalgameStore, useGalgameBrandStore } from "@/store/galgame";
 import { useSystemTodoStore } from "@/store/todo";
 // type
@@ -56,17 +55,18 @@ const getTodo = async (name: string) => {
 
 // check if you are the website owner
 const checkOwner = async (next: NavigationGuardNext) => {
+  const userStore = useUserStore();
   try {
     const response = await axios.get("/api/auth/root");
-    store.commit("setUserData", response?.data.userData);
+    userStore.set(response?.data.userData);
   } catch (error) {
     if (axios.isAxiosError(error)) {
       if (error.response?.data.userData === undefined) {
-        store.commit("setUserData", {});
+        userStore.reset();
         alert("使用者尚未登入, 請前往登入");
         next("/login");
       } else {
-        store.commit("setUserData", error.response?.data.userData);
+        userStore.set(error.response?.data.userData);
         alert("使用者沒有權限");
         next("/galgamebrand");
       }
@@ -79,12 +79,13 @@ const checkOwner = async (next: NavigationGuardNext) => {
 
 // judge if the user is logged in
 const checkLogin = async (next: NavigationGuardNext) => {
+  const userStore = useUserStore();
   try {
     const response = await axios.get("/api/auth");
-    store.commit("setUserData", response?.data.userData);
+    userStore.set(response?.data.userData);
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      store.commit("setUserData", {});
+      userStore.reset();
       alert("使用者尚未登入, 請前往登入");
       next("/login");
     } else {
@@ -119,10 +120,15 @@ const getDataEntryPoint = async (
     case "main-systemTodo":
       response = await getSystemTodo();
       break;
+    case "main-todolist":
+    case "main-todoTopic":
     case "main-createSystemTodo":
       await checkLogin(next);
       next();
       return;
+    case "main-create":
+    case "main-userMaintain":
+    case "main-createGalgameBrand":
     case "main-createSystemTodoTopic":
       await checkOwner(next);
       next();

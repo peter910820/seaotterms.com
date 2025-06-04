@@ -1,4 +1,4 @@
-interface TodoType {
+export interface TodoType {
   id: number;
   owner: string;
   topic: string;
@@ -11,14 +11,14 @@ interface TodoType {
   updateName: string | null;
 }
 
-interface TodoTopicType {
+export interface TodoTopicType {
   topicName: string;
   topicOwner: string;
   updatedAt: Date;
   updateName: string | null;
 }
 
-interface SystemTodoType {
+export interface SystemTodoType {
   id: number;
   systemName: string;
   title: string;
@@ -31,5 +31,3 @@ interface SystemTodoType {
   updatedAt: Date | null;
   updatedName: string | null;
 }
-
-export { TodoType, TodoTopicType, SystemTodoType };

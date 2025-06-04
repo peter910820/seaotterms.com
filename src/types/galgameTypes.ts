@@ -1,4 +1,4 @@
-interface GalgameBrandType {
+export interface GalgameBrandType {
   brand: string;
   completed: number;
   total: number;
@@ -10,7 +10,7 @@ interface GalgameBrandType {
   updateName: string;
 }
 
-interface GalgameType {
+export interface GalgameType {
   name: string;
   brand: string;
   releaseDate: Date;
@@ -21,5 +21,3 @@ interface GalgameType {
   updateTime: Date | null;
   updateName: string;
 }
-
-export { GalgameBrandType, GalgameType };

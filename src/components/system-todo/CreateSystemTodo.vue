@@ -67,18 +67,18 @@
 import { ref, onMounted, defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
-import { useStore } from "vuex";
-
 import { initMaterialDatepicker, initMaterialFormSelect, initMaterialDropdown } from "@/composables/useMaterial";
-
+// pinia store
+import { useUserStore } from "@/store/user";
+import { storeToRefs } from "pinia";
 import type { TodoTopicType } from "@/types/todoTypes";
 import type { SystemTodoForm } from "@/types/FormTypes";
 
 export default defineComponent({
   setup() {
     const router = useRouter();
-    const store = useStore();
-    const userData = ref(store.state.userData);
+    const userStore = useUserStore();
+    const { user } = storeToRefs(userStore);
     const form = ref<SystemTodoForm>({
       systemName: "",
       title: "",
@@ -86,7 +86,7 @@ export default defineComponent({
       status: 0,
       deadline: "",
       urgency: 0,
-      createdName: userData.value.username,
+      createdName: user.value.username,
     });
     const systemTodoTopics = ref<TodoTopicType[]>();
 

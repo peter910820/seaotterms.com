@@ -83,15 +83,17 @@ import { defineComponent, computed, ref } from "vue";
 import { useSystemTodoStore } from "@/store/todo";
 import { storeToRefs } from "pinia";
 import axios from "axios";
+// pinia store
+import { useUserStore } from "@/store/user";
 
-import { useStore } from "vuex";
 import router from "@/router";
 
 export default defineComponent({
   setup() {
+    const userStore = useUserStore();
+    const { user } = storeToRefs(userStore);
     const modalVisible = ref(false);
-    const store = useStore();
-    const userData = computed(() => store.state.userData);
+    const userData = computed(() => user.value);
     const systemTodoStore = useSystemTodoStore();
     const { systemTodo, systemTodoSingle } = storeToRefs(systemTodoStore);
     const systemTodos = computed(() => systemTodo.value); // redundant
@@ -101,10 +103,10 @@ export default defineComponent({
       // refresh user data and check login
       try {
         let response = await axios.get("/api/auth");
-        store.commit("setUserData", response?.data.userData);
+        userStore.set(response?.data.userData);
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          store.commit("setUserData", {});
+          userStore.reset();
           alert("使用者尚未登入, 請前往登入");
           router.push("/login");
         } else {

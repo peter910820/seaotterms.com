@@ -92,12 +92,12 @@
 <script lang="ts">
 import { ref, defineComponent, computed } from "vue";
 import { useRouter } from "vue-router";
-import { useStore } from "vuex";
 import { useTodoStore, useTodoTopicStore } from "@/store/todo";
-import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
 import axios from "axios";
-
+import { storeToRefs } from "pinia";
+// pinia store
+import { useUserStore } from "@/store/user";
 import { initMaterialDatepicker, initMaterialFormSelect, initMaterialDropdown } from "@/composables/useMaterial";
 
 import type { FormTodo } from "@/types/FormTypes";
@@ -105,21 +105,21 @@ import type { FormTodo } from "@/types/FormTypes";
 export default defineComponent({
   setup() {
     const router = useRouter();
-    const store = useStore();
     const todoTopicStore = useTodoTopicStore();
     const { todoTopic } = storeToRefs(todoTopicStore);
     const todoStore = useTodoStore();
     const { todo } = storeToRefs(todoStore);
 
     const todoTopics = ref();
-    const userData = ref(store.state.userData);
+    const userStore = useUserStore();
+    const { user } = storeToRefs(userStore);
     const form = ref<FormTodo>({
-      owner: userData.value.username,
+      owner: user.value.username,
       topic: "",
       title: "",
       status: 0,
       deadline: null,
-      createName: userData.value.username,
+      createName: user.value.username,
       updateName: "",
     });
 
@@ -129,7 +129,7 @@ export default defineComponent({
       // get TodoTopics
       const getTodoTopics = async () => {
         try {
-          const response = await axios.get(`/api/todo-topics/${userData.value.username}`);
+          const response = await axios.get(`/api/todo-topics/${user.value.username}`);
           return response;
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
@@ -138,7 +138,7 @@ export default defineComponent({
       };
       const getTodo = async () => {
         try {
-          const response = await axios.get(`/api/todos/${userData.value.username}`);
+          const response = await axios.get(`/api/todos/${user.value.username}`);
           return response;
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
@@ -192,11 +192,11 @@ export default defineComponent({
             form.value.owner = "root";
           }
           await axios.post("/api/todos", form.value);
-          let response = await axios.get(`/api/todos/${userData.value.username}`);
+          let response = await axios.get(`/api/todos/${user.value.username}`);
           todoStore.set(response.data.data);
-          form.value.owner = userData.value.username;
+          form.value.owner = user.value.username;
         } catch (error) {
-          form.value.owner = userData.value.username;
+          form.value.owner = user.value.username;
           if (axios.isAxiosError(error)) {
             sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
             router.push("/message");
@@ -224,15 +224,15 @@ export default defineComponent({
           break;
       }
       if (confirm(`確定調整狀態為${statusText}?`)) {
-        await axios.patch(`/api/todos/${id}`, { status: status, updateName: userData.value.username });
-        let response = await axios.get(`/api/todos/${userData.value.username}`);
+        await axios.patch(`/api/todos/${id}`, { status: status, updateName: user.value.username });
+        let response = await axios.get(`/api/todos/${user.value.username}`);
         todoStore.set(response.data.data);
       }
     };
     const deleteTodo = async (id: number) => {
       if (confirm("確定刪除?")) {
         await axios.delete(`/api/todos/${id}`);
-        let response = await axios.get(`/api/todos/${userData.value.username}`);
+        let response = await axios.get(`/api/todos/${user.value.username}`);
         todoStore.set(response.data.data);
       }
     };

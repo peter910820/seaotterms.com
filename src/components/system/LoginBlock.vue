@@ -29,11 +29,12 @@
 <script setup lang="ts">
 import axios from "axios";
 import { ref } from "vue";
-import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+// pinia store
+import { useUserStore } from "@/store/user";
 
 const router = useRouter();
-const store = useStore();
+const userStore = useUserStore();
 const form = ref({
   username: "",
   password: "",
@@ -42,7 +43,7 @@ const handleSubmit = async () => {
   try {
     const response = await axios.post("/api/login", form.value);
     sessionStorage.setItem("msg", response.data.msg);
-    store.commit("setUserData", response?.data.userData);
+    userStore.set(response?.data.userData);
     router.push("/message");
   } catch (error) {
     if (axios.isAxiosError(error)) {

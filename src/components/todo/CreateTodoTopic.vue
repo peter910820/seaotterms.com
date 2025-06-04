@@ -23,18 +23,20 @@
 <script lang="ts">
 import { ref, defineComponent } from "vue";
 import { useRouter } from "vue-router";
-import { useStore } from "vuex";
 import axios from "axios";
-
+import { storeToRefs } from "pinia";
+// pinia store
+import { useUserStore } from "@/store/user";
 export default defineComponent({
   setup() {
     const router = useRouter();
-    const store = useStore();
+    const userStore = useUserStore();
+    const { user } = storeToRefs(userStore);
     const form = ref({
       topicName: "",
-      topicOwner: store.state.userData.username,
+      topicOwner: user.value.username,
       updatedAt: new Date(),
-      updateName: "root",
+      updateName: user.value.username,
     });
 
     const handleSubmit = async () => {

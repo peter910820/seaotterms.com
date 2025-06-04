@@ -23,20 +23,22 @@
 <script lang="ts">
 import { ref, defineComponent } from "vue";
 import { useRouter } from "vue-router";
-import { useStore } from "vuex";
 import axios from "axios";
-
+// pinia store
+import { useUserStore } from "@/store/user";
+import { storeToRefs } from "pinia";
 import type { TodoTopic } from "@/types/FormTypes";
 
 export default defineComponent({
   setup() {
     const router = useRouter();
-    const store = useStore();
+    const userStore = useUserStore();
+    const { user } = storeToRefs(userStore);
     const form = ref<TodoTopic>({
       topicName: "",
       topicOwner: "system",
       updatedAt: new Date(),
-      updateName: store.state.userData.username,
+      updateName: user.value.username,
     });
 
     const handleSubmit = async () => {

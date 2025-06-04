@@ -53,6 +53,8 @@ import { useGalgameStore } from "@/store/galgame";
 import { storeToRefs } from "pinia";
 import { useStore } from "vuex";
 import axios from "axios";
+// pinia store
+import { useUserStore } from "@/store/user";
 
 export default defineComponent({
   setup() {
@@ -61,6 +63,7 @@ export default defineComponent({
     const { galgame } = storeToRefs(galagmeStore);
     const router = useRouter();
     const store = useStore();
+    const userStore = useUserStore();
     const form = ref({
       name: galgame.value[0].name,
       brand: galgame.value[0].brand,
@@ -80,7 +83,7 @@ export default defineComponent({
         if (axios.isAxiosError(error)) {
           console.log(`${error.response?.status}: ${error.response?.data.msg}`);
           sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
-          store.commit("setUserData", {});
+          userStore.reset();
           alert("階段性登入已過期，請重新登入");
           router.push("/login");
         } else {

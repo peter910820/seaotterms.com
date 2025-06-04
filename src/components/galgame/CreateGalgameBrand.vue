@@ -39,19 +39,23 @@
     </div>
   </div>
 </template>
+
 <script>
 import { ref, defineComponent } from "vue";
 import { useRouter } from "vue-router";
-import { useStore } from "vuex";
 import axios from "axios";
+import { storeToRefs } from "pinia";
+// pinia store
+import { useUserStore } from "@/store/user";
 
 export default defineComponent({
   setup() {
+    const userStore = useUserStore();
     const router = useRouter();
-    const store = useStore();
+    const { user } = storeToRefs(userStore);
     const form = ref({
       brand: "",
-      username: store.state.userData.username,
+      username: user.value.username,
       completed: 0,
       total: 0,
       dissolution: false,
@@ -77,7 +81,7 @@ export default defineComponent({
         if (axios.isAxiosError(error)) {
           console.log(`${error.response?.status}: ${error.response?.data.msg}`);
           sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
-          store.commit("setUserData", {});
+          userStore.reset();
           alert("階段性登入已過期，請重新登入");
           router.push("/login");
         } else {

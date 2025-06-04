@@ -64,20 +64,22 @@ import { ref, defineComponent } from "vue";
 import { useGalgameBrandStore } from "@/store/galgame";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
-import { useStore } from "vuex";
 import { onMounted } from "vue";
 import axios from "axios";
+// pinia store
+import { useUserStore } from "@/store/user";
 
 import { initMaterialDatepicker, initMaterialFormSelect } from "@/composables/useMaterial";
 
 export default defineComponent({
   setup() {
-    const store = useStore();
+    const userStore = useUserStore();
     const router = useRouter();
     const galagmeBrandStore = useGalgameBrandStore();
+    const { user } = storeToRefs(userStore);
     const { galgameBrand } = storeToRefs(galagmeBrandStore);
     const form = ref({
-      username: store.state.userData.username,
+      username: user.value.username,
       name: "",
       brand: "",
       releaseDate: "",
@@ -119,7 +121,7 @@ export default defineComponent({
         if (axios.isAxiosError(error)) {
           console.log(`${error.response?.status}: ${error.response?.data.msg}`);
           sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
-          store.commit("setUserData", {});
+          userStore.reset();
           alert("階段性登入已過期，請重新登入");
           router.push("/login");
         } else {

@@ -67,10 +67,10 @@
 import { ref, onMounted, defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
-import { useStore } from "vuex";
 import { storeToRefs } from "pinia";
 import { useSystemTodoStore } from "@/store/todo";
-
+// pinia store
+import { useUserStore } from "@/store/user";
 import { initMaterialDatepicker, initMaterialFormSelect, initMaterialDropdown } from "@/composables/useMaterial";
 
 import type { TodoTopicType } from "@/types/todoTypes";
@@ -78,11 +78,11 @@ import type { SystemTodoEditForm } from "@/types/FormTypes";
 
 export default defineComponent({
   setup() {
+    const userStore = useUserStore();
+    const { user } = storeToRefs(userStore);
     const router = useRouter();
-    const store = useStore();
     const systemTodoStore = useSystemTodoStore();
     const { systemTodo } = storeToRefs(systemTodoStore);
-    const userData = ref(store.state.userData);
     const form = ref<SystemTodoEditForm>({
       id: systemTodo.value[0].id,
       systemName: systemTodo.value[0].systemName,
@@ -91,7 +91,7 @@ export default defineComponent({
       status: systemTodo.value[0].status,
       deadline: systemTodo.value[0].deadline ? new Date(systemTodo.value[0].deadline).toISOString().slice(0, 10) : null,
       urgency: systemTodo.value[0].urgency,
-      updatedName: userData.value.username,
+      updatedName: user.value.username,
     });
     const systemTodoTopics = ref<TodoTopicType[]>();
 

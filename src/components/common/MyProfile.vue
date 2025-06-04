@@ -50,19 +50,21 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, computed } from "vue";
-import { useStore } from "vuex";
-
+import { storeToRefs } from "pinia";
+// pinia store
+import { useUserStore } from "@/store/user";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const Typed: any;
 
 export default defineComponent({
   setup() {
-    const store = useStore();
+    const userStore = useUserStore();
+    const { user } = storeToRefs(userStore);
 
     const isHoveredGithub = ref(false);
     const isHoveredTwitter = ref(false);
 
-    const userData = computed(() => store.state.userData);
+    const userData = computed(() => user.value);
 
     onMounted(() => {
       // eslint-disable-next-line no-undef

@@ -14,16 +14,17 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-
-import { useStore } from "vuex";
+import { useArticleTagStore } from "@/store/article";
+import { storeToRefs } from "pinia";
 
 export default defineComponent({
   setup() {
     const route = useRoute();
     const router = useRouter();
-    const store = useStore();
+    const articleTagStore = useArticleTagStore();
+    const { articleTag } = storeToRefs(articleTagStore);
     const tagName = route.params.tagName;
-    const tagData = ref(store.state.tagArticle);
+    const tagData = ref(articleTag.value);
 
     const link = (tagName: string) => {
       router.push(`/tags/${tagName}`);

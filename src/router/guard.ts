@@ -5,8 +5,42 @@ import { useGalgameStore, useGalgameBrandStore } from "@/store/galgame";
 import { useSystemTodoStore } from "@/store/todo";
 // type
 import { RouteLocationNormalized, NavigationGuardNext } from "vue-router";
+import { useArticleStore, useArticleTagStore } from "@/store/article";
 
 // support function
+const getArticleInformation = async (articleID?: string): Promise<AxiosResponse | undefined> => {
+  let apiUrl = "/api/articles";
+  // if target is single article
+  if (articleID) {
+    if (!(Number.isInteger(Number(articleID)) && Number(articleID) > 0)) {
+      sessionStorage.setItem("msg", "輸入ID不合法"); // enter an ID that is not allowed
+      return undefined;
+    }
+    apiUrl = `/api/articles/${articleID}`;
+  }
+  try {
+    const response = await axios.get(apiUrl);
+    return response;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    return error.response;
+  }
+};
+
+const getTagInformation = async (mode: number, tagName?: string): Promise<AxiosResponse | undefined> => {
+  let apiUrl = "/api/tags";
+  if (mode === 1) {
+    apiUrl = `/api/tags/${tagName}`;
+  }
+  try {
+    const response = await axios.get(apiUrl);
+    return response;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    return error.response;
+  }
+};
+
 const getSystemTodo = async (id?: string): Promise<AxiosResponse | undefined> => {
   const apiUrl = id ? `/api/system-todos?id=${id}` : "/api/system-todos";
   try {
@@ -43,15 +77,15 @@ const getGalgameBrand = async (mode: number, path?: string): Promise<AxiosRespon
   }
 };
 
-const getTodo = async (name: string) => {
-  try {
-    const response = await axios.get(`/api/todos/${name}`);
-    return response;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    return error.response;
-  }
-};
+// const getTodo = async (name: string) => {
+//   try {
+//     const response = await axios.get(`/api/todos/${name}`);
+//     return response;
+//     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//   } catch (error: any) {
+//     return error.response;
+//   }
+// };
 
 // check if you are the website owner
 const checkOwner = async (next: NavigationGuardNext) => {
@@ -102,6 +136,26 @@ const getDataEntryPoint = async (
 ) => {
   let response;
   switch (to.name) {
+    case "main-home":
+      response = await getArticleInformation();
+      if (response === undefined) {
+        next("/message");
+        return;
+      }
+      break;
+    case "main-articles":
+      response = await getArticleInformation(to.params.articleID as string);
+      if (response === undefined) {
+        next("/message");
+        return;
+      }
+      break;
+    case "main-tags":
+      response = await getTagInformation(0);
+      break;
+    case "main-tagArticle":
+      response = await getTagInformation(1, to.params.tagName as string);
+      break;
     case "main-galgameBrand":
       response = await getGalgameBrand(0);
       break;
@@ -120,13 +174,13 @@ const getDataEntryPoint = async (
     case "main-systemTodo":
       response = await getSystemTodo();
       break;
+    case "main-create":
     case "main-todolist":
     case "main-todoTopic":
     case "main-createSystemTodo":
       await checkLogin(next);
       next();
       return;
-    case "main-create":
     case "main-userMaintain":
     case "main-createGalgameBrand":
     case "main-createSystemTodoTopic":
@@ -158,6 +212,16 @@ const getDataEntryPoint = async (
 const setStore = async (response: AxiosResponse<any, any>, to: RouteLocationNormalized) => {
   let store;
   switch (to.name) {
+    case "main-home":
+    case "main-articles":
+      store = useArticleStore();
+      store.set(response.data.data);
+      break;
+    case "main-tags":
+    case "main-tagArticle":
+      store = useArticleTagStore();
+      store.set(response.data.data);
+      break;
     case "main-galgameBrand":
     case "main-createGalgame":
     case "main-editGalgameBrand":

@@ -1,114 +1,11 @@
 import { RouteRecordRaw } from "vue-router";
-
-import axios, { AxiosResponse } from "axios";
 import Cookies from "js-cookie";
-// vuex store
-import store from "../store/store";
 // pinia store
 import { useUserStore } from "@/store/user";
 // views
 import MainView from "../views/MainView.vue";
-// type
-import { RouteLocationNormalized, NavigationGuardNext } from "vue-router";
 
 import { getDataEntryPoint } from "@/router/guard";
-
-// ----------------------------------------------------------------------------
-const checkLogin = async (next: NavigationGuardNext) => {
-  try {
-    const response = await axios.get("/api/auth");
-    store.commit("setUserData", response?.data.userData);
-    next();
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      store.commit("setUserData", {});
-      alert("使用者尚未登入, 請前往登入");
-      next("/login");
-    } else {
-      sessionStorage.setItem("msg", String(error));
-      next("/message");
-    }
-  }
-};
-
-const getArticleInformation = async (articleID?: string): Promise<AxiosResponse | undefined> => {
-  let apiUrl = "/api/articles";
-  // if target is single article
-  if (articleID) {
-    if (!(Number.isInteger(Number(articleID)) && Number(articleID) > 0)) {
-      sessionStorage.setItem("msg", "輸入ID不合法"); // enter an ID that is not allowed
-      return undefined;
-    }
-    apiUrl = `/api/articles/${articleID}`;
-  }
-  try {
-    const response = await axios.get(apiUrl);
-    return response;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    return error.response;
-  }
-};
-
-const getTagInformation = async (mode: number, tagName?: string): Promise<AxiosResponse | undefined> => {
-  let apiUrl = "/api/tags";
-  if (mode === 1) {
-    apiUrl = `/api/tags/${tagName}`;
-  }
-  try {
-    const response = await axios.get(apiUrl);
-    return response;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    return error.response;
-  }
-};
-
-// ----------------------------------------------------------------------------
-const entryPoint = async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
-  let response: AxiosResponse | undefined;
-  let mutationsName: string;
-  switch (to.name) {
-    case "main-create":
-      await checkLogin(next);
-      return;
-    case "main-home":
-      response = await getArticleInformation();
-      mutationsName = "setArticleContent";
-      break;
-    case "main-articles":
-      response = await getArticleInformation(to.params.articleID as string);
-      mutationsName = "setArticleContent";
-      break;
-    case "main-tags":
-      response = await getTagInformation(0);
-      mutationsName = "setTagArticle";
-      break;
-    case "main-tagArticle":
-      response = await getTagInformation(1, to.params.tagName as string);
-      mutationsName = "setTagArticle";
-      break;
-    default:
-      response = undefined;
-      mutationsName = "";
-      break;
-  }
-  if (response && response.status === 200) {
-    store.commit(mutationsName, response.data.data);
-    next();
-  } else if (response) {
-    if (response.status === 401) {
-      alert("使用者尚未登入, 請前往登入");
-      next("/login");
-    } else {
-      sessionStorage.setItem("msg", `${response?.status}: ${response?.data.msg}`);
-      next("/message");
-    }
-  } else {
-    sessionStorage.setItem("msg", "發生例外錯誤，請聯繫管理員");
-    next("/message");
-  }
-};
 
 const mainRoutes: Array<RouteRecordRaw> = [
   {
@@ -120,7 +17,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
         path: "",
         name: "main-home",
         component: () => import("@/components/MainBlock.vue"),
-        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
+        beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
       },
       {
         path: "login",
@@ -139,7 +36,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
         path: "create",
         name: "main-create",
         component: () => import("@/components/CreateArticle.vue"),
-        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
+        beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
       },
       {
         path: "message",
@@ -151,19 +48,19 @@ const mainRoutes: Array<RouteRecordRaw> = [
         path: "articles/:articleID",
         name: "main-articles",
         component: () => import("@/components/ArticleBlock.vue"),
-        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
+        beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
       },
       {
         path: "tags",
         name: "main-tags",
         component: () => import("@/components/TagsBlock.vue"),
-        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
+        beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
       },
       {
         path: "tags/:tagName",
         name: "main-tagArticle",
         component: () => import("@/components/TagBlock.vue"),
-        beforeEnter: async (to, from, next) => entryPoint(to, from, next),
+        beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
       },
       {
         path: "register",

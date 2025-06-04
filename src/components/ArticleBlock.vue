@@ -31,8 +31,9 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue";
 import { useRouter } from "vue-router";
-import { useStore } from "vuex";
-
+// pinia store
+import { useArticleStore } from "@/store/article";
+import { storeToRefs } from "pinia";
 import MarkdownIt from "markdown-it";
 import hljs from "highlight.js";
 import "highlight.js/styles/github-dark.css"; // highlight-styles
@@ -40,8 +41,9 @@ import "highlight.js/styles/github-dark.css"; // highlight-styles
 export default defineComponent({
   setup() {
     const router = useRouter();
-    const store = useStore();
-    const articleData = ref(store.state.articleContent);
+    const articleStore = useArticleStore();
+    const { article } = storeToRefs(articleStore);
+    const articleData = ref(article.value);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const renderMarkdown = (content: any) => {

@@ -19,7 +19,6 @@
       <div class="col s2 input-field mobile-display">
         <select v-model="form.topic" class="browser-default">
           <option class="validate" value="" disabled selected>選擇主題</option>
-          <option v-if="form.owner !== 'root'" class="validate" value="系統/root" selected>系統建議</option>
           <option
             v-for="todoTopic in todoTopics"
             :key="todoTopic.topicName"

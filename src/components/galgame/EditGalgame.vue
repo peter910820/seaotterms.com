@@ -51,7 +51,6 @@ import { ref, defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { useGalgameStore } from "@/store/galgame";
 import { storeToRefs } from "pinia";
-import { useStore } from "vuex";
 import axios from "axios";
 // pinia store
 import { useUserStore } from "@/store/user";
@@ -62,7 +61,6 @@ export default defineComponent({
     const galagmeStore = useGalgameStore();
     const { galgame } = storeToRefs(galagmeStore);
     const router = useRouter();
-    const store = useStore();
     const userStore = useUserStore();
     const form = ref({
       name: galgame.value[0].name,

@@ -34,17 +34,6 @@
         ></i>
       </a>
     </div>
-    <div class="socialLink">
-      <button class="button-little-feature">
-        <router-link to="/galgame/article-operation">Galgame文章作業</router-link>
-      </button>
-      <button class="button-little-feature">
-        <router-link to="/todo-topic">建立Todo類別</router-link>
-      </button>
-      <button class="button-little-feature">
-        <router-link to="/system-todo-topic/create">建立系統站台</router-link>
-      </button>
-    </div>
   </div>
 </template>
 

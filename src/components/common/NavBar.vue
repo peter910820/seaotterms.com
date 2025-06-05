@@ -43,8 +43,8 @@
         <i class="material-icons left">system_update_alt</i>
       </router-link>
     </li>
-    <li>
-      <router-link v-if="userData.username !== '' && userData.username !== undefined" to="/user-maintain">
+    <li v-if="userData.username !== '' && userData.username !== undefined">
+      <router-link to="/user-maintain">
         使用者帳號維護
         <i class="material-icons left">manage_accounts</i>
       </router-link>

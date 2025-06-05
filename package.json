@@ -10,7 +10,8 @@
   "resolutions": {
     "path-to-regexp": "0.1.12",
     "cross-spawn": "^6.0.6",
-    "postcss": "^8.4.31"
+    "postcss": "^8.4.31",
+    "webpack-dev-server": "^5.2.1"
   },
   "dependencies": {
     "@types/jquery": "^3.5.32",

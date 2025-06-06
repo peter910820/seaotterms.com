@@ -60,7 +60,7 @@ export const mainRoutes: Array<RouteRecordRaw> = [
       {
         path: ":pathMatch(.*)*",
         name: "main-notFound",
-        component: () => import("@/pages/main/support/ErrorBlock.vue"),
+        component: () => import("@/pages/main/support/NotFoundPage.vue"),
       },
     ],
   },

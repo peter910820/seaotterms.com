@@ -20,13 +20,13 @@ export const mainRoutes: Array<RouteRecordRaw> = [
       {
         path: "",
         name: "main-home",
-        component: () => import("@/components/MainBlock.vue"),
+        component: () => import("@/pages/main/MainBlock.vue"),
         beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
       },
       {
         path: "login",
         name: "main-login",
-        component: () => import("@/components/system/LoginBlock.vue"),
+        component: () => import("@/pages/main/LoginBlock.vue"),
         beforeEnter: (to, from, next) => {
           if (Cookies.get("session_id") !== undefined) {
             Cookies.remove("session_id");
@@ -39,12 +39,12 @@ export const mainRoutes: Array<RouteRecordRaw> = [
       {
         path: "register",
         name: "main-register",
-        component: () => import("@/components/RegisterBlock.vue"),
+        component: () => import("@/pages/main/RegisterBlock.vue"),
       },
       {
         path: "user-maintain",
         name: "main-userMaintain",
-        component: () => import("@/components/system/UserMaintain.vue"),
+        component: () => import("@/pages/main/UserMaintain.vue"),
         beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
       },
       ...childrenArticleRoutes,
@@ -54,13 +54,13 @@ export const mainRoutes: Array<RouteRecordRaw> = [
       {
         path: "message",
         name: "main-message",
-        component: () => import("@/components/support/MessageBlcok.vue"),
+        component: () => import("@/pages/main/support/MessageBlcok.vue"),
       },
       // match all route
       {
         path: ":pathMatch(.*)*",
         name: "main-notFound",
-        component: () => import("@/components/support/ErrorBlock.vue"),
+        component: () => import("@/pages/main/support/ErrorBlock.vue"),
       },
     ],
   },

@@ -6,25 +6,25 @@ export const childrenSystemTodoRoutes: Array<RouteRecordRaw> = [
   {
     path: "system-todo",
     name: "main-systemTodo",
-    component: () => import("@/components/system-todo/SystemTodo.vue"),
+    component: () => import("@/pages/main/system-todo/SystemTodo.vue"),
     beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
   },
   {
     path: "system-todo/create",
     name: "main-createSystemTodo",
-    component: () => import("@/components/system-todo/CreateSystemTodo.vue"),
+    component: () => import("@/pages/main/system-todo/CreateSystemTodo.vue"),
     beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
   },
   {
     path: "system-todo/edit/:id",
     name: "main-editSystemTodo",
-    component: () => import("@/components/system-todo/EditSystemTodo.vue"),
+    component: () => import("@/pages/main/system-todo/EditSystemTodo.vue"),
     beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
   },
   {
     path: "system-todo-topic/create",
     name: "main-createSystemTodoTopic",
-    component: () => import("@/components/system-todo/CreateSystemTodoTopic.vue"),
+    component: () => import("@/pages/main/system-todo/CreateSystemTodoTopic.vue"),
     beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
   },
 ];

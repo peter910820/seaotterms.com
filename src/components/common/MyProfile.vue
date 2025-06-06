@@ -100,7 +100,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px dashed orange;
+  border: 2px dashed burlywood;
   border-radius: 50%;
   > img {
     width: 100%;

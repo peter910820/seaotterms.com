@@ -175,7 +175,7 @@ const getDataEntryPoint = async (
       response = await getSystemTodo();
       break;
     case "main-create":
-    case "main-todolist":
+    case "main-todoList":
     case "main-todoTopic":
     case "main-createSystemTodo":
       await checkLogin(next);

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
 // Routes for different views
-import mainRoutes from "./mainRoutes";
+import { mainRoutes } from "@/router/main";
 
 // routes
 const routes: Array<RouteRecordRaw> = [...mainRoutes];

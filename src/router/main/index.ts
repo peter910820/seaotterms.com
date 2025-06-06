@@ -6,7 +6,7 @@ import { getDataEntryPoint } from "@/router/guard";
 
 import MainView from "@/views/MainView.vue"; // view
 // children routes
-import { childrenArticleRoutes } from "./artilce";
+import { childrenArticleRoutes } from "./article";
 import { childrenGalgameRoutes } from "./galgame";
 import { childrenTodoRoutes } from "./todo";
 import { childrenSystemTodoRoutes } from "./systemTodo";

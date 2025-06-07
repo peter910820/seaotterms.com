@@ -100,6 +100,8 @@ import { initMaterialDatepicker, initMaterialFormSelect, initMaterialDropdown } 
 
 import type { FormTodo } from "@/types/FormTypes";
 
+import { messageStorage } from "@/utils/messageHandler";
+
 export default defineComponent({
   setup() {
     const router = useRouter();
@@ -131,36 +133,42 @@ export default defineComponent({
           return response;
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
-          return error.response;
+          const status = axios.isAxiosError(error) ? error.response?.status : undefined;
+          const msg = axios.isAxiosError(error) ? error.response?.data.msg : undefined;
+          messageStorage(status, msg);
+          return null;
         }
       };
       const getTodo = async () => {
         try {
           const response = await axios.get(`/api/todos/${user.value.username}`);
+          messageStorage(response.status, response.data.msg);
           return response;
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
-          return error.response;
+          const status = axios.isAxiosError(error) ? error.response?.status : undefined;
+          const msg = axios.isAxiosError(error) ? error.response?.data.msg : undefined;
+          messageStorage(status, msg);
+          return null;
         }
       };
 
       // get todo topic
       let response = await getTodoTopics();
-      if (response?.status === 200) {
+      if (response) {
         todoTopicStore.set(response.data.data);
       } else {
-        sessionStorage.setItem("msg", `${response?.status}: ${response?.data.msg}`);
         router.push("/message");
       }
       todoTopics.value = todoTopic.value;
 
       // get todo
       response = await getTodo();
-      if (response?.status === 200) {
+      if (response) {
         todoStore.set(response.data.data);
       } else {
-        sessionStorage.setItem("msg", `${response?.status}: ${response?.data.msg}`);
         router.push("/message");
+        return;
       }
       // init materializecss
       initMaterialDatepicker();
@@ -174,31 +182,28 @@ export default defineComponent({
         const deadline = new Date(deadlineTag.value);
         form.value.deadline = deadline;
       } else {
-        sessionStorage.setItem("msg", `找不到ID為deadline的HTML元素`);
+        // 找不到ID為deadline的HTML元素
+        messageStorage();
         router.push("/message");
         return;
       }
       if (confirm("確定新增?")) {
-        try {
-          if (form.value.topic.trim() === "" || form.value.title.trim() === "") {
-            sessionStorage.setItem("msg", `請確保主題以及標題有正確填寫`);
-            router.push("/message");
-            return;
-          }
+        if (form.value.topic.trim() === "" || form.value.title.trim() === "") {
+          alert("請確保主題以及標題有正確填寫");
+          return;
+        }
 
+        try {
+          // refresh todolist
           await axios.post("/api/todos", form.value);
-          let response = await axios.get(`/api/todos/${user.value.username}`);
+          const response = await axios.get(`/api/todos/${user.value.username}`);
           todoStore.set(response.data.data);
           form.value.owner = user.value.username;
         } catch (error) {
           form.value.owner = user.value.username;
-          if (axios.isAxiosError(error)) {
-            sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
-            router.push("/message");
-          } else {
-            sessionStorage.setItem("msg", `發生未知錯誤，請聯繫管理員`);
-            router.push("/message");
-          }
+          const status = axios.isAxiosError(error) ? error.response?.status : undefined;
+          const msg = axios.isAxiosError(error) ? error.response?.data.msg : undefined;
+          messageStorage(status, msg);
         }
       }
     };

@@ -71,6 +71,8 @@ import { useUserStore } from "@/store/user";
 
 import { initMaterialDatepicker, initMaterialFormSelect } from "@/composables/useMaterial";
 
+import { messageStorage } from "@/utils/messageHandler";
+
 export default defineComponent({
   setup() {
     const userStore = useUserStore();
@@ -95,38 +97,32 @@ export default defineComponent({
 
     const handleSubmit = async () => {
       if (form.value.name.trim() == "") {
-        sessionStorage.setItem("msg", "遊戲名稱不得為空白");
-        router.push("/message");
+        alert("遊戲名稱不得為空白");
         return;
       }
       if (form.value.brand.trim() == "") {
-        sessionStorage.setItem("msg", "請選擇品牌名稱");
-        router.push("/message");
+        alert("請選擇品牌名稱");
         return;
       }
       const releaseDate = new Date(document.getElementById("releaseDate").value).toISOString();
       const endDate = new Date(document.getElementById("endDate").value).toISOString();
       if (endDate <= releaseDate) {
-        sessionStorage.setItem("msg", "輸入日期不正確");
-        router.push("/message");
+        alert("輸入日期不正確");
         return;
       }
       form.value.releaseDate = releaseDate;
       form.value.endDate = endDate;
       try {
-        let response = await axios.post("/api/galgame", form.value);
-        sessionStorage.setItem("msg", response?.data.msg);
+        const response = await axios.post("/api/galgame", form.value);
+        messageStorage(response.status, response.data.msg);
         router.push("/message");
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          console.log(`${error.response?.status}: ${error.response?.data.msg}`);
-          sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
           userStore.reset();
           alert("階段性登入已過期，請重新登入");
           router.push("/login");
         } else {
-          console.log("未知錯誤: " + error);
-          sessionStorage.setItem("msg", `發生未知錯誤，請聯繫管理員`);
+          messageStorage();
           router.push("/message");
         }
       }

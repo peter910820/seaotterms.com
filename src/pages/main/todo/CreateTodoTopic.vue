@@ -27,6 +27,9 @@ import axios from "axios";
 import { storeToRefs } from "pinia";
 // pinia store
 import { useUserStore } from "@/store/user";
+
+import { messageStorage } from "@/utils/messageHandler";
+
 export default defineComponent({
   setup() {
     const router = useRouter();
@@ -40,23 +43,22 @@ export default defineComponent({
     });
 
     const handleSubmit = async () => {
-      try {
-        if (form.value.topicName.trim() === "") {
-          sessionStorage.setItem("msg", "標題不得為空");
-          router.push("/message");
-        }
-        await axios.post("/api/todo-topics", form.value);
-        sessionStorage.setItem("msg", "資料創建成功");
+      if (form.value.topicName.trim() === "") {
+        alert("標題不得為空");
         router.push("/message");
+        return;
+      }
+
+      try {
+        const response = await axios.post("/api/todo-topics", form.value);
+        messageStorage(response.status, "資料創建成功");
+        return;
       } catch (error) {
-        if (axios.isAxiosError(error)) {
-          sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
-          router.push("/message");
-        } else {
-          console.log("未知錯誤: " + error);
-          sessionStorage.setItem("msg", `發生未知錯誤，請聯繫管理員`);
-          router.push("/message");
-        }
+        const status = axios.isAxiosError(error) ? error.response?.status : undefined;
+        const msg = axios.isAxiosError(error) ? error.response?.data.msg : undefined;
+        messageStorage(status, msg);
+      } finally {
+        router.push("/message");
       }
     };
     return {

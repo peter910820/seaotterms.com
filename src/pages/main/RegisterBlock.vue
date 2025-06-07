@@ -44,6 +44,8 @@ import axios from "axios";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
+import { messageStorage } from "@/utils/messageHandler";
+
 const router = useRouter();
 const form = ref({
   username: "",
@@ -58,18 +60,15 @@ const handleRegisterSubmit = async () => {
     return;
   }
   try {
-    await axios.post("/api/users", form.value);
-    sessionStorage.setItem("msg", "帳號註冊成功");
+    const response = await axios.post("/api/users", form.value);
+    messageStorage(response.status, "帳號註冊成功");
     router.push("/message");
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
-      router.push("/message");
-    } else {
-      console.log("未知錯誤: " + error);
-      sessionStorage.setItem("msg", `發生未知錯誤，請聯繫管理員`);
-      router.push("/message");
-    }
+    const status = axios.isAxiosError(error) ? error.response?.status : undefined;
+    const msg = axios.isAxiosError(error) ? error.response?.data.msg : undefined;
+    messageStorage(status, msg);
+  } finally {
+    router.push("/message");
   }
 };
 </script>

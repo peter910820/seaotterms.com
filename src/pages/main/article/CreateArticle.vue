@@ -47,6 +47,8 @@ import { storeToRefs } from "pinia";
 // pinia store
 import { useUserStore } from "@/store/user";
 
+import { messageStorage } from "@/utils/messageHandler";
+
 import MarkdownIt from "markdown-it";
 import hljs from "highlight.js";
 import "highlight.js/styles/github-dark.css"; // highlight-styles
@@ -74,18 +76,14 @@ export default defineComponent({
     const handleSubmit = async () => {
       try {
         form.value.tags = middleTags.value.split(",");
-        await axios.post("/api/articles", form.value);
-        sessionStorage.setItem("msg", "資料創建成功");
-        router.push("/message");
+        const response = await axios.post("/api/articles", form.value);
+        messageStorage(response.status, response.data.msg);
       } catch (error) {
-        if (axios.isAxiosError(error)) {
-          sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
-          router.push("/message");
-        } else {
-          console.log("未知錯誤: " + error);
-          sessionStorage.setItem("msg", `發生未知錯誤，請聯繫管理員`);
-          router.push("/message");
-        }
+        const status = axios.isAxiosError(error) ? error.response?.status : undefined;
+        const msg = axios.isAxiosError(error) ? error.response?.data.msg : undefined;
+        messageStorage(status, msg);
+      } finally {
+        router.push("/message");
       }
     };
     const renderMarkdown = (content) => {

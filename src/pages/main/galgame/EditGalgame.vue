@@ -55,6 +55,8 @@ import axios from "axios";
 // pinia store
 import { useUserStore } from "@/store/user";
 
+import { messageStorage } from "@/utils/messageHandler";
+
 export default defineComponent({
   setup() {
     console.log("這是開發用的頁面，請確定你真的知道自己在幹嘛再執行動作");
@@ -74,19 +76,16 @@ export default defineComponent({
 
     const handleSubmit = async () => {
       try {
-        let response = await axios.patch(`/api/galgame/develop/${galgame.value[0].name}`, form.value);
-        sessionStorage.setItem("msg", response?.data.msg);
+        const response = await axios.patch(`/api/galgame/develop/${galgame.value[0].name}`, form.value);
+        messageStorage(response.status, response.data.msg);
         router.push("/message");
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          console.log(`${error.response?.status}: ${error.response?.data.msg}`);
-          sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
           userStore.reset();
           alert("階段性登入已過期，請重新登入");
           router.push("/login");
         } else {
-          console.log("未知錯誤: " + error);
-          sessionStorage.setItem("msg", `發生未知錯誤，請聯繫管理員`);
+          messageStorage();
           router.push("/message");
         }
       }

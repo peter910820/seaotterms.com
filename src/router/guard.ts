@@ -7,14 +7,16 @@ import { useSystemTodoStore } from "@/store/todo";
 import { RouteLocationNormalized, NavigationGuardNext } from "vue-router";
 import { useArticleStore, useArticleTagStore } from "@/store/article";
 
+import { messageStorage } from "@/utils/messageHandler";
+
 // support function
-const getArticleInformation = async (articleID?: string): Promise<AxiosResponse | undefined> => {
+const getArticleInformation = async (articleID?: string): Promise<AxiosResponse | null> => {
   let apiUrl = "/api/articles";
   // if target is single article
   if (articleID) {
     if (!(Number.isInteger(Number(articleID)) && Number(articleID) > 0)) {
-      sessionStorage.setItem("msg", "輸入ID不合法"); // enter an ID that is not allowed
-      return undefined;
+      messageStorage(undefined, "輸入ID不合法", "EC_00"); // enter an ID that is not allowed
+      return null;
     }
     apiUrl = `/api/articles/${articleID}`;
   }
@@ -23,11 +25,14 @@ const getArticleInformation = async (articleID?: string): Promise<AxiosResponse 
     return response;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    return error.response;
+    const status = axios.isAxiosError(error) ? error.response?.status : undefined;
+    const msg = axios.isAxiosError(error) ? error.response?.data.msg : undefined;
+    messageStorage(status, msg);
+    return null;
   }
 };
 
-const getTagInformation = async (mode: number, tagName?: string): Promise<AxiosResponse | undefined> => {
+const getTagInformation = async (mode: number, tagName?: string): Promise<AxiosResponse | null> => {
   let apiUrl = "/api/tags";
   if (mode === 1) {
     apiUrl = `/api/tags/${tagName}`;
@@ -37,33 +42,42 @@ const getTagInformation = async (mode: number, tagName?: string): Promise<AxiosR
     return response;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    return error.response;
+    const status = axios.isAxiosError(error) ? error.response?.status : undefined;
+    const msg = axios.isAxiosError(error) ? error.response?.data.msg : undefined;
+    messageStorage(status, msg);
+    return null;
   }
 };
 
-const getSystemTodo = async (id?: string): Promise<AxiosResponse | undefined> => {
+const getSystemTodo = async (id?: string): Promise<AxiosResponse | null> => {
   const apiUrl = id ? `/api/system-todos?id=${id}` : "/api/system-todos";
   try {
     const response = await axios.get(apiUrl);
     return response;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    return error.response;
+    const status = axios.isAxiosError(error) ? error.response?.status : undefined;
+    const msg = axios.isAxiosError(error) ? error.response?.data.msg : undefined;
+    messageStorage(status, msg);
+    return null;
   }
 };
 
-const getGalgame = async (path?: string): Promise<AxiosResponse | undefined> => {
+const getGalgame = async (path?: string): Promise<AxiosResponse | null> => {
   const apiUrl = `/api/galgame/s/${path}`;
   try {
     const response = await axios.get(apiUrl);
     return response;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    return error.response;
+    const status = axios.isAxiosError(error) ? error.response?.status : undefined;
+    const msg = axios.isAxiosError(error) ? error.response?.data.msg : undefined;
+    messageStorage(status, msg);
+    return null;
   }
 };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getGalgameBrand = async (mode: number, path?: string): Promise<AxiosResponse | undefined> => {
+const getGalgameBrand = async (mode: number, path?: string): Promise<AxiosResponse | null> => {
   let apiUrl = "/api/galgame-brand";
   if (mode === 1) {
     apiUrl = `/api/galgame-brand/${path}`;
@@ -73,19 +87,12 @@ const getGalgameBrand = async (mode: number, path?: string): Promise<AxiosRespon
     return response;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    return error.response;
+    const status = axios.isAxiosError(error) ? error.response?.status : undefined;
+    const msg = axios.isAxiosError(error) ? error.response?.data.msg : undefined;
+    messageStorage(status, msg);
+    return null;
   }
 };
-
-// const getTodo = async (name: string) => {
-//   try {
-//     const response = await axios.get(`/api/todos/${name}`);
-//     return response;
-//     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-//   } catch (error: any) {
-//     return error.response;
-//   }
-// };
 
 // check if you are the website owner
 const checkOwner = async (next: NavigationGuardNext) => {
@@ -105,7 +112,7 @@ const checkOwner = async (next: NavigationGuardNext) => {
         next("/galgamebrand");
       }
     } else {
-      sessionStorage.setItem("msg", String(error));
+      messageStorage(undefined, String(error), "EC_00");
       next("/message");
     }
   }
@@ -123,7 +130,7 @@ const checkLogin = async (next: NavigationGuardNext) => {
       alert("使用者尚未登入, 請前往登入");
       next("/login");
     } else {
-      sessionStorage.setItem("msg", String(error));
+      messageStorage(undefined, String(error), "EC_00");
       next("/message");
     }
   }
@@ -192,19 +199,16 @@ const getDataEntryPoint = async (
       response = await getSystemTodo(to.params.id as string);
       break;
     default:
-      sessionStorage.setItem("msg", "發生路由守衛錯誤，請聯繫管理員");
-      next("/message");
+      alert("發生路由守衛錯誤，請聯繫管理員");
+      next("/");
       return;
   }
-  if (response && response.status === 200) {
+  if (response) {
     setStore(response, to);
     next();
-  } else if (response) {
-    sessionStorage.setItem("msg", `${response?.status}: ${response?.data.msg}`);
-    next("/message");
   } else {
-    sessionStorage.setItem("msg", "發生例外錯誤，請聯繫管理員");
     next("/message");
+    return;
   }
 };
 

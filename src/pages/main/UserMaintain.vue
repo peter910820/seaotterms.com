@@ -47,6 +47,8 @@ import axios from "axios";
 import { useUserStore } from "@/store/user";
 import { storeToRefs } from "pinia";
 
+import { messageStorage } from "@/utils/messageHandler";
+
 export default defineComponent({
   setup() {
     const router = useRouter();
@@ -66,19 +68,15 @@ export default defineComponent({
     const handleSubmit = async () => {
       try {
         let response = await axios.patch(`/api/users/${form.value.id}`, form.value);
-        sessionStorage.setItem("msg", response?.data.msg);
+        messageStorage(response.status, response.data.msg);
         response = await axios.get("/api/auth");
         userStore.set(response?.data.userData);
-        router.push("/message");
       } catch (error) {
-        if (axios.isAxiosError(error)) {
-          sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
-          router.push("/message");
-        } else {
-          console.log("未知錯誤: " + error);
-          sessionStorage.setItem("msg", `發生未知錯誤，請聯繫管理員`);
-          router.push("/message");
-        }
+        const status = axios.isAxiosError(error) ? error.response?.status : undefined;
+        const msg = axios.isAxiosError(error) ? error.response?.data.msg : undefined;
+        messageStorage(status, msg);
+      } finally {
+        router.push("/message");
       }
     };
     return { form, handleSubmit };

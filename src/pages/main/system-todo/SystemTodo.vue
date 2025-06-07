@@ -88,6 +88,8 @@ import { useUserStore } from "@/store/user";
 
 import router from "@/router";
 
+import { messageStorage } from "@/utils/messageHandler";
+
 export default defineComponent({
   setup() {
     const userStore = useUserStore();
@@ -110,8 +112,9 @@ export default defineComponent({
           alert("使用者尚未登入, 請前往登入");
           router.push("/login");
         } else {
-          sessionStorage.setItem("msg", String(error));
+          messageStorage();
           router.push("/message");
+          return;
         }
       }
 

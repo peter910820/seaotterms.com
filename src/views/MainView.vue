@@ -48,6 +48,9 @@ export default defineComponent({
   cursor: default !important;
   border: 2px solid white;
   border-radius: 20px;
+  display: inline-block;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 .sticky-navbar {
   position: sticky;

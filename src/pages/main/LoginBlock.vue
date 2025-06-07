@@ -33,6 +33,8 @@ import { useRouter } from "vue-router";
 // pinia store
 import { useUserStore } from "@/store/user";
 
+import { messageStorage } from "@/utils/messageHandler";
+
 const router = useRouter();
 const userStore = useUserStore();
 const form = ref({
@@ -42,17 +44,14 @@ const form = ref({
 const handleSubmit = async () => {
   try {
     const response = await axios.post("/api/login", form.value);
-    sessionStorage.setItem("msg", response.data.msg);
+    messageStorage(response.status, response.data.msg);
     userStore.set(response?.data.userData);
-    router.push("/message");
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
-      router.push("/message");
-    } else {
-      sessionStorage.setItem("msg", String(error));
-      router.push("/message");
-    }
+    const status = axios.isAxiosError(error) ? error.response?.status : undefined;
+    const msg = axios.isAxiosError(error) ? error.response?.data.msg : undefined;
+    messageStorage(status, msg);
+  } finally {
+    router.push("/message");
   }
 };
 </script>

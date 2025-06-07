@@ -1,22 +1,44 @@
 <template>
   <div class="row main-block">
-    <h1>訊息頁面</h1>
     <div class="col s12 sub-block floatup-div wow animate__flipInX">
-      <span>{{ msg }}</span>
-      <br />
-      <router-link to="/">
-        <button class="button-submit" type="button">
-          回到首頁
-          <i class="material-icons right">home</i>
-        </button>
-      </router-link>
+      <div v-if="msg" class="row center-content">
+        <div v-if="msg.statusCode !== 999 && !msg.statusCode.toString().startsWith('2')" class="col s12 msg-code">
+          {{ msg.statusCode }}
+        </div>
+        <div v-else-if="msg.statusCode === 998" class="col s12 msg-code">{{ msg.errCode }}</div>
+        <div class="col s12 msg-hint">{{ msg.content }}</div>
+        <div class="col s12 go-home-button">
+          <router-link to="/">
+            <button class="button-submit" type="button">
+              回到首頁
+              <i class="material-icons right">home</i>
+            </button>
+          </router-link>
+        </div>
+      </div>
+      <div v-else class="row center-content">
+        <div class="col s12 msg-hint">Session遺失，請聯絡管理員</div>
+        <div class="col s12 msg-hint">Session lost, please contact the administrator</div>
+        <div class="col s12 go-home-button">
+          <router-link to="/">
+            <button class="button-submit" type="button">
+              回到首頁
+              <i class="material-icons right">home</i>
+            </button>
+          </router-link>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted } from "vue";
-const msg = sessionStorage.getItem("msg") || "";
+import { messageGet } from "@/utils/messageHandler";
+
+// 取得訊息資料
+const msg = messageGet();
+
 onMounted(() => {
   // 清理materialize-textarea自適應化高度的多餘組件
   const hiddenDivs = document.querySelectorAll(".hiddendiv.common");
@@ -26,10 +48,30 @@ onMounted(() => {
 
 <style scoped>
 .sub-block {
+  max-height: 600px;
+  height: 600px;
   font-size: 60px;
-  display: inline-block;
-  word-wrap: break-word;
-  word-break: break-word;
-  min-width: 100px;
+  overflow: auto;
+}
+.center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  font-size: 30px;
+}
+.msg-code {
+  font-size: 100px;
+  font-family: "Century-Gothic";
+  color: red;
+}
+.msg-hint {
+  font-size: 50px;
+  margin-bottom: 20px;
+  color: red;
+}
+.go-home-button {
+  margin-top: 30px;
 }
 </style>

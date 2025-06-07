@@ -22,11 +22,9 @@
 
 <style scoped>
 .sub-block {
-  display: inline-block;
-  word-wrap: break-word;
-  word-break: break-word;
   max-height: 600px;
   height: 600px;
+  font-size: 60px;
   overflow: auto;
 }
 .center-content {

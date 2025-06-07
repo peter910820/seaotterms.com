@@ -74,6 +74,8 @@ import { storeToRefs } from "pinia";
 import type { TodoTopicType } from "@/types/todoTypes";
 import type { SystemTodoForm } from "@/types/FormTypes";
 
+import { messageStorage } from "@/utils/messageHandler";
+
 export default defineComponent({
   setup() {
     const router = useRouter();
@@ -95,20 +97,24 @@ export default defineComponent({
       const getTodoTopics = async () => {
         try {
           const response = await axios.get("/api/todo-topics/system");
+          messageStorage(response.status, response.data.msg);
           return response;
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
-          return error.response;
+          const status = axios.isAxiosError(error) ? error.response?.status : undefined;
+          const msg = axios.isAxiosError(error) ? error.response?.data.msg : undefined;
+          messageStorage(status, msg);
+          return null;
         }
       };
 
       // get todo topic
       let response = await getTodoTopics();
-      if (response?.status === 200) {
+      if (response) {
         systemTodoTopics.value = response.data.data;
       } else {
-        sessionStorage.setItem("msg", `${response?.status}: ${response?.data.msg}`);
         router.push("/message");
+        return;
       }
 
       // init materializecss
@@ -122,7 +128,8 @@ export default defineComponent({
       if (deadlineTag) {
         form.value.deadline = deadlineTag.value;
       } else {
-        sessionStorage.setItem("msg", `找不到ID為deadline的HTML元素`);
+        // 找不到ID為deadline的HTML元素
+        messageStorage();
         router.push("/message");
         return;
       }
@@ -131,8 +138,7 @@ export default defineComponent({
         const timestamp = Date.parse(dateStr);
 
         if (isNaN(timestamp)) {
-          sessionStorage.setItem("msg", `日期格式錯誤`);
-          router.push("/message");
+          alert("日期格式錯誤");
           return;
         }
         form.value.deadline = dateStr;
@@ -140,23 +146,19 @@ export default defineComponent({
         form.value.deadline = null;
       }
       if (form.value.title.trim() === "" || form.value.systemName === "") {
-        sessionStorage.setItem("msg", `請確保標題以及站台有正確填寫`);
-        router.push("/message");
+        alert("請確保標題以及站台有正確填寫");
         return;
       }
 
       try {
         const response = await axios.post("/api/system-todos", form.value);
-        sessionStorage.setItem("msg", response?.data.msg);
-        router.push("/message");
+        messageStorage(response.status, response.data.msg);
       } catch (error) {
-        if (axios.isAxiosError(error)) {
-          sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
-          router.push("/message");
-        } else {
-          sessionStorage.setItem("msg", `發生未知錯誤，請聯繫管理員`);
-          router.push("/message");
-        }
+        const status = axios.isAxiosError(error) ? error.response?.status : undefined;
+        const msg = axios.isAxiosError(error) ? error.response?.data.msg : undefined;
+        messageStorage(status, msg);
+      } finally {
+        router.push("/message");
       }
     };
 

@@ -48,6 +48,8 @@ import { storeToRefs } from "pinia";
 // pinia store
 import { useUserStore } from "@/store/user";
 
+import { messageStorage } from "@/utils/messageHandler";
+
 export default defineComponent({
   setup() {
     const userStore = useUserStore();
@@ -65,28 +67,23 @@ export default defineComponent({
       try {
         form.value.brand = form.value.brand.trim();
         if (form.value.completed < 0 || form.value.total < 0 || form.value.completed > form.value.total) {
-          sessionStorage.setItem("msg", "數值有誤");
-          router.push("/message");
+          alert("數值有誤");
           return;
         } else if (form.value.brand === "") {
-          sessionStorage.setItem("msg", "ブランド不得為空");
-          router.push("/message");
+          alert("ブランド不得為空");
           return;
         }
 
         let response = await axios.post("/api/galgame-brand", form.value);
-        sessionStorage.setItem("msg", response?.data.msg);
+        messageStorage(response.status, response.data.msg);
         router.push("/message");
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          console.log(`${error.response?.status}: ${error.response?.data.msg}`);
-          sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
           userStore.reset();
           alert("階段性登入已過期，請重新登入");
           router.push("/login");
         } else {
-          console.log("未知錯誤: " + error);
-          sessionStorage.setItem("msg", `發生未知錯誤，請聯繫管理員`);
+          messageStorage();
           router.push("/message");
         }
       }

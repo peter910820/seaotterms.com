@@ -15,7 +15,7 @@ const getArticleInformation = async (articleID?: string): Promise<AxiosResponse 
   // if target is single article
   if (articleID) {
     if (!(Number.isInteger(Number(articleID)) && Number(articleID) > 0)) {
-      messageStorage(undefined, "輸入ID不合法", "EC_00"); // enter an ID that is not allowed
+      messageStorage(undefined, "The input ID is invalid", "EC_00"); // enter an ID that is not allowed
       return null;
     }
     apiUrl = `/api/articles/${articleID}`;

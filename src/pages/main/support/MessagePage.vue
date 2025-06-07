@@ -3,7 +3,7 @@
     <div class="col s12 sub-block floatup-div wow animate__flipInX">
       <div v-if="msg" class="row center-content">
         <div
-          v-if="msg.statusCode === 999 || (!msg.statusCode.toString().startsWith('2') && msg.statusCode !== 998)"
+          v-if="!msg.statusCode.toString().startsWith('2') && msg.statusCode !== 998 && msg.statusCode !== 999"
           class="col s12 msg-code"
         >
           {{ msg.statusCode }}
@@ -73,6 +73,7 @@ onMounted(() => {
 .msg-hint {
   font-size: 50px;
   margin-bottom: 20px;
+  font-family: "Century-Gothic";
   color: red;
 }
 .success-hint {

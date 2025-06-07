@@ -204,6 +204,7 @@ export default defineComponent({
           const status = axios.isAxiosError(error) ? error.response?.status : undefined;
           const msg = axios.isAxiosError(error) ? error.response?.data.msg : undefined;
           messageStorage(status, msg);
+          router.push("/message");
         }
       }
     };

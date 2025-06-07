@@ -40,7 +40,8 @@ export const messageGet = (): MessageData | undefined => {
         typeof parsed === "object" &&
         parsed !== null &&
         typeof parsed.statusCode === "number" &&
-        typeof parsed.content === "string"
+        typeof parsed.content === "string" &&
+        typeof parsed.errCode === "string"
       ) {
         return parsed as MessageData;
       }

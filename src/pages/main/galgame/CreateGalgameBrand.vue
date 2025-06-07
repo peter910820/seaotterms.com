@@ -40,7 +40,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { ref, defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
@@ -78,10 +78,15 @@ export default defineComponent({
         messageStorage(response.status, response.data.msg);
         router.push("/message");
       } catch (error) {
-        if (axios.isAxiosError(error)) {
-          userStore.reset();
-          alert("階段性登入已過期，請重新登入");
-          router.push("/login");
+        if (axios.isAxiosError(error) && error.response) {
+          if (error.response.status === 401) {
+            userStore.reset();
+            alert("階段性登入已過期，請重新登入");
+            router.push("/login");
+          } else {
+            messageStorage(error.response.status, error.response.data.msg);
+            router.push("/message");
+          }
         } else {
           messageStorage();
           router.push("/message");

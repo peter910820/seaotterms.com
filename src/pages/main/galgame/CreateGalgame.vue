@@ -59,7 +59,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { ref, defineComponent } from "vue";
 import { useGalgameBrandStore } from "@/store/galgame";
 import { storeToRefs } from "pinia";
@@ -104,8 +104,10 @@ export default defineComponent({
         alert("請選擇品牌名稱");
         return;
       }
-      const releaseDate = new Date(document.getElementById("releaseDate").value).toISOString();
-      const endDate = new Date(document.getElementById("endDate").value).toISOString();
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const releaseDate = new Date((document.getElementById("releaseDate")! as HTMLInputElement).value).toISOString();
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const endDate = new Date((document.getElementById("endDate")! as HTMLInputElement).value).toISOString();
       if (endDate <= releaseDate) {
         alert("輸入日期不正確");
         return;
@@ -117,10 +119,15 @@ export default defineComponent({
         messageStorage(response.status, response.data.msg);
         router.push("/message");
       } catch (error) {
-        if (axios.isAxiosError(error)) {
-          userStore.reset();
-          alert("階段性登入已過期，請重新登入");
-          router.push("/login");
+        if (axios.isAxiosError(error) && error.response) {
+          if (error.response.status === 401) {
+            userStore.reset();
+            alert("階段性登入已過期，請重新登入");
+            router.push("/login");
+          } else {
+            messageStorage(error.response.status, error.response.data.msg);
+            router.push("/message");
+          }
         } else {
           messageStorage();
           router.push("/message");

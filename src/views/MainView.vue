@@ -87,6 +87,10 @@ export default defineComponent({
   font-family: "Cubic_11_1.100_R";
   src: url("@/assets/fonts/Cubic_11_1.100_R.ttf") format("truetype");
 }
+@font-face {
+  font-family: "JosefinSans-VariableFont_wght";
+  src: url("@/assets/fonts/JosefinSans-VariableFont_wght.ttf") format("truetype");
+}
 
 .main-style {
   min-height: 100vh;

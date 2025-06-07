@@ -2,11 +2,16 @@
   <div class="row main-block">
     <div class="col s12 sub-block floatup-div wow animate__flipInX">
       <div v-if="msg" class="row center-content">
-        <div v-if="msg.statusCode !== 999 && !msg.statusCode.toString().startsWith('2')" class="col s12 msg-code">
+        <div
+          v-if="msg.statusCode === 999 || (!msg.statusCode.toString().startsWith('2') && msg.statusCode !== 998)"
+          class="col s12 msg-code"
+        >
           {{ msg.statusCode }}
         </div>
         <div v-else-if="msg.statusCode === 998" class="col s12 msg-code">{{ msg.errCode }}</div>
-        <div class="col s12 msg-hint">{{ msg.content }}</div>
+        <div :class="['col', 's12', msg.statusCode.toString().startsWith('2') ? 'success-hint' : 'msg-hint']">
+          {{ msg.content }}
+        </div>
         <div class="col s12 go-home-button">
           <router-link to="/">
             <button class="button-submit" type="button">
@@ -63,13 +68,17 @@ onMounted(() => {
 }
 .msg-code {
   font-size: 100px;
-  font-family: "Century-Gothic";
   color: red;
 }
 .msg-hint {
   font-size: 50px;
   margin-bottom: 20px;
   color: red;
+}
+.success-hint {
+  font-size: 70px;
+  margin-bottom: 20px;
+  color: blue;
 }
 .go-home-button {
   margin-top: 30px;

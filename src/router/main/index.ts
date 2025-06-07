@@ -54,7 +54,7 @@ export const mainRoutes: Array<RouteRecordRaw> = [
       {
         path: "message",
         name: "main-message",
-        component: () => import("@/pages/main/support/MessageBlcok.vue"),
+        component: () => import("@/pages/main/support/MessagePage.vue"),
       },
       // match all route
       {

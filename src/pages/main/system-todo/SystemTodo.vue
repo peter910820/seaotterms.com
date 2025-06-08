@@ -1,12 +1,30 @@
 <template>
   <div class="row main-block">
-    <h1>系統更新待辦</h1>
+    <h1>
+      系統更新待辦
+      <router-link v-if="userData && userData.management === true" to="/system-todo/create" class="button-simple">
+        點我新增
+      </router-link>
+    </h1>
+
     <div
       class="col s12 sub-block floatup-div wow animate__slideInUp"
       v-for="systemTodo in systemTodos"
       :key="systemTodo.id"
     >
-      <div :class="['col', systemTodo.deadline ? 's6' : 's9', 'todo-title']">
+      <div v-if="systemTodo.urgency === 0" :class="['col', systemTodo.deadline ? 's6' : 's9', 'todo-title']">
+        [{{ systemTodo.systemName }}]{{ systemTodo.title }}
+      </div>
+      <div
+        v-if="systemTodo.urgency === 1"
+        :class="['col', systemTodo.deadline ? 's6' : 's9', 'todo-title', 'orange-text']"
+      >
+        [{{ systemTodo.systemName }}]{{ systemTodo.title }}
+      </div>
+      <div
+        v-if="systemTodo.urgency === 2"
+        :class="['col', systemTodo.deadline ? 's6' : 's9', 'todo-title', 'red-text']"
+      >
         [{{ systemTodo.systemName }}]{{ systemTodo.title }}
       </div>
 
@@ -37,13 +55,16 @@
   <div v-if="modalVisible" class="modal-overlay" @click="closeModal">
     <div v-if="systemTodoSingle !== null" class="modal-content" @click.stop>
       <h4>詳細資料</h4>
+      <h5 class="left-align">備註</h5>
       <div class="col s12 left-align">{{ systemTodoSingle.detail }}</div>
+      <h5 class="left-align">優先級</h5>
       <div v-if="systemTodoSingle.urgency === 0" class="col s12 left-align">普通</div>
-      <div v-else-if="systemTodoSingle.urgency === 1" class="col s12 left-align">高優先度</div>
-      <div v-else-if="systemTodoSingle.urgency === 2" class="col s12 left-align">緊急</div>
+      <div v-else-if="systemTodoSingle.urgency === 1" class="col s12 left-align orange-text">高優先度</div>
+      <div v-else-if="systemTodoSingle.urgency === 2" class="col s12 left-align red-text">緊急</div>
       <div v-else class="col s12 left-align">?</div>
       <!-- todo-button -->
-      <div v-if="userData?.management" class="col s12 todo-button">
+      <h5 v-if="userData?.management" class="left-align">管理員操作介面</h5>
+      <div v-if="userData?.management" class="col s12 todo-button left-align">
         <span
           :class="['button-status', systemTodoSingle.status == 0 ? 'background-n' : '']"
           @click="changeStatus(systemTodoSingle.id, 0)"
@@ -85,10 +106,8 @@ import { storeToRefs } from "pinia";
 import axios from "axios";
 // pinia store
 import { useUserStore } from "@/store/user";
-
-import router from "@/router";
-
-import { messageStorage } from "@/utils/messageHandler";
+// utils
+import { refreshUserData } from "@/utils/authHandler";
 
 export default defineComponent({
   setup() {
@@ -103,20 +122,7 @@ export default defineComponent({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const openModal = async (id: number) => {
       // refresh user data and check login
-      try {
-        let response = await axios.get("/api/auth");
-        userStore.set(response?.data.userData);
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          userStore.reset();
-          alert("使用者尚未登入, 請前往登入");
-          router.push("/login");
-        } else {
-          messageStorage();
-          router.push("/message");
-          return;
-        }
-      }
+      refreshUserData();
 
       try {
         let response = await axios.get(`/api/system-todos?id=${id}`);
@@ -245,6 +251,9 @@ export default defineComponent({
   border-radius: 10px;
   text-align: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+h5 {
+  color: #287be9;
 }
 
 .background-n {

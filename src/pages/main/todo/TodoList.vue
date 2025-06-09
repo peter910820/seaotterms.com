@@ -100,6 +100,7 @@ import { initMaterialDatepicker, initMaterialFormSelect, initMaterialDropdown } 
 
 import type { FormTodo } from "@/types/FormTypes";
 
+import { getTodoTopics, getTodo } from "@/utils/apiHandler";
 import { messageStorage } from "@/utils/messageHandler";
 
 export default defineComponent({
@@ -126,35 +127,8 @@ export default defineComponent({
     const todos = computed(() => todo.value);
 
     onMounted(async () => {
-      // get TodoTopics
-      const getTodoTopics = async () => {
-        try {
-          const response = await axios.get(`/api/todo-topics/${user.value.username}`);
-          return response;
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
-          const status = axios.isAxiosError(error) ? error.response?.status : undefined;
-          const msg = axios.isAxiosError(error) ? error.response?.data.msg : undefined;
-          messageStorage(status, msg);
-          return null;
-        }
-      };
-      const getTodo = async () => {
-        try {
-          const response = await axios.get(`/api/todos/${user.value.username}`);
-          messageStorage(response.status, response.data.msg);
-          return response;
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
-          const status = axios.isAxiosError(error) ? error.response?.status : undefined;
-          const msg = axios.isAxiosError(error) ? error.response?.data.msg : undefined;
-          messageStorage(status, msg);
-          return null;
-        }
-      };
-
       // get todo topic
-      let response = await getTodoTopics();
+      let response = await getTodoTopics(user.value.username);
       if (response) {
         todoTopicStore.set(response.data.data);
       } else {
@@ -163,7 +137,7 @@ export default defineComponent({
       todoTopics.value = todoTopic.value;
 
       // get todo
-      response = await getTodo();
+      response = await getTodo(user.value.username);
       if (response) {
         todoStore.set(response.data.data);
       } else {

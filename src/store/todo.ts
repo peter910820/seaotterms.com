@@ -6,7 +6,11 @@ import { TodoType, TodoTopicType, SystemTodoType } from "@/types/todoTypes";
 export const useTodoStore = defineStore("todo", () => {
   const todo = ref<TodoType[]>([]);
   const set = (data: TodoType[]) => {
-    todo.value = data;
+    const convertedTodo = data.map((todo) => ({
+      ...todo,
+      deadline: todo.deadline ? new Date(todo.deadline) : todo.deadline,
+    }));
+    todo.value = convertedTodo;
   };
 
   return {

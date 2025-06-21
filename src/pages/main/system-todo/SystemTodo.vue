@@ -135,6 +135,7 @@ export default defineComponent({
       nextTick(() => {
         const wow = new window.WOW();
         wow.sync();
+        window.dispatchEvent(new Event("scroll"));
       });
     });
 

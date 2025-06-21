@@ -6,7 +6,7 @@
         點我新增
       </router-link>
     </h1>
-
+    <FilterBlock />
     <div
       class="col s12 sub-block floatup-div wow animate__slideInUp"
       v-for="systemTodo in systemTodos"
@@ -109,7 +109,12 @@ import { useUserStore } from "@/store/user";
 // utils
 import { refreshUserData } from "@/utils/authHandler";
 
+import FilterBlock from "@/components/main/FilterBlock.vue";
+
 export default defineComponent({
+  components: {
+    FilterBlock,
+  },
   setup() {
     const userStore = useUserStore();
     const { user } = storeToRefs(userStore);

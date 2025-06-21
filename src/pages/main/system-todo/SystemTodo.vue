@@ -100,7 +100,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from "vue";
+import { defineComponent, computed, ref, nextTick } from "vue";
 import { useSystemTodoStore } from "@/store/todo";
 import { storeToRefs } from "pinia";
 import axios from "axios";
@@ -110,6 +110,13 @@ import { useUserStore } from "@/store/user";
 import { refreshUserData } from "@/utils/authHandler";
 
 import FilterBlock from "@/components/main/FilterBlock.vue";
+
+declare global {
+  interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    WOW: any;
+  }
+}
 
 export default defineComponent({
   components: {
@@ -123,6 +130,13 @@ export default defineComponent({
     const systemTodoStore = useSystemTodoStore();
     const { systemTodo, systemTodoSingle } = storeToRefs(systemTodoStore);
     const systemTodos = computed(() => systemTodo.value); // redundant
+
+    systemTodoStore.$subscribe(() => {
+      nextTick(() => {
+        const wow = new window.WOW();
+        wow.sync();
+      });
+    });
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const openModal = async (id: number) => {

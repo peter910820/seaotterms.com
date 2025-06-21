@@ -67,9 +67,9 @@ export default defineComponent({
     });
     const handleSubmit = async () => {
       try {
-        let response = await axios.patch(`/api/users/${form.value.id}`, form.value);
+        let response = await axios.patch(process.env.VUE_APP_API_URL + `api/users/${form.value.id}`, form.value);
         messageStorage(response.status, response.data.msg);
-        response = await axios.get("/api/auth");
+        response = await axios.get(process.env.VUE_APP_API_URL + "api/auth");
         userStore.set(response?.data.userData);
       } catch (error) {
         const status = axios.isAxiosError(error) ? error.response?.status : undefined;

@@ -6,7 +6,7 @@ import type { NavigationGuardNext } from "vue-router";
 
 export const getTodoTopics = async (username: string) => {
   try {
-    const response = await axios.get(`/api/todo-topics/${username}`);
+    const response = await axios.get(process.env.VUE_APP_API_URL + `api/todo-topics/${username}`);
     return response;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -19,7 +19,7 @@ export const getTodoTopics = async (username: string) => {
 
 export const getTodo = async (username: string) => {
   try {
-    const response = await axios.get(`/api/todos/${username}`);
+    const response = await axios.get(process.env.VUE_APP_API_URL + `api/todos/${username}`);
     messageStorage(response.status, response.data.msg);
     return response;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -32,14 +32,14 @@ export const getTodo = async (username: string) => {
 };
 
 export const getArticleInformation = async (articleID?: string): Promise<AxiosResponse | null> => {
-  let apiUrl = "/api/articles";
+  let apiUrl = process.env.VUE_APP_API_URL + "api/articles";
   // if target is single article
   if (articleID) {
     if (!(Number.isInteger(Number(articleID)) && Number(articleID) > 0)) {
       messageStorage(undefined, "The input ID is invalid", "EC_00"); // enter an ID that is not allowed
       return null;
     }
-    apiUrl = `/api/articles/${articleID}`;
+    apiUrl = process.env.VUE_APP_API_URL + `api/articles/${articleID}`;
   }
   try {
     const response = await axios.get(apiUrl);
@@ -54,9 +54,9 @@ export const getArticleInformation = async (articleID?: string): Promise<AxiosRe
 };
 
 export const getTagInformation = async (mode: number, tagName?: string): Promise<AxiosResponse | null> => {
-  let apiUrl = "/api/tags";
+  let apiUrl = process.env.VUE_APP_API_URL + "api/tags";
   if (mode === 1) {
-    apiUrl = `/api/tags/${tagName}`;
+    apiUrl = process.env.VUE_APP_API_URL + `api/tags/${tagName}`;
   }
   try {
     const response = await axios.get(apiUrl);
@@ -71,7 +71,7 @@ export const getTagInformation = async (mode: number, tagName?: string): Promise
 };
 
 export const getSystemTodo = async (id?: string): Promise<AxiosResponse | null> => {
-  const apiUrl = id ? `/api/system-todos?id=${id}` : "/api/system-todos";
+  const apiUrl = process.env.VUE_APP_API_URL + id ? `api/system-todos?id=${id}` : "api/system-todos";
   try {
     const response = await axios.get(apiUrl);
     return response;
@@ -85,7 +85,7 @@ export const getSystemTodo = async (id?: string): Promise<AxiosResponse | null> 
 };
 
 export const getGalgame = async (path?: string): Promise<AxiosResponse | null> => {
-  const apiUrl = `/api/galgame/s/${path}`;
+  const apiUrl = process.env.VUE_APP_API_URL + `api/galgame/s/${path}`;
   try {
     const response = await axios.get(apiUrl);
     return response;
@@ -99,9 +99,9 @@ export const getGalgame = async (path?: string): Promise<AxiosResponse | null> =
 };
 
 export const getGalgameBrand = async (mode: number, path?: string): Promise<AxiosResponse | null> => {
-  let apiUrl = "/api/galgame-brand";
+  let apiUrl = process.env.VUE_APP_API_URL + "api/galgame-brand";
   if (mode === 1) {
-    apiUrl = `/api/galgame-brand/${path}`;
+    apiUrl = process.env.VUE_APP_API_URL + `api/galgame-brand/${path}`;
   }
   try {
     const response = await axios.get(apiUrl);
@@ -119,7 +119,7 @@ export const getGalgameBrand = async (mode: number, path?: string): Promise<Axio
 export const checkOwner = async (next: NavigationGuardNext) => {
   const userStore = useUserStore();
   try {
-    const response = await axios.get("/api/auth/root");
+    const response = await axios.get(process.env.VUE_APP_API_URL + "api/auth/root");
     userStore.set(response?.data.userData);
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -143,7 +143,7 @@ export const checkOwner = async (next: NavigationGuardNext) => {
 export const checkLogin = async (next: NavigationGuardNext) => {
   const userStore = useUserStore();
   try {
-    const response = await axios.get("/api/auth");
+    const response = await axios.get(process.env.VUE_APP_API_URL + "api/auth");
     userStore.set(response?.data.userData);
   } catch (error) {
     if (axios.isAxiosError(error)) {

@@ -145,8 +145,7 @@ export default defineComponent({
       refreshUserData();
 
       try {
-        let response = await axios.get(`/api/system-todos?id=${id}`);
-        systemTodoStore.setSingle(response.data.data);
+        let response = await axios.get(process.env.VUE_APP_API_URL + `api/system-todos?id=${id}`);
         systemTodoStore.setSingle(response.data.data);
       } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -181,10 +180,13 @@ export default defineComponent({
           break;
       }
       if (confirm(`確定調整狀態為${statusText}?`)) {
-        await axios.patch(`/api/system-todos/quick/${id}`, { status: status, updatedName: userData.value.username });
-        let response = await axios.get(`/api/system-todos?id=${id}`);
+        await axios.patch(process.env.VUE_APP_API_URL + `api/system-todos/quick/${id}`, {
+          status: status,
+          updatedName: userData.value.username,
+        });
+        let response = await axios.get(process.env.VUE_APP_API_URL + `api/system-todos?id=${id}`);
         systemTodoStore.setSingle(response.data.data);
-        response = await axios.get(`/api/system-todos`);
+        response = await axios.get(process.env.VUE_APP_API_URL + `api/system-todos`);
         systemTodoStore.set(response.data.data);
       }
     };
@@ -195,10 +197,10 @@ export default defineComponent({
 
     const deleteTodo = async (id: number) => {
       if (confirm("確定刪除?")) {
-        await axios.delete(`/api/system-todos/${id}`);
-        let response = await axios.get(`/api/system-todos?id=${id}`);
+        await axios.delete(process.env.VUE_APP_API_URL + `api/system-todos/${id}`);
+        let response = await axios.get(process.env.VUE_APP_API_URL + `api/system-todos?id=${id}`);
         systemTodoStore.setSingle(response.data.data);
-        response = await axios.get(`/api/system-todos`);
+        response = await axios.get(process.env.VUE_APP_API_URL + `api/system-todos`);
         systemTodoStore.set(response.data.data);
       }
     };

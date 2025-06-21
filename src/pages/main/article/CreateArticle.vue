@@ -76,7 +76,7 @@ export default defineComponent({
     const handleSubmit = async () => {
       try {
         form.value.tags = middleTags.value.split(",");
-        const response = await axios.post("/api/articles", form.value);
+        const response = await axios.post(process.env.VUE_APP_API_URL + "api/articles", form.value);
         messageStorage(response.status, response.data.msg);
       } catch (error) {
         const status = axios.isAxiosError(error) ? error.response?.status : undefined;

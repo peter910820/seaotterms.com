@@ -35,6 +35,8 @@ import { useUserStore } from "@/store/user";
 
 import { messageStorage } from "@/utils/messageHandler";
 
+axios.defaults.withCredentials = true;
+
 const router = useRouter();
 const userStore = useUserStore();
 const form = ref({
@@ -43,7 +45,7 @@ const form = ref({
 });
 const handleSubmit = async () => {
   try {
-    const response = await axios.post("/api/login", form.value);
+    const response = await axios.post(process.env.VUE_APP_API_URL + "api/login", form.value);
     messageStorage(response.status, response.data.msg);
     userStore.set(response?.data.userData);
   } catch (error) {

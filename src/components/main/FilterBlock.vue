@@ -15,7 +15,7 @@ const filterValue = ref<string>("");
 
 const getTodoTopics = async () => {
   try {
-    const response = await axios.get("/api/todo-topics/system");
+    const response = await axios.get(process.env.VUE_APP_API_URL + "api/todo-topics/system");
     messageStorage(response.status, response.data.msg);
     return response;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -29,7 +29,7 @@ const getTodoTopics = async () => {
 
 const startFilter = async () => {
   try {
-    const response = await axios.get(`/api/system-todos?system_name=${filterValue.value}`);
+    const response = await axios.get(process.env.VUE_APP_API_URL + `api/system-todos?system_name=${filterValue.value}`);
     const store = useSystemTodoStore();
     store.set(response.data.data);
   } catch (error: unknown) {

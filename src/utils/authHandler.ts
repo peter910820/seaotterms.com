@@ -8,7 +8,7 @@ import { messageStorage } from "@/utils/messageHandler";
 export const refreshUserData = async () => {
   const userStore = useUserStore();
   try {
-    const response = await axios.get("/api/auth");
+    const response = await axios.get(process.env.VUE_APP_API_URL + "api/auth");
     userStore.set(response?.data.userData);
   } catch (error) {
     if (axios.isAxiosError(error)) {

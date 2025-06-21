@@ -109,7 +109,7 @@ export default defineComponent({
     const openModal = async (brand: any) => {
       selectedBrand.value = brand;
       try {
-        let response = await axios.get(`/api/galgame/${brand}`);
+        let response = await axios.get(process.env.VUE_APP_API_URL + `api/galgame/${brand}`);
         selectedBrandGames.value = response.data.data;
       } catch (error) {
         if (axios.isAxiosError(error)) {

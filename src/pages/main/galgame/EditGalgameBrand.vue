@@ -85,7 +85,10 @@ export default defineComponent({
       }
 
       try {
-        const response = await axios.patch(`/api/galgame-brand/${galgameBrand.value[0].brand}`, form.value);
+        const response = await axios.patch(
+          process.env.VUE_APP_API_URL + `api/galgame-brand/${galgameBrand.value[0].brand}`,
+          form.value
+        );
         messageStorage(response.status, response.data.msg);
         router.push("/message");
       } catch (error) {

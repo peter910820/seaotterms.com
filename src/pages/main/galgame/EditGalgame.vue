@@ -76,7 +76,10 @@ export default defineComponent({
 
     const handleSubmit = async () => {
       try {
-        const response = await axios.patch(`/api/galgame/develop/${galgame.value[0].name}`, form.value);
+        const response = await axios.patch(
+          process.env.VUE_APP_API_URL + `api/galgame/develop/${galgame.value[0].name}`,
+          form.value
+        );
         messageStorage(response.status, response.data.msg);
         router.push("/message");
       } catch (error) {

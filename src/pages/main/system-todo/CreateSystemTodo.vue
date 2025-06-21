@@ -96,7 +96,7 @@ export default defineComponent({
       // get TodoTopics
       const getTodoTopics = async () => {
         try {
-          const response = await axios.get("/api/todo-topics/system");
+          const response = await axios.get(process.env.VUE_APP_API_URL + "api/todo-topics/system");
           messageStorage(response.status, response.data.msg);
           return response;
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -151,7 +151,7 @@ export default defineComponent({
       }
 
       try {
-        const response = await axios.post("/api/system-todos", form.value);
+        const response = await axios.post(process.env.VUE_APP_API_URL + "api/system-todos", form.value);
         messageStorage(response.status, response.data.msg);
       } catch (error) {
         const status = axios.isAxiosError(error) ? error.response?.status : undefined;

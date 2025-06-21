@@ -169,8 +169,8 @@ export default defineComponent({
 
         try {
           // refresh todolist
-          await axios.post("/api/todos", form.value);
-          const response = await axios.get(`/api/todos/${user.value.username}`);
+          await axios.post(process.env.VUE_APP_API_URL + "api/todos", form.value);
+          const response = await axios.get(process.env.VUE_APP_API_URL + `api/todos/${user.value.username}`);
           todoStore.set(response.data.data);
           form.value.owner = user.value.username;
         } catch (error) {
@@ -200,15 +200,18 @@ export default defineComponent({
           break;
       }
       if (confirm(`確定調整狀態為${statusText}?`)) {
-        await axios.patch(`/api/todos/${id}`, { status: status, updateName: user.value.username });
-        let response = await axios.get(`/api/todos/${user.value.username}`);
+        await axios.patch(process.env.VUE_APP_API_URL + `api/todos/${id}`, {
+          status: status,
+          updateName: user.value.username,
+        });
+        let response = await axios.get(process.env.VUE_APP_API_URL + `api/todos/${user.value.username}`);
         todoStore.set(response.data.data);
       }
     };
     const deleteTodo = async (id: number) => {
       if (confirm("確定刪除?")) {
-        await axios.delete(`/api/todos/${id}`);
-        let response = await axios.get(`/api/todos/${user.value.username}`);
+        await axios.delete(process.env.VUE_APP_API_URL + `api/todos/${id}`);
+        let response = await axios.get(process.env.VUE_APP_API_URL + `api/todos/${user.value.username}`);
         todoStore.set(response.data.data);
       }
     };

@@ -25,3 +25,7 @@ pnpm-debug.log*
 # test dir
 /test
 /src/test
+
+#env file
+.env.development
+.env.production

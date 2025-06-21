@@ -50,7 +50,7 @@ export default defineComponent({
       }
 
       try {
-        const response = await axios.post("/api/todo-topics", form.value);
+        const response = await axios.post(process.env.VUE_APP_API_URL + "api/todo-topics", form.value);
         messageStorage(response.status, response.data.msg);
       } catch (error) {
         const status = axios.isAxiosError(error) ? error.response?.status : undefined;

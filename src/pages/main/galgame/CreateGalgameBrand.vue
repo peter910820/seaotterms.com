@@ -74,7 +74,7 @@ export default defineComponent({
           return;
         }
 
-        let response = await axios.post("/api/galgame-brand", form.value);
+        let response = await axios.post(process.env.VUE_APP_API_URL + "api/galgame-brand", form.value);
         messageStorage(response.status, response.data.msg);
         router.push("/message");
       } catch (error) {

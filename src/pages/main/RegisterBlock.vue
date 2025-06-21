@@ -60,7 +60,7 @@ const handleRegisterSubmit = async () => {
     return;
   }
   try {
-    const response = await axios.post("/api/users", form.value);
+    const response = await axios.post(process.env.VUE_APP_API_URL + "api/users", form.value);
     messageStorage(response.status, "帳號註冊成功");
     router.push("/message");
   } catch (error) {

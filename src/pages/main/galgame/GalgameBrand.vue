@@ -230,5 +230,6 @@ a {
   border-radius: 10px;
   text-align: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  padding: 40px;
 }
 </style>

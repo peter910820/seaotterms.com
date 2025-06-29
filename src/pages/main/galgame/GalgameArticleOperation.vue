@@ -60,7 +60,7 @@
           <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
           <label for="gameName">系統</label>
         </div>
-        <div class="input-field col s4">
+        <div class="input-field col s12">
           <select v-model="recordData.recommended">
             <option class="validate" value="" disabled selected>選擇個人推薦程度</option>
             <option class="validate" value="大推" selected>大推</option>
@@ -69,7 +69,7 @@
             <option class="validate" value="不推" selected>不推</option>
           </select>
         </div>
-        <div class="input-field col s8">
+        <div class="input-field col s12">
           <span class="result-data">{{ resultData }}</span>
         </div>
         <div class="col s12">
@@ -104,7 +104,7 @@ export default defineComponent({
       recommended: "普",
     });
 
-    const resultData = ref(0);
+    const resultData = ref("");
 
     onMounted(() => {
       // init select for materializecss
@@ -117,7 +117,7 @@ export default defineComponent({
         .filter(([key]) => key !== "recommended")
         .every(([, value]) => value >= 1);
       if (isAllGreaterThanZero) {
-        resultData.value =
+        let total =
           Math.round(
             ((recordData.value.opSong * 0.3 +
               recordData.value.opAnimation * 0.3 +
@@ -131,6 +131,18 @@ export default defineComponent({
               recordData.value.system * 0.1) *
               10
           ) / 10;
+        resultData.value = `評分:
+  OP歌曲: ${recordData.value.opSong}
+  OP畫面: ${recordData.value.opAnimation}
+  OP契合度: ${recordData.value.opCompatibility}
+  ED: ${recordData.value.ed}
+  題材: ${recordData.value.theme}
+  音樂: ${recordData.value.music}
+  劇本: ${recordData.value.drama}
+  美術: ${recordData.value.art}
+  系統: ${recordData.value.system}
+  個人推薦程度: ${recordData.value.recommended}
+  總分: ${total}`;
       } else {
         resultData.value = "數值計算有誤";
       }
@@ -149,6 +161,7 @@ export default defineComponent({
   font-size: 25px !important;
   min-height: 600px;
   height: auto;
+  white-space: pre-wrap;
 }
 .title {
   font-size: 40px;

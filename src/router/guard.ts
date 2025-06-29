@@ -62,11 +62,11 @@ const getDataEntryPoint = async (
     case "main-create":
     case "main-todoList":
     case "main-todoTopic":
+    case "main-userMaintain":
     case "main-createSystemTodo":
       await checkLogin(next);
       next();
       return;
-    case "main-userMaintain":
     case "main-createGalgameBrand":
     case "main-createSystemTodoTopic":
       await checkOwner(next);

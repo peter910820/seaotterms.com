@@ -22,6 +22,12 @@ export const childrenArticleRoutes: Array<RouteRecordRaw> = [
     beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
   },
   {
+    path: "article-tag/create",
+    name: "main-create-article-tag",
+    component: () => import("@/pages/main/article/ArticleTag.vue"),
+    beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
+  },
+  {
     path: "tags/:tagName",
     name: "main-tagArticle",
     component: () => import("@/pages/main/article/TagBlock.vue"),

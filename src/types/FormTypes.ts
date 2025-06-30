@@ -36,3 +36,8 @@ export interface SystemTodoEditForm {
   urgency: number;
   updatedName: string;
 }
+
+export interface ArticleTag {
+  name: string;
+  iconName: string;
+}

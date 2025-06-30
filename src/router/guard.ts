@@ -73,6 +73,7 @@ const getDataEntryPoint = async (
       next();
       return;
     case "main-editSystemTodo":
+    case "main-create-article-tag":
       await checkOwner(next);
       response = await getSystemTodo(to.params.id as string);
       break;

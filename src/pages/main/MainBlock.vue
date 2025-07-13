@@ -7,23 +7,23 @@
     <div
       class="col s12 sub-block articles floatup-div wow animate__slideInUp"
       v-for="article in articleContent"
-      :key="article.ID"
-      @click="link('article', article.ID)"
+      :key="article.id"
+      @click="link('article', article.id)"
     >
-      <div class="title">{{ article.Title }}</div>
+      <div class="title">{{ article.title }}</div>
       <div class="username">
         <i class="material-icons">person</i>
-        {{ article.Username }}
+        SeaotterMS
       </div>
       <div class="information">
         <i class="material-icons">edit</i>
-        {{ article.CreatedAt }}
+        {{ article.createdAt }}
         <i class="material-icons">update</i>
-        {{ article.UpdatedAt }}
+        {{ article.updatedAt }}
       </div>
       <div class="tag">
-        <div class="button-tags" v-for="(tag, index) in article.Tags" :key="index" @click="tagClick(tag, $event)">
-          {{ tag }}
+        <div class="button-tags" v-for="(tag, index) in article.tags" :key="index" @click="tagClick(tag, $event)">
+          {{ tag.name }}
         </div>
       </div>
     </div>

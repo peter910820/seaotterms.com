@@ -39,7 +39,7 @@ export const getArticleInformation = async (articleID?: string): Promise<AxiosRe
       messageStorage(undefined, "The input ID is invalid", "EC_00"); // enter an ID that is not allowed
       return null;
     }
-    apiUrl = process.env.VUE_APP_API_URL + `api/articles/${articleID}`;
+    apiUrl = process.env.VUE_APP_API_URL + `api/articles?id=${articleID}`;
   }
   try {
     const response = await axios.get(apiUrl);
@@ -53,7 +53,7 @@ export const getArticleInformation = async (articleID?: string): Promise<AxiosRe
   }
 };
 
-export const getTagInformation = async (mode: number, tagName?: string): Promise<AxiosResponse | null> => {
+export const getTagInformation = async (mode: number, tagName?: string) => {
   let apiUrl = process.env.VUE_APP_API_URL + "api/tags";
   if (mode === 1) {
     apiUrl = process.env.VUE_APP_API_URL + `api/tags/${tagName}`;

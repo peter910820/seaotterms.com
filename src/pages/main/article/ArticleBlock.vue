@@ -1,25 +1,25 @@
 <template>
   <div class="row banner">
     <div class="articleTitle">
-      <h1>{{ articleData.Title }}</h1>
+      <h1>{{ articleData.title }}</h1>
     </div>
     <div class="articleInformation">
       <i class="material-icons">account_circle</i>
-      {{ articleData.Username }}
+      SeaotterMS
       <i class="material-icons">add_circle</i>
-      {{ articleData.CreatedAt }}
+      {{ articleData.createdAt }}
       <i class="material-icons">edit</i>
-      {{ articleData.UpdatedAt }}
+      {{ articleData.updatedAt }}
     </div>
     <div class="articleTags">
       <div
         class="button-article-tags"
         role="button"
-        v-for="(Tag, index) in articleData.Tags"
+        v-for="(tag, index) in articleData.tags"
         :key="index"
-        @click="link(Tag)"
+        @click="link(tag.name)"
       >
-        {{ Tag }}
+        {{ tag.name }}
       </div>
     </div>
   </div>
@@ -43,7 +43,7 @@ export default defineComponent({
     const router = useRouter();
     const articleStore = useArticleStore();
     const { article } = storeToRefs(articleStore);
-    const articleData = ref(article.value);
+    const articleData = ref(article.value[0]);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const renderMarkdown = (content: any) => {
@@ -68,7 +68,7 @@ export default defineComponent({
       return md.render(content);
     };
 
-    const renderedMarkdown = computed(() => renderMarkdown(articleData.value.Content));
+    const renderedMarkdown = computed(() => renderMarkdown(articleData.value.content));
 
     const link = (tagName: string) => {
       router.push(`/tags/${tagName}`);

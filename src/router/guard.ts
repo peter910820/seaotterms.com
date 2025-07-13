@@ -23,14 +23,14 @@ const getDataEntryPoint = async (
   switch (to.name) {
     case "main-home":
       response = await getArticleInformation();
-      if (response === undefined) {
+      if (response === null) {
         next("/message");
         return;
       }
       break;
     case "main-articles":
       response = await getArticleInformation(to.params.articleID as string);
-      if (response === undefined) {
+      if (response === null) {
         next("/message");
         return;
       }

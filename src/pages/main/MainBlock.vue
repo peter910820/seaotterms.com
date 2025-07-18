@@ -22,7 +22,7 @@
         {{ article.updatedAt }}
       </div>
       <div class="tag">
-        <div class="button-tags" v-for="(tag, index) in article.tags" :key="index" @click="tagClick(tag, $event)">
+        <div class="button-tags" v-for="(tag, index) in article.tags" :key="index" @click="tagClick(tag.name, $event)">
           {{ tag.name }}
         </div>
       </div>

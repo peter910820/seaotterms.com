@@ -2,9 +2,9 @@
   <div class="row main-block">
     <h1>標籤一覽</h1>
     <div class="col s12 sub-block">
-      <div class="col s6" v-for="Tag in tagData" :key="Tag.ID">
-        <div class="button-flip floatup-div wow animate__slideInUp" @click="link(Tag.Name)">
-          <span>{{ Tag.Name }}</span>
+      <div class="col s6" v-for="Tag in tagData" :key="Tag.name">
+        <div class="button-flip floatup-div wow animate__slideInUp" @click="link(Tag.name)">
+          <span>{{ Tag.name }}</span>
         </div>
       </div>
     </div>

@@ -4,9 +4,9 @@
       <div class="col s12">
         <h1>{{ tagName }}</h1>
       </div>
-      <div class="col s6" v-for="Tag in tagData" :key="Tag.ID">
-        <div class="floatup-div wow animate__slideInUp" @click="link(Tag.ID)">
-          {{ Tag.Title }}
+      <div class="col s6" v-for="Tag in tagData" :key="Tag.id">
+        <div class="floatup-div wow animate__slideInUp" @click="link(Tag.id)">
+          {{ Tag.title }}
         </div>
       </div>
     </div>
@@ -27,7 +27,6 @@ export default defineComponent({
     const articleTagStore = useArticleTagStore();
     const { articleTag } = storeToRefs(articleTagStore);
     const tagData = ref(articleTag.value);
-
     const link = (articleID: string) => {
       router.push(`/articles/${articleID}`);
     };

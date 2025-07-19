@@ -15,10 +15,13 @@
           <!-- <label for="username">userName</label> -->
         </div>
         <div class="input-field col s6">
-          <i class="material-icons prefix">sell</i>
-          <input id="tag" v-model="middleTags" type="text" class="validate" required />
-          <span class="helper-text" data-error="此欄不能為空" data-success=""></span>
-          <label for="tag">tag</label>
+          <select v-model="form.tags" multiple>
+            <option value="" disabled selected>選擇Tag</option>
+            <option v-for="tag in choiceTag" :key="tag.name" :value="tag.name">
+              {{ tag.name }}
+            </option>
+          </select>
+          <label>Materialize Multiple Select</label>
         </div>
         <div class="input-field text-insert col s6">
           <i class="material-icons prefix">mode_edit</i>
@@ -39,8 +42,9 @@
     </div>
   </div>
 </template>
-<script>
-import { ref, computed, defineComponent } from "vue";
+
+<script lang="ts">
+import { ref, computed, defineComponent, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
 import { storeToRefs } from "pinia";
@@ -48,34 +52,50 @@ import { storeToRefs } from "pinia";
 import { useUserStore } from "@/store/user";
 
 import { messageStorage } from "@/utils/messageHandler";
+import { getTagInformation } from "@/utils/apiHandler";
+import { initMaterialFormSelect } from "@/composables/useMaterial";
+
+import type { TagType } from "@/types/tagTypes";
 
 import MarkdownIt from "markdown-it";
 import hljs from "highlight.js";
 import "highlight.js/styles/github-dark.css"; // highlight-styles
 
-// interface ArticleData {
-//   title: string;
-//   username: string;
-//   tags: string[];
-//   content: string;
-// }
+type FormData = {
+  title: string;
+  username: string;
+  tags: string[];
+  content: string;
+};
 
 export default defineComponent({
   setup() {
     const userStore = useUserStore();
     const { user } = storeToRefs(userStore);
-    const form = ref({
+    const form = ref<FormData>({
       title: "",
       username: user.value?.username,
       tags: [],
       content: "",
     });
-    const middleTags = ref("");
+    const choiceTag = ref<TagType[]>();
 
     const router = useRouter();
+
+    onMounted(async () => {
+      const response = await getTagInformation(0, undefined);
+      if (response) {
+        choiceTag.value = response.data.data;
+      } else {
+        router.push("/message");
+        return;
+      }
+      // init materializecss
+      initMaterialFormSelect();
+    });
+
     const handleSubmit = async () => {
       try {
-        form.value.tags = middleTags.value.split(",");
         const response = await axios.post(process.env.VUE_APP_API_URL + "api/articles", form.value);
         messageStorage(response.status, response.data.msg);
       } catch (error) {
@@ -86,8 +106,10 @@ export default defineComponent({
         router.push("/message");
       }
     };
-    const renderMarkdown = (content) => {
-      const md = MarkdownIt({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const renderMarkdown = (content: any) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const md: any = MarkdownIt({
         highlight: function (str, lang) {
           if (lang && hljs.getLanguage(lang)) {
             try {
@@ -109,9 +131,9 @@ export default defineComponent({
     const renderedMarkdown = computed(() => renderMarkdown(form.value.content));
     return {
       form,
-      middleTags,
       handleSubmit,
       renderedMarkdown,
+      choiceTag,
     };
   },
 });

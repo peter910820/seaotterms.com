@@ -43,7 +43,7 @@
           <select v-model="form.brand" class="browser-default mobile-display">
             <option class="validate" value="" disabled selected>手機板用DDL</option>
             <option class="validate" value="" disabled selected>請選擇ブランド</option>
-            <option v-for="item in galgameBrandData" :key="item.brand" :value="item.brand">
+            <option v-for="item in galgameBrand" :key="item.brand" :value="item.brand">
               {{ item.brand }}
             </option>
           </select>

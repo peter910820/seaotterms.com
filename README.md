@@ -1,24 +1,6 @@
 # seaotterms.com
 
-## Project setup
-```
-yarn install
-```
+My blog front-end use vue  
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+>[!NOTICE]
+>此專案已在2025/08/16封存，新專案->[https://github.com/peter910820/seaotterms.com-nuxt](https://github.com/peter910820/seaotterms.com-nuxt)
